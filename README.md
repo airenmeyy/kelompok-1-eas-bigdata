@@ -51,4 +51,4 @@ Skrip ini akan secara otomatis membaca file di `raw_data/` dan menyimpannya di `
   `[Screenshot Dashboard Leaflet/OpenStreetMap]`
 
 ---
-*Dokumentasi ini dikelola oleh Anggota 2 (Bronze Layer & GitHub Documentation).*
+
