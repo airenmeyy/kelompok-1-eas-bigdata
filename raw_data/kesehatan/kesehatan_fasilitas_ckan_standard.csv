@@ -1,0 +1,1087 @@
+_id,kecamatan,jenis_faskes,penyelenggara_faskes,nama_faskes,tahun
+1,Asemrowo,Puskesmas Induk,Pemerintah Kota,Puskesmas Asemrowo,2024
+2,Asemrowo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Tambak Langon,2024
+3,Asemrowo,Klinik Pratama,swasta,NAYAKA HUSADA 03,2024
+4,Benowo,Apotek,lainnya,KIMIA FARMA BUKIT PALMA,2024
+5,Benowo,Rumah Sakit Umum,Pemerintah Kota,RS Umum Daerah Bhakti Dharma Husada,2024
+6,Benowo,Puskesmas Induk,Pemerintah Kota,Puskesmas Sememi,2024
+7,Benowo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Kandangan,2024
+8,Benowo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Romo Kalisari,2024
+9,Benowo,Rumah Sakit Umum,Swasta,RS Bunda,2024
+10,Benowo,Apotek,swasta,KANDANGAN,2024
+11,Benowo,Apotek,swasta,K - 96,2024
+12,Benowo,Apotek,swasta,VIVA GENERIK KLAKAH REJO,2024
+13,Benowo,Apotek,swasta,RENO FARMA,2024
+14,Benowo,Apotek,swasta,HAPSARI,2024
+15,Benowo,Apotek,swasta,BENOWO APPOTIK,2024
+16,Benowo,Apotek,swasta,KUSURI MAINCARE,2024
+17,Benowo,Apotek,swasta,Wahyu Buana Medika,2024
+18,Benowo,Apotek,swasta,Pahala Bukit Palma,2024
+19,Benowo,Klinik Pratama,swasta,KARYA MEDIKA 111,2024
+20,Benowo,Klinik Pratama,swasta,DOKTER ANANG SURABAYA,2024
+21,Bubutan,Puskesmas Induk,Pemerintah Kota,Puskesmas Gundih,2024
+22,Bubutan,Puskesmas Induk,Pemerintah Kota,Puskesmas Tembok Dukuh,2024
+23,Bubutan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Asem Jajar,2024
+24,Bubutan,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak IBI Surabaya,2024
+25,Bubutan,Apotek,swasta,USAHA,2024
+26,Bubutan,Apotek,swasta,KALIBUTUH,2024
+27,Bubutan,Apotek,swasta,PRODERMA,2024
+28,Bubutan,Apotek,swasta,FILLINA,2024
+29,Bubutan,Apotek,swasta,NOVEM,2024
+30,Bubutan,Apotek,swasta,MEGA SURYA,2024
+31,Bubutan,Apotek,swasta,VIVA APOTEK PURWODADI,2024
+32,Bubutan,Toko Obat,swasta,CARREFOUR BUBUTAN,2024
+33,Bubutan,Toko Obat,swasta,XING LIN,2024
+34,Bubutan,Toko Obat,swasta,Super Indo Apartemen Gunawangsa,2024
+35,Bubutan,Klinik Pratama,swasta,Anugerah Karya Medika 102,2024
+36,Bubutan,Klinik Pratama,swasta,DON BOSCO,2024
+37,Bubutan,Klinik Pratama,swasta,SAMARIA,2024
+38,Bubutan,Klinik Pratama,swasta,DERMALOVE SCIENCE OF BEAUTY,2024
+39,Bulak,Apotek,lainnya,Kimia Farma Suramadu,2024
+40,Bulak,Puskesmas Induk,Pemerintah Kota,Puskesmas Kenjeran,2024
+41,Bulak,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Bulak,2024
+42,Bulak,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Kedung Cowek,2024
+43,Bulak,Apotek,swasta,VIVA APOTEK BULAK SETRO,2024
+44,Bulak,Apotek,swasta,BITA MEDIKA,2024
+45,Bulak,Apotek,swasta,Efi Barokah,2024
+46,Bulak,Toko Obat,swasta,DWIJAYA SENTOSA ABADI,2024
+47,Bulak,Klinik Pratama,TNI/POLRI,KENJERAN DISKES LANTAMAL V,2024
+48,Bulak,Klinik Pratama,TNI/POLRI,PUSDIKLAT HANUDNAS,2024
+49,Darmo,Klinik Pratama,swasta,KIMIA FARMA DARMO,2024
+50,Dukuh Pakis,Apotek,lainnya,KIMIA FARMA 52,2024
+51,Dukuh Pakis,Klinik Pratama,lainnya,GUNUNGSARI,2024
+52,Dukuh Pakis,Puskesmas Induk,Pemerintah Kota,Puskesmas Dukuh Kupang,2024
+53,Dukuh Pakis,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Gunungsari,2024
+54,Dukuh Pakis,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Pradah Kali Kendal,2024
+55,Dukuh Pakis,Apotek,swasta,DUTA FARMA,2024
+56,Dukuh Pakis,Apotek,swasta,TIARA,2024
+57,Dukuh Pakis,Apotek,swasta,TIARA BUKIT DARMO,2024
+58,Dukuh Pakis,Apotek,swasta,ETIKA FARMA,2024
+59,Dukuh Pakis,Apotek,swasta,INDAH FARMA,2024
+60,Dukuh Pakis,Apotek,swasta,PHARMACARE,2024
+61,Dukuh Pakis,Apotek,swasta,E - MEDICA,2024
+62,Dukuh Pakis,Apotek,swasta,GUARDIAN SURABAYA CIPUTRA WORLD,2024
+63,Dukuh Pakis,Apotek,swasta,K - 24 DUKUH KUPANG,2024
+64,Dukuh Pakis,Apotek,swasta,SIAGA FARMA 2,2024
+65,Dukuh Pakis,Apotek,swasta,MAHARVA MEDIKA,2024
+66,Dukuh Pakis,Apotek,swasta,WATSONS LENMARC,2024
+67,Dukuh Pakis,Apotek,swasta,Halomedika Dukuh Pakis,2024
+68,Dukuh Pakis,Toko Obat,swasta,HYPERMART CIPUTRA WORLD,2024
+69,Dukuh Pakis,Toko Obat,swasta,toko Obat PT. Trans Retail Indonesia Cabang Transmart Carrefour Lenmarc Surabaya,2024
+70,Dukuh Pakis,Toko Obat,swasta,Super Indo HR. Muhammad,2024
+71,Dukuh Pakis,Klinik Utama,swasta,GIGI SEHAT,2024
+72,Dukuh Pakis,Klinik Pratama,swasta,ANUGRAH,2024
+73,Dukuh Pakis,Klinik Pratama,swasta,REDEMPTOR MUNDI,2024
+74,Dukuh Pakis,Klinik Pratama,swasta,Q - LIFE KLINIK,2024
+75,Dukuh Pakis,Klinik Pratama,swasta,TANATA,2024
+76,Dukuh Pakis,Klinik Pratama,swasta,ERNADE,2024
+77,Dukuh Pakis,Klinik Pratama,swasta,MAHARVA,2024
+78,Dukuh Pakis,Klinik Pratama,swasta,DIANDRA,2024
+79,Dukuh Pakis,Klinik Pratama,swasta,DERMASTER,2024
+80,Dukuh Pakis,Klinik Pratama,swasta,dr. MF,2024
+81,Dukuh Pakis,Klinik Pratama,swasta,MEDIKA HOLISTIK,2024
+82,Dukuh Pakis,Klinik Pratama,swasta,MAHARVA,2024
+83,Dukuh Pakis,Klinik Utama,swasta,GIGI SEHAT,2024
+84,Dukuh Pakis,Klinik Utama,swasta,ESTHER,2024
+85,Dukuh Pakis,Klinik Utama,swasta,ROYAL CLINIC,2024
+86,Dukuh Pakis,Klinik Utama,swasta,PWHC,2024
+87,Dukuh Pakis,Klinik Utama,swasta,WIJAYA KUSUMA,2024
+88,Dukuh Pakis,Klinik Utama,swasta,DENTALPOINT,2024
+89,Dukuh Pakis,Klinik Utama,swasta,PROSPEK,2024
+90,Dukuh Pakis,Klinik Utama,swasta,SKINDA DERMATOAESTHETIC CLINIC,2024
+91,Dukuh Pakis,Klinik Utama,swasta,REJUVA,2024
+92,Dukuh Pakis,Klinik Utama,swasta,PARAHITA DIAGNOSTIC CENTER,2024
+93,Dukuh Pakis,Klinik Utama,swasta,FDC,2024
+94,Dukuh Pakis,Klinik Utama,swasta,INDENTAL VILLA BUKIT MAS,2024
+95,Dukuh Pakis,Rumah Sakit Umum,TNI/POLRI,RS Marinir Ewa Pangalila Gunungsari,2024
+96,Gayungan,Apotek,lainnya,KIMIA FARMA KETINTANG,2024
+97,Gayungan,Puskesmas Induk,Pemerintah Kota,Puskesmas Gayungan,2024
+98,Gayungan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Dukuh Menanggal,2024
+99,Gayungan,Labkesda/GFK,Pemerintah Kota,Labkesda Kota Surabaya,2024
+100,Gayungan,Rumah Sakit Khusus,Pemerintah Provinsi,RS Mata Masyarakat Jawa Timur,2024
+101,Gayungan,Rumah Sakit Umum,Swasta,RS Bhakti Rahayu,2024
+102,Gayungan,Apotek,swasta,DHARMA,2024
+103,Gayungan,Apotek,swasta,NEW BINTANG,2024
+104,Gayungan,Apotek,swasta,RINDANG FARMA,2024
+105,Gayungan,Apotek,swasta,K - 24 MENANGGAL,2024
+106,Gayungan,Apotek,swasta,CIKAL,2024
+107,Gayungan,Apotek,swasta,PAHALA KETINTANG,2024
+108,Gayungan,Apotek,swasta,K - 24 GAYUNGAN,2024
+109,Gayungan,Apotek,swasta,MEDSENTRAL,2024
+110,Gayungan,Apotek,swasta,TELKOMEDIKA KETINTANG,2024
+111,Gayungan,Toko Obat,swasta,BOSTON HEALTH & BEAUTY CITO / HYPERMART CITO,2024
+112,Gayungan,Toko Obat,swasta,GUARDIAN ROYAL PLAZA,2024
+113,Gayungan,Klinik Pratama,swasta,PONDOK KASIH,2024
+114,Gayungan,Klinik Pratama,swasta,ADI HAYATI,2024
+115,Gayungan,Klinik Pratama,swasta,YAKES TELKOM,2024
+116,Gayungan,Klinik Pratama,swasta,DINA AKUPUNTUR & BEAUTY CARE,2024
+117,Gayungan,Klinik Utama,swasta,CITRA MEDICAL CENTRE,2024
+118,Gayungan,Klinik Utama,swasta,USADA BUANA,2024
+119,Gayungan,Klinik Utama,swasta,HAFIRA SKIN CARE,2024
+120,Gayungan,Klinik Utama,swasta,SURYA DIAGNOSA MEDIKA,2024
+121,Gayungan,Klinik Utama,swasta,DINA,2024
+122,Gayungan,Klinik Utama,swasta,CONFIDENTS DENTAL HOUSE,2024
+123,Gayungan,Rumah Sakit Umum,TNI/POLRI,RS Bhayangkara TK II HS. Samsoeri Mertojoso,2024
+124,Gayungan,Klinik Pratama,TNI/POLRI,BIDDOKES AHMAD YANI,2024
+125,Genteng,Apotek,lainnya,KIMIA FARMA KUSUMA BANGSA,2024
+126,Genteng,Apotek,lainnya,KIMIA FARMA UNDAAN,2024
+127,Genteng,Puskesmas Induk,Pemerintah Kota,Puskesmas Ketabang,2024
+128,Genteng,Puskesmas Induk,Pemerintah Kota,Puskesmas Peneleh,2024
+129,Genteng,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Embong Kaliasin,2024
+130,Genteng,Rumah Sakit Umum,Swasta,RS Adi Husada Undaan,2024
+131,Genteng,Rumah Sakit Khusus,Swasta,RS Mata Undaan,2024
+132,Genteng,Apotek,swasta,METRO FARMA,2024
+133,Genteng,Apotek,swasta,LISTI FARMA,2024
+134,Genteng,Apotek,swasta,PRAYOGI,2024
+135,Genteng,Apotek,swasta,TANJUNG,2024
+136,Genteng,Apotek,swasta,POLYFARMA,2024
+137,Genteng,Apotek,swasta,KUSUMA,2024
+138,Genteng,Apotek,swasta,APOTEK HAPPY,2024
+139,Genteng,Apotek,swasta,WATSONS PLAZA SURABAYA,2024
+140,Genteng,Apotek,swasta,GUARDIAN SURABAYA PLAZA,2024
+141,Genteng,Apotek,swasta,GUARDIAN GRAND CITY SURABAYA,2024
+142,Genteng,Apotek,swasta,WATSONS GRAND CITY MALL,2024
+143,Genteng,Toko Obat,swasta,BAN SENG TONG,2024
+144,Genteng,Toko Obat,swasta,SUMBER JAYA,2024
+145,Genteng,Toko Obat,swasta,SUPER INDO DELTA PLAZA,2024
+146,Genteng,Klinik Pratama,swasta,POLIKLINIK YAYASAN PEGAWAI BANK JATIM,2024
+147,Genteng,Klinik Pratama,swasta,Dinas Pendidikan Propinsi Jawa Timur,2024
+148,Genteng,Klinik Pratama,swasta,SENTUHAN KASIH BANGSA,2024
+149,Genteng,Klinik Pratama,swasta,KARYA MEDIKA 41,2024
+150,Genteng,Klinik Pratama,swasta,SKIN INNOVATION,2024
+151,Genteng,Klinik Pratama,swasta,GRAHA dr. YANTI,2024
+152,Genteng,Klinik Pratama,swasta,MARIA ELIZABETH,2024
+153,Genteng,Klinik Pratama,swasta,LAURENT'S,2024
+154,Genteng,Klinik Pratama,swasta,ADINA MEDIKA,2024
+155,Genteng,Klinik Pratama,swasta,KELUARGA PINTAR,2024
+156,Genteng,Klinik Utama,swasta,EAGLES HEAD MEDICAL CENTRE,2024
+157,Genteng,Klinik Utama,swasta,KAYOON,2024
+158,Genteng,Klinik Utama,swasta,L' VIORS,2024
+159,Genteng,Klinik Utama,swasta,PRIMA,2024
+160,Genteng,Klinik Utama,swasta,GLENEAGLES,2024
+161,Genteng,Klinik Utama,swasta,WIBOWO DENTAL CLINIC,2024
+162,Genteng,Klinik Utama,swasta,PADMA BAHTERA,2024
+163,Gubeng,Rumah Sakit Khusus,Kementrian Lain,RS Gigi dan Mulut FKG Universitas Airlangga,2024
+164,Gubeng,Apotek,lainnya,KIMIA FARMA 35,2024
+165,Gubeng,Apotek,lainnya,KIMIA FARMA KALIBOKOR,2024
+166,Gubeng,Apotek,lainnya,KIMIA FARMA DHARMAHUSADA,2024
+167,Gubeng,Puskesmas Induk,Pemerintah Kota,Puskesmas Mojo,2024
+168,Gubeng,Puskesmas Induk,Pemerintah Kota,Puskesmas Pucang Sewu,2024
+169,Gubeng,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Baratajaya,2024
+170,Gubeng,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Gubeng Klingsingan,2024
+171,Gubeng,Klinik Pratama,Pemerintah Kota Surabaya,BNN KOTA SURABAYA,2024
+172,Gubeng,Rumah Sakit Khusus,Pemerintah Provinsi,RS Jiwa Menur,2024
+173,Gubeng,Rumah Sakit Umum,Swasta,RS Umum Siloam Hospitals Surabaya,2024
+174,Gubeng,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Pura Raharja,2024
+175,Gubeng,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Ferina,2024
+176,Gubeng,Apotek,swasta,ALISA,2024
+177,Gubeng,Apotek,swasta,KIMIA FARMA 24,2024
+178,Gubeng,Apotek,swasta,AGRIPA,2024
+179,Gubeng,Apotek,swasta,SALMA FARMA,2024
+180,Gubeng,Apotek,swasta,MARTURIA,2024
+181,Gubeng,Apotek,swasta,TRIMAS,2024
+182,Gubeng,Apotek,swasta,MENTARI FARMA,2024
+183,Gubeng,Apotek,swasta,BHINEKA FARMA,2024
+184,Gubeng,Apotek,swasta,ASRI FARMA,2024
+185,Gubeng,Apotek,swasta,KALIDAMI FARMA,2024
+186,Gubeng,Apotek,swasta,OKTA,2024
+187,Gubeng,Apotek,swasta,SURYASARI SEJAHTERA,2024
+188,Gubeng,Apotek,swasta,NGAGEL JAYA,2024
+189,Gubeng,Apotek,swasta,PEMUDA,2024
+190,Gubeng,Apotek,swasta,MULYA HUSADA,2024
+191,Gubeng,Apotek,swasta,PUCANG,2024
+192,Gubeng,Apotek,swasta,BAWEAN,2024
+193,Gubeng,Apotek,swasta,MELIANA,2024
+194,Gubeng,Apotek,swasta,DHARMAWANGSA,2024
+195,Gubeng,Apotek,swasta,FARMASI AIRLANGGA,2024
+196,Gubeng,Apotek,swasta,NGINDEN FARMA,2024
+197,Gubeng,Apotek,swasta,TRIJAYA ABADI,2024
+198,Gubeng,Apotek,swasta,K - 24 DHARMAHUSADA,2024
+199,Gubeng,Apotek,swasta,ALIN FARMA,2024
+200,Gubeng,Apotek,swasta,REJEKI,2024
+201,Gubeng,Apotek,swasta,K-24 PASAR PUCANG,2024
+202,Gubeng,Apotek,swasta,VIARA MED,2024
+203,Gubeng,Apotek,swasta,VIVA APOTEK KALIDAMI,2024
+204,Gubeng,Apotek,swasta,VIVA APOTEK GUBENG,2024
+205,Gubeng,Apotek,swasta,INDOSEHAT,2024
+206,Gubeng,Apotek,swasta,BINANGUN,2024
+207,Gubeng,Apotek,swasta,KASIH FARMA,2024
+208,Gubeng,Apotek,swasta,K-24 JOJORAN,2024
+209,Gubeng,Apotek,swasta,E-MEDICA KARANG MENJANGAN,2024
+210,Gubeng,Apotek,swasta,PROVITA,2024
+211,Gubeng,Apotek,swasta,VIVA APOTEK PUCANG ANOM,2024
+212,Gubeng,Apotek,swasta,pucang taman,2024
+213,Gubeng,Apotek,swasta,POLARIS,2024
+214,Gubeng,Apotek,swasta,TIARA MANYAR,2024
+215,Gubeng,Toko Obat,swasta,MERIDIAN,2024
+216,Gubeng,Toko Obat,swasta,LION SUPER INDO DHARMAHUSADA,2024
+217,Gubeng,Toko Obat,swasta,SIERRA,2024
+218,Gubeng,Toko Obat,swasta,TOKO OBAT BONNET SWALAYAN,2024
+219,Gubeng,Klinik Pratama,swasta,PLK - UA KAMPUS B UNAIR,2024
+220,Gubeng,Klinik Pratama,swasta,dr. J HEALTH AND BEAUTY CLINIC,2024
+221,Gubeng,Klinik Pratama,swasta,65 (LXV),2024
+222,Gubeng,Klinik Pratama,swasta,QUALITA MEDIKA,2024
+223,Gubeng,Klinik Pratama,swasta,BULAN SABIT MERAH INDONESIA,2024
+224,Gubeng,Klinik Pratama,swasta,SARTIKA 36,2024
+225,Gubeng,Klinik Pratama,swasta,PRAMESWARI,2024
+226,Gubeng,Klinik Pratama,swasta,MITRA MEDICARE,2024
+227,Gubeng,Klinik Pratama,swasta,SANTA MARIA TAK BERCELA,2024
+228,Gubeng,Klinik Pratama,swasta,AMANINA MEDIKA,2024
+229,Gubeng,Klinik Pratama,swasta,KLINIK KERTAJAYA,2024
+230,Gubeng,Klinik Pratama,swasta,RUMAH SUNATAN,2024
+231,Gubeng,Klinik Pratama,swasta,ESTINE,2024
+232,Gubeng,Klinik Pratama,swasta,deLovely,2024
+233,Gubeng,Klinik Pratama,swasta,MS GLOW AESTHETIC CLINIC,2024
+234,Gubeng,Klinik Pratama,swasta,HOUSE OF DERMALOVE SCIENCE OF BEAUTY,2024
+235,Gubeng,Klinik Pratama,swasta,HOUSE OF HEALTHY LIVING CENTER (H2LC),2024
+236,Gubeng,Klinik Pratama,swasta,VIV CLINIC,2024
+237,Gubeng,Klinik Pratama,swasta,CANTIK,2024
+238,Gubeng,Klinik Pratama,swasta,THE EMDEE SKIN CLINIC,2024
+239,Gubeng,Klinik Pratama,swasta,NAAVAGREEN NATURAL SKINCARE,2024
+240,Gubeng,Klinik Utama,swasta,ULTRA MEDICA,2024
+241,Gubeng,Klinik Utama,swasta,SURABAYA SKIN CENTRE,2024
+242,Gubeng,Klinik Utama,swasta,TRITYA,2024
+243,Gubeng,Klinik Utama,swasta,NEURON CLINIC,2024
+244,Gubeng,Klinik Utama,swasta,KANANI,2024
+245,Gubeng,Klinik Utama,swasta,PARAHITA DIAGNOSTIC CENTER,2024
+246,Gubeng,Klinik Utama,swasta,MEDICELLE,2024
+247,Gubeng,Klinik Utama,swasta,DHARMAHUSADA PRIMER,2024
+248,Gubeng,Klinik Utama,swasta,PRAMITA,2024
+249,Gubeng,Klinik Utama,swasta,MAKMURI (KHUSUS WANITA & ANAK),2024
+250,Gubeng,Klinik Utama,swasta,DERMAGICAL (KHUSUS WANITA DAN ANAK),2024
+251,Gubeng,Klinik Utama,swasta,INDENTAL,2024
+252,Gubeng,Rumah Sakit Umum,TNI/POLRI,RS Ibu dan Anak Bantuan 05.08.05 Surabaya,2024
+253,Gunung Anyar,Apotek,lainnya,KIMIA FARMA 22 UPN,2024
+254,Gunung Anyar,Puskesmas Induk,Pemerintah Kota,Puskesmas Gunung Anyar,2024
+255,Gunung Anyar,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Rungkut Menanggal,2024
+256,Gunung Anyar,Apotek,swasta,MARTINA,2024
+257,Gunung Anyar,Apotek,swasta,DOA SEHAT,2024
+258,Gunung Anyar,Apotek,swasta,CITRA FARMA,2024
+259,Gunung Anyar,Apotek,swasta,STAR FARMA,2024
+260,Gunung Anyar,Apotek,swasta,PATEN JAYA,2024
+261,Gunung Anyar,Apotek,swasta,PURI HUSADA,2024
+262,Gunung Anyar,Apotek,swasta,MARGUNA SEHAT,2024
+263,Gunung Anyar,Apotek,swasta,KITA,2024
+264,Gunung Anyar,Apotek,swasta,A GUNUNG ANYAR,2024
+265,Gunung Anyar,Apotek,swasta,VIVA APOTEK RUNGKUT TENGAH,2024
+266,Gunung Anyar,Apotek,swasta,JULIA,2024
+267,Gunung Anyar,Apotek,swasta,S2,2024
+268,Gunung Anyar,Klinik Pratama,swasta,AT - TAUFIQ,2024
+269,Gunung Anyar,Klinik Pratama,swasta,KESEJAHTERAAN 11,2024
+270,Gunung Anyar,Klinik Pratama,swasta,OPTIMA,2024
+271,Gunung Anyar,Klinik Pratama,swasta,PARADISE,2024
+272,Gunung Anyar,Klinik Pratama,swasta,SIER,2024
+273,Gunung Anyar,Klinik Pratama,swasta,KECANTIKAN NATURA,2024
+274,Gunung Anyar,Klinik Pratama,swasta,NURANI JAYA 83,2024
+275,Gunung Anyar,Klinik Utama,swasta,OPTIMA,2024
+276,Gunung Anyar,Klinik Utama,swasta,ALTAIR POLITEKNIK PELAYARAN SURABAYA,2024
+277,Jambangan,Apotek,lainnya,KIMIA FARMA KEBONSARI,2024
+278,Jambangan,Puskesmas Induk,Pemerintah Kota,Puskesmas Kebonsari,2024
+279,Jambangan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Jambangan,2024
+280,Jambangan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Karah,2024
+281,Jambangan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Ketintang,2024
+282,Jambangan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Pagesangan,2024
+283,Jambangan,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Cempaka Putih Permata,2024
+284,Jambangan,Apotek,swasta,JAMBANGAN,2024
+285,Jambangan,Apotek,swasta,KEBONSARI,2024
+286,Jambangan,Apotek,swasta,K - 24 KEBONSARI,2024
+287,Jambangan,Apotek,swasta,UMI,2024
+288,Jambangan,Apotek,swasta,K-24 KARAH,2024
+289,Jambangan,Apotek,swasta,ALTHA,2024
+290,Jambangan,Apotek,swasta,9 Bintang Farma,2024
+291,Jambangan,Klinik Pratama,swasta,ST. VINCENTIUS A PAULO (KARAH),2024
+292,Jambangan,Klinik Pratama,swasta,BK 10,2024
+293,Karang Pilang,Klinik Pratama,lainnya,SUTEDI SENAPUTRA,2024
+294,Karang Pilang,Puskesmas Induk,Pemerintah Kota,Puskesmas Kedurus,2024
+295,Karang Pilang,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Kebraon,2024
+296,Karang Pilang,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Warugunung,2024
+297,Karang Pilang,Apotek,swasta,PALAPA JAYA,2024
+298,Karang Pilang,Apotek,swasta,DERY FARMA,2024
+299,Karang Pilang,Apotek,swasta,K 3,2024
+300,Karang Pilang,Apotek,swasta,VIVA GENERIK GRIYA KEBRAON,2024
+301,Karang Pilang,Apotek,swasta,PUSPASARI KEDURUS,2024
+302,Karang Pilang,Apotek,swasta,K24 MASTRIP,2024
+303,Karang Pilang,Apotek,swasta,INDERA,2024
+304,Karang Pilang,Toko Obat,swasta,LOTTE SHOPPING INDONESIA,2024
+305,Karang Pilang,Toko Obat,swasta,SUPER INDO MASTRIP,2024
+306,Karang Pilang,Klinik Pratama,swasta,SARTIKA 44,2024
+307,Karang Pilang,Klinik Pratama,swasta,PUTRI RAHAYU,2024
+308,Karang Pilang,Klinik Pratama,swasta,NAYAKA HUSADA KEBRAON,2024
+309,Karang Pilang,Klinik Pratama,swasta,PHC KEBRAON,2024
+310,Kenjeran,Puskesmas Induk,Pemerintah Kota,Puskesmas Bulak Banteng,2024
+311,Kenjeran,Puskesmas Induk,Pemerintah Kota,Puskesmas Sidotopo Wetan,2024
+312,Kenjeran,Puskesmas Induk,Pemerintah Kota,Puskesmas Tambak Wedi,2024
+313,Kenjeran,Puskesmas Induk,Pemerintah Kota,Puskesmas Tanah Kali Kedinding,2024
+314,Kenjeran,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Tanah Kali Kedinding,2024
+315,Kenjeran,Apotek,swasta,NINDYA,2024
+316,Kenjeran,Apotek,swasta,ALQI,2024
+317,Kenjeran,Apotek,swasta,RAFA FARMA,2024
+318,Kenjeran,Apotek,swasta,VIVA APOTEK RANDU INDAH,2024
+319,Kenjeran,Apotek,swasta,ADITARA 2,2024
+320,Kenjeran,Apotek,swasta,NAHDA FARMA,2024
+321,Kenjeran,Apotek,swasta,AMAJING IAN,2024
+322,Kenjeran,Apotek,swasta,RAFA FARMA 2,2024
+323,Kenjeran,Apotek,swasta,RANDU FARMA,2024
+324,Kenjeran,Apotek,swasta,AZZAM FARMA,2024
+325,Kenjeran,Apotek,swasta,K-24 POGOT,2024
+326,Kenjeran,Apotek,swasta,K - 24 SIDOTOPO WETAN,2024
+327,Kenjeran,Apotek,swasta,TANSAH SEHAT FARMA,2024
+328,Kenjeran,Apotek,swasta,K-24 KEDINDING LOR,2024
+329,Kenjeran,Klinik Pratama,swasta,AL FITHRAH,2024
+330,Kenjeran,Klinik Pratama,swasta,WONOSARI,2024
+331,Kenjeran,Klinik Utama,swasta,SRI HARTI SOEROSO,2024
+332,Krembangan,Puskesmas Induk,Pemerintah Kota,Puskesmas Dupak,2024
+333,Krembangan,Puskesmas Induk,Pemerintah Kota,Puskesmas Krembangan Selatan,2024
+334,Krembangan,Puskesmas Induk,Pemerintah Kota,Puskesmas Morokrembangan,2024
+335,Krembangan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Krembangan Baru,2024
+336,Krembangan,Apotek,swasta,TIGA DUA LIMA,2024
+337,Krembangan,Apotek,swasta,ADI FARMA,2024
+338,Krembangan,Apotek,swasta,SHERWIN,2024
+339,Krembangan,Apotek,swasta,OKKY,2024
+340,Krembangan,Apotek,swasta,SIAGA MUSTIKA RAHAYU,2024
+341,Krembangan,Apotek,swasta,LAYZA FARMA,2024
+342,Krembangan,Klinik Pratama,swasta,RAJAWALI,2024
+343,Krembangan,Klinik Pratama,swasta,KELSAPA,2024
+344,Krembangan,Klinik Pratama,swasta,SANTA ANNA,2024
+345,Krembangan,Klinik Pratama,swasta,NAYAKA HUSADA 01,2024
+346,Krembangan,Klinik Pratama,swasta,AL - AZHAR,2024
+347,Krembangan,Klinik Utama,swasta,PRAMITA,2024
+348,Krembangan,Klinik Utama,swasta,SPEKTRUM,2024
+349,Krembangan,Klinik Pratama,TNI/POLRI,POLRESTABES SURABAYA,2024
+350,Krembangan,Klinik Pratama,TNI/POLRI,SUBDITKES AAL,2024
+351,Krembangan,Klinik Pratama,TNI/POLRI,SATBRIMOB POLDA JATIM,2024
+352,Krembangan,Klinik Pratama,TNI/POLRI,SATKES KODIKLATAL,2024
+353,Krembangan,Klinik Pratama,TNI/POLRI,BHAYANGKARA M. DAHLAN,2024
+354,Lakarsantri,Apotek,lainnya,KIMIA FARMA G WALK,2024
+355,Lakarsantri,Apotek,lainnya,KIMIA FARMA 459,2024
+356,Lakarsantri,Puskesmas Induk,Pemerintah Kota,Puskesmas Bangkingan,2024
+357,Lakarsantri,Puskesmas Induk,Pemerintah Kota,Puskesmas Jeruk,2024
+358,Lakarsantri,Puskesmas Induk,Pemerintah Kota,Puskesmas Lidah Kulon,2024
+359,Lakarsantri,Rumah Sakit Khusus,Swasta,RS Orthopedi dan Traumatologi Surabaya,2024
+360,Lakarsantri,Apotek,swasta,WANGI,2024
+361,Lakarsantri,Apotek,swasta,SUKSES,2024
+362,Lakarsantri,Apotek,swasta,KIMMY,2024
+363,Lakarsantri,Apotek,swasta,HIKMAH,2024
+364,Lakarsantri,Apotek,swasta,DIAH FARMA,2024
+365,Lakarsantri,Apotek,swasta,K - 24 MANUKAN TAMA,2024
+366,Lakarsantri,Apotek,swasta,d18,2024
+367,Lakarsantri,Apotek,swasta,SRIKAYA,2024
+368,Lakarsantri,Apotek,swasta,SEHATI,2024
+369,Lakarsantri,Apotek,swasta,WATSONS SUPERMALL PAKUWON,2024
+370,Lakarsantri,Apotek,swasta,BOSTON HEALTH & BEAUTY,2024
+371,Lakarsantri,Apotek,swasta,DWI,2024
+372,Lakarsantri,Apotek,swasta,UTAMA,2024
+373,Lakarsantri,Apotek,swasta,K-24 LIDAH WETAN,2024
+374,Lakarsantri,Apotek,swasta,K-24 LAKARSANTRI,2024
+375,Lakarsantri,Apotek,swasta,W,2024
+376,Lakarsantri,Toko Obat,swasta,SUPER INDO CITRALAND SQUARE,2024
+377,Lakarsantri,Klinik Pratama,swasta,SUPER SKIN,2024
+378,Lakarsantri,Klinik Pratama,swasta,ERHA SKIN MENGANTI,2024
+379,Lakarsantri,Klinik Pratama,swasta,NEW LIFE,2024
+380,Lakarsantri,Klinik Pratama,swasta,GLOBAL SEJAHTERA ABADA 3,2024
+381,Lakarsantri,Klinik Pratama,swasta,LUMINAIRE,2024
+382,Lakarsantri,Klinik Utama,swasta,IDAF HUSADA,2024
+383,Lakarsantri,Klinik Utama,swasta,MIRACLE AESTHETIC CLINIC,2024
+384,Mulyorejo,Rumah Sakit Umum,Kementrian Lain,RS Universitas Airlangga,2024
+385,Mulyorejo,Apotek,lainnya,KIMIA FARMA HEALTH AND BEAUTY PAKUWON CITY,2024
+386,Mulyorejo,Puskesmas Induk,Pemerintah Kota,Puskesmas Kalijudan,2024
+387,Mulyorejo,Puskesmas Induk,Pemerintah Kota,Puskesmas Mulyorejo,2024
+388,Mulyorejo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Sutorejo,2024
+389,Mulyorejo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Mulyorejo / wisma permai,2024
+390,Mulyorejo,Rumah Sakit Umum,Swasta,RS Manyar Medical Centre,2024
+391,Mulyorejo,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Kendangsari Merr,2024
+392,Mulyorejo,Rumah Sakit Umum,Swasta,RS Mitra Keluarga Kenjeran,2024
+393,Mulyorejo,Apotek,swasta,MULYOREJO,2024
+394,Mulyorejo,Apotek,swasta,MUSTAJAB,2024
+395,Mulyorejo,Apotek,swasta,BAGIANA,2024
+396,Mulyorejo,Apotek,swasta,ALBA MEDIKA,2024
+397,Mulyorejo,Apotek,swasta,JEFARMA,2024
+398,Mulyorejo,Apotek,swasta,CHRIST,2024
+399,Mulyorejo,Apotek,swasta,GUARDIAN SHOP IN GALAXY MALL,2024
+400,Mulyorejo,Apotek,swasta,FAMILY FARMA,2024
+401,Mulyorejo,Apotek,swasta,K - 24 MULYOSARI,2024
+402,Mulyorejo,Apotek,swasta,XION,2024
+403,Mulyorejo,Apotek,swasta,PRISKA,2024
+404,Mulyorejo,Apotek,swasta,VITO,2024
+405,Mulyorejo,Apotek,swasta,IBECA FARMA,2024
+406,Mulyorejo,Apotek,swasta,HAVANDI,2024
+407,Mulyorejo,Apotek,swasta,CINDI,2024
+408,Mulyorejo,Apotek,swasta,FITRIN,2024
+409,Mulyorejo,Apotek,swasta,SMILE PLUS,2024
+410,Mulyorejo,Apotek,swasta,KEISSA,2024
+411,Mulyorejo,Apotek,swasta,XAVIER,2024
+412,Mulyorejo,Apotek,swasta,K - 24 MERR KALIJUDAN,2024
+413,Mulyorejo,Apotek,swasta,MUJUR SURYA,2024
+414,Mulyorejo,Apotek,swasta,MELISA FARMA,2024
+415,Mulyorejo,Apotek,swasta,ELHA,2024
+416,Mulyorejo,Apotek,swasta,WATSONS EAST COST,2024
+417,Mulyorejo,Apotek,swasta,ENGGAL HUSADA,2024
+418,Mulyorejo,Apotek,swasta,UNI MEDIKA,2024
+419,Mulyorejo,Apotek,swasta,WATSONS GALAXY MALL SURABAYA,2024
+420,Mulyorejo,Apotek,swasta,GUARDIAN GALAXY MALL 3,2024
+421,Mulyorejo,Apotek,swasta,AIRDAS FARMA,2024
+422,Mulyorejo,Apotek,swasta,WATSONS GALAX MALL 2,2024
+423,Mulyorejo,Apotek,swasta,36 Merr,2024
+424,Mulyorejo,Toko Obat,swasta,INTISARI,2024
+425,Mulyorejo,Toko Obat,swasta,ZHONG YAO,2024
+426,Mulyorejo,Toko Obat,swasta,BOSTON HEALTH & BEAUTY ECC,2024
+427,Mulyorejo,Toko Obat,swasta,SUPERINDO KERTAJAYA,2024
+428,Mulyorejo,Toko Obat,swasta,Hypermart ECC,2024
+429,Mulyorejo,Toko Obat,swasta,Super Indo Central Park,2024
+430,Mulyorejo,Toko Obat,swasta,GUARDIAN EAST COST,2024
+431,Mulyorejo,Toko Obat,swasta,RANCH MARKET,2024
+432,Mulyorejo,Klinik Pratama,swasta,PLK - UA KAMPUS C UNAIR,2024
+433,Mulyorejo,Klinik Pratama,swasta,DOKTER AYOMAN KELUARGA,2024
+434,Mulyorejo,Klinik Pratama,swasta,ABDI MULIA,2024
+435,Mulyorejo,Klinik Pratama,swasta,dr. Subur Prajitno,2024
+436,Mulyorejo,Klinik Pratama,swasta,YAYASAN SOSIAL ABDIHUSADA UTAMA,2024
+437,Mulyorejo,Klinik Pratama,swasta,ZAP GALAKSI,2024
+438,Mulyorejo,Klinik Pratama,swasta,SKIDENT AESTHETIC CENTER,2024
+439,Mulyorejo,Klinik Pratama,swasta,ANF,2024
+440,Mulyorejo,Klinik Pratama,swasta,LONDON BEAUTY CENTRE,2024
+441,Mulyorejo,Klinik Pratama,swasta,BIOTECH,2024
+442,Mulyorejo,Klinik Utama,swasta,3D CLINIC,2024
+443,Mulyorejo,Klinik Utama,swasta,MEDIKA UTAMA 2,2024
+444,Mulyorejo,Klinik Utama,swasta,WIDJAJA ASTHMA CENTRE,2024
+445,Mulyorejo,Klinik Utama,swasta,SHINY SMILE DENTAL CLINIC,2024
+446,Mulyorejo,Klinik Utama,swasta,SAYANG DIAGNOSTIC CENTER,2024
+447,Mulyorejo,Klinik Utama,swasta,PRAMITA,2024
+448,Mulyorejo,Klinik Utama,swasta,MIRACLE AESTHETIC CLINIC,2024
+449,Mulyorejo,Klinik Utama,swasta,ORTHO PLUS,2024
+450,Mulyorejo,Klinik Utama,swasta,PROFIRA,2024
+451,Mulyorejo,Klinik Utama,swasta,ERHA APOTHECARY GALAXY MALL,2024
+452,Mulyorejo,Klinik Utama,swasta,NATIONAL EYE CENTER,2024
+453,Mulyorejo,Klinik Utama,swasta,NUSANTARA MEDIKA,2024
+454,Mulyorejo,Klinik Utama,swasta,VISION EYE CLINIC,2024
+455,Mulyorejo,Klinik Utama,swasta,PARAHITA DIAGNOSTIC CENTER,2024
+456,Mulyorejo,Klinik Utama,swasta,TETA,2024
+457,Mulyorejo,Klinik Utama,swasta,MITRA HUSADA,2024
+458,Pabean Cantian,Rumah Sakit Umum,BUMN,RS Primasatya Husada Citra (PHC) Surabaya,2024
+459,Pabean Cantian,Apotek,lainnya,KIMIA FARMA NO.304,2024
+460,Pabean Cantian,Puskesmas Induk,Pemerintah Kota,Puskesmas Perak Timur,2024
+461,Pabean Cantian,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Bongkaran,2024
+462,Pabean Cantian,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Nyamplungan,2024
+463,Pabean Cantian,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Perak Barat,2024
+464,Pabean Cantian,Rumah Sakit Umum,Swasta,RS PKU Muhammadiyah Surabaya,2024
+465,Pabean Cantian,Rumah Sakit Umum,Swasta,RS Umum Al-Irsyad Surabaya,2024
+466,Pabean Cantian,Apotek,swasta,AN JAYA,2024
+467,Pabean Cantian,Apotek,swasta,BUNGURAN,2024
+468,Pabean Cantian,Apotek,swasta,ATUM FARMA,2024
+469,Pabean Cantian,Apotek,swasta,IBUNDA,2024
+470,Pabean Cantian,Apotek,swasta,BERLIN,2024
+471,Pabean Cantian,Apotek,swasta,8 ( DELAPAN ),2024
+472,Pabean Cantian,Apotek,swasta,BERLIN 2,2024
+473,Pabean Cantian,Apotek,swasta,SAMPURNA FARMA,2024
+474,Pabean Cantian,Apotek,swasta,SINAR BAHAGIA,2024
+475,Pabean Cantian,Apotek,swasta,BERKAH MAKMUR,2024
+476,Pabean Cantian,Apotek,swasta,K24 Kopelindo 3,2024
+477,Pabean Cantian,Toko Obat,swasta,SARI WARAS,2024
+478,Pabean Cantian,Toko Obat,swasta,MANDARIN,2024
+479,Pabean Cantian,Toko Obat,swasta,ASEAN,2024
+480,Pabean Cantian,Toko Obat,swasta,SAUDARA,2024
+481,Pabean Cantian,Toko Obat,swasta,SAHABAT KITA JAYA,2024
+482,Pabean Cantian,Toko Obat,swasta,SAUDARA ONLINE,2024
+483,Pabean Cantian,Toko Obat,swasta,BIE,2024
+484,Pabean Cantian,Toko Obat,swasta,MANDARIN 2,2024
+485,Pabean Cantian,Klinik Pratama,swasta,SEBU,2024
+486,Pabean Cantian,Klinik Utama,swasta,WIBOWO DENTAL CLINIC,2024
+487,Pabean Cantian,Klinik Utama,swasta,OILIA,2024
+488,Pabean Cantian,Rumah Sakit Umum,TNI/POLRI,RS TNI AL Dr. Oepomo,2024
+489,Pabean Cantian,Klinik Pratama,TNI/POLRI,POLRES PELABUHAN TANJUNG PERAK,2024
+490,Pakal,Puskesmas Induk,Pemerintah Kota,Puskesmas Benowo,2024
+491,Pakal,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Babat Jerawat,2024
+492,Pakal,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Pakal,2024
+493,Pakal,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Sumber Rejo,2024
+494,Pakal,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Tambak Dono,2024
+495,Pakal,Rumah Sakit Umum,Swasta,RS Islam Darus Syifa,2024
+496,Pakal,Apotek,swasta,BENOWO FARMA,2024
+497,pakal,Apotek,swasta,APP 3 PAKAL,2024
+498,Pakal,Klinik Utama,swasta,3D CLINIC,2024
+499,Rungkut,Apotek,lainnya,KIMIA FARMA PANDUGO,2024
+500,Rungkut,Apotek,lainnya,KIMIA FARMA 526 RUNGKUT,2024
+501,Rungkut,Puskesmas Induk,Pemerintah Kota,Puskesmas Kalirungkut,2024
+502,Rungkut,Puskesmas Induk,Pemerintah Kota,Puskesmas Medokan Ayu,2024
+503,Rungkut,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Medokan Ayu,2024
+504,Rungkut,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Penjaringan Sari,2024
+505,Rungkut,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Rungkut Kidul,2024
+506,Rungkut,Rumah Sakit Umum,Swasta,RS Umum Royal Surabaya,2024
+507,Rungkut,Apotek,swasta,SETIABUDI,2024
+508,Rungkut,Apotek,swasta,SIDO WARAS,2024
+509,Rungkut,Apotek,swasta,VALENTINO,2024
+510,Rungkut,Apotek,swasta,JIREH,2024
+511,Rungkut,Apotek,swasta,ELLY,2024
+512,Rungkut,Apotek,swasta,GOHLIS,2024
+513,Rungkut,Apotek,swasta,DANDE FARMA,2024
+514,Rungkut,Apotek,swasta,CENTRO,2024
+515,Rungkut,Apotek,swasta,JESA INTI FARMA,2024
+516,Rungkut,Apotek,swasta,TAKAVI,2024
+517,Rungkut,Apotek,swasta,MEDAYU FARMA,2024
+518,Rungkut,Apotek,swasta,ARDILA,2024
+519,Rungkut,Apotek,swasta,VIVA GENERIK KEDUNG ASEM,2024
+520,Rungkut,Apotek,swasta,CENDRAWASIH,2024
+521,Rungkut,Apotek,swasta,VIVA GENERIK MEDOKAN SAWAH,2024
+522,Rungkut,Apotek,swasta,K - 24 RUNGKUT ASRI,2024
+523,Rungkut,Apotek,swasta,JECONIA,2024
+524,Rungkut,Apotek,swasta,HASIL,2024
+525,Rungkut,Apotek,swasta,VIVA APOTEK WONOREJO SELATAN,2024
+526,Rungkut,Apotek,swasta,MEGA RAYA,2024
+527,Rungkut,Apotek,swasta,K 24 RUNGKUT MADYA,2024
+528,Rungkut,Apotek,swasta,SAHABAT MEDIKA,2024
+529,Rungkut,Apotek,swasta,VIVA APOTEK RUNGKUT MEJOYO,2024
+530,Rungkut,Apotek,swasta,K-24 MEDOKAN AYU,2024
+531,Rungkut,Apotek,swasta,DASSA ALPHA,2024
+532,Rungkut,Apotek,swasta,FORA MEDICAL,2024
+533,Rungkut,Apotek,swasta,MEI FARMA,2024
+534,Rungkut,Apotek,swasta,K24 Tenggilis,2024
+535,Rungkut,Apotek,swasta,Rungkut Sehat,2024
+536,Rungkut,Apotek,swasta,Rungkut,2024
+537,Rungkut,Toko Obat,swasta,toko Obat PT. Trans Retail Indonesia Cabang Transmart Carrefour Rungkut Surabaya,2024
+538,Rungkut,Toko Obat,swasta,Super Indo Rungkut,2024
+539,Rungkut,Toko Obat,swasta,BERKAT WAHYU,2024
+540,Rungkut,Klinik Pratama,swasta,WIDYA MANDIRI,2024
+541,Rungkut,Klinik Pratama,swasta,dr. EKO,2024
+542,Rungkut,Klinik Pratama,swasta,PT. HM Sampoerna Tbk,2024
+543,Rungkut,Klinik Pratama,swasta,CITA HUSADA,2024
+544,Rungkut,Klinik Pratama,swasta,PT.HM Sampoerna Tbk,2024
+545,Rungkut,Klinik Pratama,swasta,YAYUK ISMAIL,2024
+546,Rungkut,Klinik Pratama,swasta,PT. UNILEVER INDONESIA Tbk,2024
+547,Rungkut,Klinik Pratama,swasta,D'ESTHETICO,2024
+548,Rungkut,Klinik Pratama,swasta,UBAYA,2024
+549,Rungkut,Klinik Pratama,swasta,NAYAKA HUSADA 42,2024
+550,Rungkut,Klinik Pratama,swasta,dr. NICE,2024
+551,Rungkut,Klinik Pratama,swasta,MEDIKA PRADHANA,2024
+552,Rungkut,Klinik Pratama,swasta,MICHELLE,2024
+553,Rungkut,Klinik Pratama,swasta,SUPER SKIN,2024
+554,Rungkut,Klinik Pratama,swasta,ROYAL CLINIC MERR,2024
+555,Rungkut,Klinik Pratama,swasta,DELOVELY RUNGKUT,2024
+556,Rungkut,Klinik Pratama,swasta,KESAYANGAN,2024
+557,Rungkut,Klinik Utama,swasta,PUSURA RUNGKUT,2024
+558,Rungkut,Klinik Utama,swasta,dr. HARYO Eye Care,2024
+559,Rungkut,Klinik Utama,swasta,ANARE,2024
+560,Rungkut,Klinik Utama,swasta,CT KLINIK,2024
+561,Sambikerep,Puskesmas Induk,Pemerintah Kota,Puskesmas Lontar,2024
+562,Sambikerep,Puskesmas Induk,Pemerintah Kota,Puskesmas Made,2024
+563,Sambikerep,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Nur Ummi Numbi,2024
+564,Sambikerep,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Lombok Dua Dua Lontar,2024
+565,Sambikerep,Apotek,swasta,TENGGER 3,2024
+566,Sambikerep,Apotek,swasta,GLORY,2024
+567,Sambikerep,Apotek,swasta,GEMMA FARMA,2024
+568,Sambikerep,Apotek,swasta,BRINGIN INDAH,2024
+569,Sambikerep,Apotek,swasta,TIARA CITRA RAYA,2024
+570,Sambikerep,Apotek,swasta,VIVA GENERIK BUMI INDAH,2024
+571,Sambikerep,Apotek,swasta,SAMBIKEREP,2024
+572,Sambikerep,Apotek,swasta,APP 2 LONTAR,2024
+573,Sambikerep,Apotek,swasta,AQILAH,2024
+574,Sambikerep,Apotek,swasta,MANUKAN,2024
+575,Sambikerep,Apotek,swasta,RODISON,2024
+576,Sambikerep,Apotek,swasta,ANUGERAH MEDIKA,2024
+577,Sambikerep,Apotek,swasta,UTAMA SAMBIKEREP,2024
+578,Sambikerep,Apotek,swasta,K24 LONTAR,2024
+579,Sambikerep,Toko Obat,swasta,HYPERMART SUPERMALL PAKUWON INDAH,2024
+580,Sambikerep,Toko Obat,swasta,BAROKAH,2024
+581,Sambikerep,Klinik Pratama,swasta,"POLY ""PT. PAKUWON PERMAI""",2024
+582,Sambikerep,Klinik Pratama,swasta,ERHA APOTHECARY,2024
+583,Sambikerep,Klinik Pratama,swasta,CAHAYA DAMAI,2024
+584,Sambikerep,Klinik Pratama,swasta,MEDPOINT,2024
+585,Sambikerep,Klinik Pratama,swasta,MIFTACHUL MUNIR MEDIKA,2024
+586,Sambikerep,Klinik Pratama,swasta,THE EMDEE SKIN CLINIC,2024
+587,Sambikerep,Klinik Pratama,swasta,HAYYU SYAR'I,2024
+588,Sambikerep,Klinik Utama,swasta,EZMO CLINIC,2024
+589,Sambikerep,Klinik Utama,swasta,LINA LICA,2024
+590,Sambikerep,Klinik Utama,swasta,TEETH TOOTH,2024
+591,Sawahan,Apotek,lainnya,KIMIA FARMA NO.243,2024
+592,Sawahan,Puskesmas Induk,Pemerintah Kota,Puskesmas Banyu Urip,2024
+593,Sawahan,Puskesmas Induk,Pemerintah Kota,Puskesmas Pakis,2024
+594,Sawahan,Puskesmas Induk,Pemerintah Kota,Puskesmas Putat Jaya,2024
+595,Sawahan,Puskesmas Induk,Pemerintah Kota,Puskesmas Sawahan,2024
+596,Sawahan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Petemon,2024
+597,Sawahan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Putat Jaya,2024
+598,Sawahan,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Simokatrungan,2024
+599,Sawahan,Rumah Sakit Umum,Swasta,Mayapada Hospital Surabaya,2024
+600,Sawahan,Apotek,swasta,AGAPE,2024
+601,Sawahan,Apotek,swasta,MITRA FARMA,2024
+602,Sawahan,Apotek,swasta,KHEN,2024
+603,Sawahan,Apotek,swasta,PURI FARMA,2024
+604,Sawahan,Apotek,swasta,MENGGALA,2024
+605,Sawahan,Apotek,swasta,STEVEN,2024
+606,Sawahan,Apotek,swasta,DWI JAYA,2024
+607,Sawahan,Apotek,swasta,SUGENG,2024
+608,Sawahan,Apotek,swasta,FAJAR,2024
+609,Sawahan,Apotek,swasta,TENOJAYA,2024
+610,Sawahan,Apotek,swasta,TOWER FARMA,2024
+611,Sawahan,Apotek,swasta,ARI FARMA,2024
+612,Sawahan,Apotek,swasta,DAMAI,2024
+613,Sawahan,Apotek,swasta,C n C,2024
+614,Sawahan,Apotek,swasta,DEWI FARMA,2024
+615,Sawahan,Apotek,swasta,VIVA APOTEK SIMO GUNUNG,2024
+616,Sawahan,Apotek,swasta,VIVA APOTEK BANYU URIP WETAN,2024
+617,Sawahan,Apotek,swasta,PELITA JAYA,2024
+618,Sawahan,Apotek,swasta,VIVA APOTEK PACUAN KUDA,2024
+619,Sawahan,Apotek,swasta,MZ 8,2024
+620,Sawahan,Apotek,swasta,VIVA APOTEK PETEMON BARAT,2024
+621,Sawahan,Apotek,swasta,PAHALA PACUAN,2024
+622,Sawahan,Apotek,swasta,K-24 SIMO KWAGEAN,2024
+623,Sawahan,Toko Obat,swasta,SUMBER SELAMET,2024
+624,Sawahan,Toko Obat,swasta,Multi Sehat Jaya,2024
+625,Sawahan,Klinik Utama,swasta,PRAMITA,2024
+626,Sawahan,Klinik Pratama,swasta,HIDAYAH,2024
+627,Sawahan,Klinik Pratama,swasta,KIMIA FARMA BANYU URIP,2024
+628,Sawahan,Klinik Pratama,swasta,CLARICE,2024
+629,Sawahan,Klinik Pratama,swasta,DELOVELY,2024
+630,Sawahan,Klinik Pratama,swasta,BDS PACUAN KUDA,2024
+631,Sawahan,Klinik Pratama,swasta,PUSURA SUNGKONO,2024
+632,Sawahan,Klinik Pratama,swasta,Lazarus,2024
+633,Sawahan,Klinik Utama,swasta,dr. RUSTIADJI,2024
+634,Sawahan,Klinik Utama,swasta,PRAMITA,2024
+635,Semampir,Klinik Pratama,lainnya,AMPEL,2024
+636,Semampir,Puskesmas Induk,Pemerintah Kota,Puskesmas Pegirian,2024
+637,Semampir,Puskesmas Induk,Pemerintah Kota,Puskesmas Sawah Pulo,2024
+638,Semampir,Puskesmas Induk,Pemerintah Kota,Puskesmas Sidotopo,2024
+639,Semampir,Puskesmas Induk,Pemerintah Kota,Puskesmas Wonokusumo,2024
+640,Semampir,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Pegirian,2024
+641,Semampir,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Wonokusumo,2024
+642,Semampir,Rumah Sakit Umum,Pemerintah Provinsi,RS Husada Prima,2024
+643,Semampir,Apotek,swasta,KEMAJUAN,2024
+644,Semampir,Apotek,swasta,MUSTIKA JAYA I,2024
+645,Semampir,Apotek,swasta,WONOSARI MEDIKA,2024
+646,Semampir,Apotek,swasta,AMIRA,2024
+647,Semampir,Apotek,swasta,SURAMADU,2024
+648,Semampir,Apotek,swasta,PERMATA P,2024
+649,Semampir,Apotek,swasta,VIVA GENERIK WONOKUSUMO,2024
+650,Semampir,Apotek,swasta,AZIFAH,2024
+651,Semampir,Apotek,swasta,ALMIRA,2024
+652,Semampir,Apotek,swasta,K24 WONOKUSUMO,2024
+653,SEMAMPIR,Apotek,swasta,RAFA FARMA BULAK JAYA,2024
+654,Semampir,Apotek,swasta,BERLIN 3,2024
+655,SEMAMPIR,Apotek,swasta,KAHA,2024
+656,Semampir,Klinik Pratama,swasta,WACHID HASYIM,2024
+657,Semampir,Klinik Pratama,swasta,MEDISKA SIDOTOPO,2024
+658,Semampir,Klinik Pratama,swasta,INDOSEHAT 2003,2024
+659,Semampir,Klinik Utama,swasta,PROSPEK,2024
+660,Semampir,Klinik Utama,swasta,INDOSEHAT 2003,2024
+661,Semampir,Klinik Pratama,TNI/POLRI,dr. IDRIS P. SIREGAR,2024
+662,Simokerto,Apotek,lainnya,KIMIA FARMA TAMBAK REJO,2024
+663,Simokerto,Rumah Sakit Umum,Pemerintah Kota,RS Umum Daerah dr. Mohamad Soewandhie,2024
+664,Simokerto,Puskesmas Induk,Pemerintah Kota,Puskesmas Simolawang,2024
+665,Simokerto,Puskesmas Induk,Pemerintah Kota,Puskesmas Tambakrejo,2024
+666,Simokerto,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Kapasari,2024
+667,Simokerto,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Kapasan,2024
+668,Simokerto,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Granting,2024
+669,Simokerto,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Kebondalem,2024
+670,Simokerto,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Sidodadi,2024
+671,Simokerto,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Sidoyoso Kali,2024
+672,Simokerto,Rumah Sakit Umum,Pemerintah Provinsi,RS Umum Daerah Dr. Soetomo,2024
+673,Simokerto,Rumah Sakit Umum,Swasta,RS Umum Adi Husada Kapasari,2024
+674,Simokerto,Apotek,swasta,BHUMYAMCA II,2024
+675,Simokerto,Apotek,swasta,SEGARAN,2024
+676,Simokerto,Apotek,swasta,MATAHARI FARMA,2024
+677,Simokerto,Apotek,swasta,K - 24 KAPASARI,2024
+678,Simokerto,Apotek,swasta,SUMBER WARAS,2024
+679,Simokerto,Apotek,swasta,TERAS PHARMA,2024
+680,Simokerto,Toko Obat,swasta,KENDJERAN,2024
+681,Simokerto,Toko Obat,swasta,toko Obat PT. Trans Retail Indonesia Cabang Carrefour ITC Mega Grosir Surabaya,2024
+682,Simokerto,Klinik Utama,swasta,PROSPEK (SIMOKERTO),2024
+683,Sukolilo,Apotek,lainnya,KIMIA FARMA KLAMPIS,2024
+684,SUKOLILO,Apotek,lainnya,KIMIA FARMA MENUR,2024
+685,Sukolilo,Puskesmas Induk,Pemerintah Kota,Puskesmas Keputih,2024
+686,Sukolilo,Puskesmas Induk,Pemerintah Kota,Puskesmas Klampis Ngasem,2024
+687,Sukolilo,Puskesmas Induk,Pemerintah Kota,Puskesmas Menur,2024
+688,Sukolilo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Gebang Putih,2024
+689,Sukolilo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Medokan Semampir,2024
+690,Sukolilo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Semolowaru,2024
+691,Sukolilo,Rumah Sakit Umum,Pemerintah Provinsi,RS Umum Haji Surabaya,2024
+692,Sukolilo,Klinik Utama,Pemerintah Provinsi Jawa Timur,EMBARKASI HAJI SURABAYA,2024
+693,Sukolilo,Rumah Sakit Khusus,Swasta,RS Onkologi,2024
+694,Sukolilo,Rumah Sakit Umum,Swasta,RS Premier Surabaya,2024
+695,Sukolilo,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Putri Surabaya,2024
+696,Sukolilo,Rumah Sakit Umum,Swasta,RS Gotong Royong,2024
+697,Sukolilo,Apotek,swasta,MENUR,2024
+698,Sukolilo,Apotek,swasta,PRIMADANA,2024
+699,Sukolilo,Apotek,swasta,LIBRA,2024
+700,Sukolilo,Apotek,swasta,KENJERAN,2024
+701,Sukolilo,Apotek,swasta,ASTI FARMA,2024
+702,Sukolilo,Apotek,swasta,NATANETTE,2024
+703,Sukolilo,Apotek,swasta,LIBRA 2,2024
+704,Sukolilo,Apotek,swasta,SELARAS,2024
+705,Sukolilo,Apotek,swasta,KARYA SUKSES,2024
+706,Sukolilo,Apotek,swasta,K-24 MANYAR,2024
+707,Sukolilo,Apotek,swasta,LATOVI,2024
+708,Sukolilo,Apotek,swasta,EXPRESS,2024
+709,Sukolilo,Apotek,swasta,SENTRA BERKAT,2024
+710,Sukolilo,Apotek,swasta,K-24 KLAMPIS,2024
+711,Sukolilo,Apotek,swasta,DR. RATNA,2024
+712,Sukolilo,Apotek,swasta,SEMAMPIR RAYA,2024
+713,Sukolilo,Apotek,swasta,CENTRO FARMA,2024
+714,Sukolilo,Apotek,swasta,AALIYA FARMA,2024
+715,Sukolilo,Apotek,swasta,RACHMAT,2024
+716,Sukolilo,Apotek,swasta,TERANG FARMA,2024
+717,Sukolilo,Apotek,swasta,K24 KEPUTIH,2024
+718,Sukolilo,Apotek,swasta,ANYA,2024
+719,sukolilo,Apotek,swasta,TRIA FARMA,2024
+720,Sukolilo,Apotek,swasta,Lifepack,2024
+721,Sukolilo,Toko Obat,swasta,SUPER INDO SEMOLOWARU,2024
+722,SUKOLILO,Toko Obat,swasta,SUPER INDO ARIF RAHMAN HAKIM,2024
+723,Sukolilo,Toko Obat,swasta,GUARDIAN AR HAKIM,2024
+724,Sukolilo,Toko Obat,swasta,KLAMPIS SEMOLO,2024
+725,Sukolilo,Toko Obat,swasta,Hypermart Arief Rachman Hakim,2024
+726,Sukolilo,Klinik Pratama,swasta,STIESIA,2024
+727,Sukolilo,Klinik Pratama,swasta,EMDEE,2024
+728,Sukolilo,Klinik Pratama,swasta,GOTONG ROYONG I,2024
+729,Sukolilo,Klinik Pratama,swasta,MEDICAL CENTER ITS,2024
+730,Sukolilo,Klinik Pratama,swasta,dr. RETNAWATI,2024
+731,Sukolilo,Klinik Pratama,swasta,SILOAM SURABAYA,2024
+732,Sukolilo,Klinik Pratama,swasta,FACENA,2024
+733,Sukolilo,Klinik Pratama,swasta,FLORA HOUSE OF BEAUTY,2024
+734,Sukolilo,Klinik Pratama,swasta,EVINE,2024
+735,Sukolilo,Klinik Pratama,swasta,EMDEE,2024
+736,Sukolilo,Klinik Utama,swasta,SENTRA REHABILITASI MEDIK MERIDIAN,2024
+737,Sukolilo,Klinik Utama,swasta,Universitas 17 Agustus 1945 (UNTAG) Surabaya,2024
+738,Sukolilo,Klinik Utama,swasta,LESTARI,2024
+739,Sukolilo,Klinik Utama,swasta,D-ARTS DENTAL CLINIC,2024
+740,Sukolilo,Klinik Utama,swasta,JET - Z DENTAL AESTHETIC CLINIC,2024
+741,Sukomanunggal,Apotek,lainnya,KIMIA FARMA KUPANG JAYA,2024
+742,Sukomanunggal,Apotek,lainnya,KIMIA FARMA HR MUHAMMAD,2024
+743,Sukomanunggal,Puskesmas Induk,Pemerintah Kota,Puskesmas Simomulyo,2024
+744,Sukomanunggal,Puskesmas Induk,Pemerintah Kota,Puskesmas Tanjungsari,2024
+745,Sukomanunggal,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Putat Gede,2024
+746,Sukomanunggal,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Simohilir,2024
+747,Sukomanunggal,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Sonokawijenan,2024
+748,Sukomanunggal,Klinik Pratama,Pemerintah Provinsi Jawa Timur,BNN PROVINSI JAWA TIMUR,2024
+749,Sukomanunggal,Rumah Sakit Umum,Swasta,RS Umum Mitra Keluarga Surabaya,2024
+750,Sukomanunggal,Apotek,swasta,SATELITE,2024
+751,Sukomanunggal,Apotek,swasta,SAPUTRA JAYA,2024
+752,Sukomanunggal,Apotek,swasta,KUPANG BARU,2024
+753,Sukomanunggal,Apotek,swasta,TIARA SATELIT,2024
+754,Sukomanunggal,Apotek,swasta,HANSEN,2024
+755,Sukomanunggal,Apotek,swasta,AL FALAH,2024
+756,Sukomanunggal,Apotek,swasta,WATSONS LAGOON SUNGKONO,2024
+757,Sukomanunggal,Apotek,swasta,K-24 SUKOMANUNGGAL,2024
+758,Sukomanunggal,Apotek,swasta,K-24 Bukit Darmo,2024
+759,Sukomanunggal,Toko Obat,swasta,SUPER INDO SATELIT UTARA,2024
+760,Sukomanunggal,Klinik Pratama,swasta,DINAYLA UTAMA 84,2024
+761,Sukomanunggal,Klinik Pratama,swasta,ELYON,2024
+762,Sukomanunggal,Klinik Pratama,swasta,L'VIORS,2024
+763,Sukomanunggal,Klinik Pratama,swasta,ID BEAUTY CLINIC,2024
+764,Sukomanunggal,Klinik Pratama,swasta,LARISSA,2024
+765,Sukomanunggal,Klinik Pratama,swasta,FAIZAH MEDIKA,2024
+766,Sukomanunggal,Klinik Utama,swasta,ABDI MULIA,2024
+767,Sukomanunggal,Klinik Utama,swasta,KASIH KARUNIA,2024
+768,Sukomanunggal,Klinik Utama,swasta,ABDI MULIA,2024
+769,Sukomanunggal,Klinik Utama,swasta,PRIMED,2024
+770,Tambaksari,Klinik Pratama,lainnya,POLKES 05.09.04 SURABAYA,2024
+771,Tambaksari,Puskesmas Induk,Pemerintah Kota,Puskesmas Gading,2024
+772,Tambaksari,Puskesmas Induk,Pemerintah Kota,Puskesmas Pacar Keling,2024
+773,Tambaksari,Puskesmas Induk,Pemerintah Kota,Puskesmas Rangkah,2024
+774,Tambaksari,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Karang Empat,2024
+775,Tambaksari,Rumah Sakit Umum,Swasta,RS Husada Utama Surabaya,2024
+776,Tambaksari,Apotek,swasta,BLESSING,2024
+777,Tambaksari,Apotek,swasta,SUPER FARMA,2024
+778,Tambaksari,Apotek,swasta,LESTARI FARMA,2024
+779,Tambaksari,Apotek,swasta,K24 KAPAS KRAMPUNG,2024
+780,Tambaksari,Apotek,swasta,PRIMADONA,2024
+781,Tambaksari,Apotek,swasta,PUTERI BUANA,2024
+782,Tambaksari,Apotek,swasta,PERMATA,2024
+783,Tambaksari,Apotek,swasta,TING - TING FARMA,2024
+784,Tambaksari,Apotek,swasta,VIVA APOTEK DUKUH SETRO,2024
+785,Tambaksari,Apotek,swasta,178,2024
+786,Tambaksari,Apotek,swasta,SILVIANA,2024
+787,Tambaksari,Apotek,swasta,VIVA APOTEK KAPAS MADYA,2024
+788,Tambaksari,Apotek,swasta,GOLDEN FARMA,2024
+789,Tambaksari,Apotek,swasta,JOYFUL,2024
+790,Tambaksari,Apotek,swasta,SAHABAT SEHAT,2024
+791,Tambaksari,Apotek,swasta,GABRIEL,2024
+792,Tambaksari,Apotek,swasta,NICHO,2024
+793,Tambaksari,Apotek,swasta,BASKARA,2024
+794,Tambaksari,Apotek,swasta,SABILILLAH,2024
+795,Tambaksari,Apotek,swasta,SYIFA,2024
+796,Tambaksari,Apotek,swasta,K - 24 PLOSO,2024
+797,Tambaksari,Apotek,swasta,MALIKA,2024
+798,Tambaksari,Apotek,swasta,BK,2024
+799,Tambaksari,Apotek,swasta,MEKAR REJEKI FARMA,2024
+800,Tambaksari,Apotek,swasta,DUKUH SETRO,2024
+801,Tambaksari,Apotek,swasta,VIVA APOTEK KARANG ASEM,2024
+802,Tambaksari,Toko Obat,swasta,WAN FU DANG,2024
+803,Tambaksari,Toko Obat,swasta,WAN HO DANG,2024
+804,Tambaksari,Klinik Pratama,swasta,TABITA,2024
+805,Tambaksari,Klinik Pratama,swasta,MEDISKA SURABAYA GUBENG,2024
+806,Tambaksari,Klinik Pratama,swasta,WISMA HUSADA,2024
+807,Tambaksari,Klinik Pratama,swasta,SURYA GIRI JAYA 122,2024
+808,Tambaksari,Klinik Pratama,swasta,PALANG MERAH INDONESIA,2024
+809,Tambaksari,Klinik Pratama,swasta,ALBA MEDIKA,2024
+810,Tambaksari,Klinik Pratama,swasta,INDIRA,2024
+811,Tambaksari,Klinik Pratama,swasta,KAPAS MADYA,2024
+812,Tambaksari,Klinik Pratama,swasta,KEELA,2024
+813,Tambaksari,Klinik Pratama,swasta,ESTETIKA LARISSA,2024
+814,Tambaksari,Klinik Pratama,swasta,BEAUDENT,2024
+815,Tambaksari,Klinik Utama,swasta,WALUYO JATI,2024
+816,Tambaksari,Klinik Utama,swasta,VINCENTIUS KRISTUS RAJA,2024
+817,Tambaksari,Klinik Utama,swasta,SAHABAT MEDIKA,2024
+818,Tambaksari,Klinik Utama,swasta,ADI GUNA,2024
+819,Tandes,Apotek,lainnya,PRIMA ANUGERAH,2024
+820,Tandes,Puskesmas Induk,Pemerintah Kota,Puskesmas Balongsari,2024
+821,Tandes,Puskesmas Induk,Pemerintah Kota,Puskesmas Manukan Kulon,2024
+822,Tandes,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Banjarsugihan,2024
+823,Tandes,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Buntaran,2024
+824,Tandes,Rumah Sakit Umum,Swasta,RS Muji Rahayu,2024
+825,Tandes,Apotek,swasta,JAYA MULYA,2024
+826,Tandes,Apotek,swasta,AMORITA FARMA,2024
+827,Tandes,Apotek,swasta,MUKTI HUSADA,2024
+828,Tandes,Apotek,swasta,KRAJAN,2024
+829,Tandes,Apotek,swasta,K - 24 DARMO INDAH,2024
+830,Tandes,Apotek,swasta,K24 BALONGSARI TAMA,2024
+831,Tandes,Apotek,swasta,WATSONS FOOD JUNCTION,2024
+832,Tandes,Apotek,swasta,MITRA SEHAT,2024
+833,Tandes,Apotek,swasta,Rafa Farma Manukan,2024
+834,Tandes,Toko Obat,swasta,SUPER INDO MANUKAN,2024
+835,Tandes,Toko Obat,swasta,Boston food junction,2024
+836,Tandes,Toko Obat,swasta,Toko Obat Hypermart Foodjunction,2024
+837,Tandes,Klinik Pratama,swasta,PT. GELORA DJAJA,2024
+838,Tandes,Klinik Pratama,swasta,PERDANA HUSADA,2024
+839,Tandes,Klinik Pratama,swasta,SARTIKA 59,2024
+840,Tandes,Klinik Pratama,swasta,NAYAKA HUSADA TANDES,2024
+841,Tandes,Klinik Pratama,swasta,dr. EKO,2024
+842,Tandes,Klinik Pratama,swasta,DINAYLA UTAMA 105,2024
+843,Tandes,Klinik Pratama,swasta,KEBANGKITAN,2024
+844,Tandes,Klinik Pratama,swasta,DELOVELY,2024
+845,Tandes,Klinik Pratama,swasta,PUSURA BALONGSARI,2024
+846,Tegalsari,Apotek,lainnya,KIMIA FARMA 26,2024
+847,Tegalsari,Apotek,lainnya,KIMIA FARMA 25,2024
+848,Tegalsari,Apotek,lainnya,KIMIA FARMA 45,2024
+849,Tegalsari,Puskesmas Induk,Pemerintah Kota,Puskesmas Dr. Soetomo,2024
+850,Tegalsari,Puskesmas Induk,Pemerintah Kota,Puskesmas Kedungdoro,2024
+851,Tegalsari,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Keputran,2024
+852,Tegalsari,Rumah Sakit Umum,Swasta,RS Surabaya Medical Service,2024
+853,Tegalsari,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Pusura Tegalsari,2024
+854,Tegalsari,Rumah Sakit Umum,Swasta,RS Darmo,2024
+855,Tegalsari,Apotek,swasta,PANACEA,2024
+856,Tegalsari,Apotek,swasta,AGUNG FARMA,2024
+857,Tegalsari,Apotek,swasta,SUMBER FARMA,2024
+858,Tegalsari,Apotek,swasta,POLYFARMA 61,2024
+859,Tegalsari,Apotek,swasta,GUARDIAN PT HERO SUPERMARKET,2024
+860,Tegalsari,Apotek,swasta,TENGGER I,2024
+861,Tegalsari,Apotek,swasta,WIDYA FARMA,2024
+862,Tegalsari,Apotek,swasta,TRUNOJOYO,2024
+863,Tegalsari,Apotek,swasta,TIRTA FARMA,2024
+864,Tegalsari,Apotek,swasta,CENTURY TUNJUNGAN PLAZA,2024
+865,Tegalsari,Apotek,swasta,K-24 KEDUNGSARI,2024
+866,Tegalsari,Apotek,swasta,MUSI,2024
+867,Tegalsari,Apotek,swasta,WATSONS TUNJUNGAN PLAZA,2024
+868,Tegalsari,Apotek,swasta,VIVA APOTEK KAMPUNG MALANG,2024
+869,Tegalsari,Apotek,swasta,Watsons Tunjungan Plaza 6,2024
+870,Tegalsari,Apotek,swasta,KAPUAS FARMA,2024
+871,Tegalsari,Apotek,swasta,GUARDIAN TUNJUNGAN PLAZA 6 SURABAYA,2024
+872,Tegalsari,Toko Obat,swasta,HERO TUNJUNGAN PLAZA,2024
+873,Tegalsari,Klinik Pratama,swasta,ALAMANDA,2024
+874,Tegalsari,Klinik Pratama,swasta,ANUGERAH MULIA ( GKI ),2024
+875,Tegalsari,Klinik Pratama,swasta,PROFIRA,2024
+876,Tegalsari,Klinik Pratama,swasta,ZAP TUNJUNGAN PLAZA,2024
+877,Tegalsari,Klinik Pratama,swasta,ERHA APOTHECARY,2024
+878,Tegalsari,Klinik Pratama,swasta,FRESH FACE SKIN CARE CLINIC,2024
+879,Tegalsari,Klinik Pratama,swasta,MIRACLE TP,2024
+880,Tegalsari,Klinik Pratama,swasta,ORISKIN,2024
+881,Tegalsari,Klinik Pratama,swasta,LIGHT HOUSE,2024
+882,Tegalsari,Klinik Pratama,swasta,GLAFIDYSYA MEDIKA,2024
+883,Tegalsari,Klinik Pratama,swasta,ATHENA,2024
+884,Tegalsari,Klinik Utama,swasta,ESTETIKA dr. AFFANDI,2024
+885,Tegalsari,Klinik Utama,swasta,ESTHER,2024
+886,Tegalsari,Klinik Utama,swasta,HAIRTRANS CLINIC,2024
+887,Tegalsari,Klinik Utama,swasta,ERHA CLINIC SURABAYA,2024
+888,Tegalsari,Klinik Utama,swasta,DRYN,2024
+889,Tegalsari,Klinik Utama,swasta,BIOTEST,2024
+890,Tegalsari,Klinik Utama,swasta,BIOTEST,2024
+891,Tegalsari,Klinik Utama,swasta,MELANIA,2024
+892,Tegalsari,Klinik Utama,swasta,ZAP BLAMBANGAN (KHUSUS WANITA DAN ANAK),2024
+893,Tegalsari,Klinik Utama,swasta,M2C DENTAL,2024
+894,Tenggilis Mejoyo,Apotek,lainnya,KIMIA FARMA 23 KENDANGSARI,2024
+895,Tenggilis Mejoyo,Puskesmas Induk,Pemerintah Kota,Puskesmas Tenggilis,2024
+896,Tenggilis Mejoyo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Kutisari,2024
+897,Tenggilis Mejoyo,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Kendangsari Surabaya,2024
+898,Tenggilis Mejoyo,Apotek,swasta,SABA,2024
+899,Tenggilis Mejoyo,Apotek,swasta,MAHKOTA FARMA,2024
+900,Tenggilis Mejoyo,Apotek,swasta,KHARISMA,2024
+901,Tenggilis Mejoyo,Apotek,swasta,BIOS FARMA,2024
+902,Tenggilis Mejoyo,Apotek,swasta,ADAM FARMA,2024
+903,Tenggilis Mejoyo,Apotek,swasta,AR,2024
+904,Tenggilis Mejoyo,Apotek,swasta,VIVA GENERIK TENGGILIS KAUMAN,2024
+905,Tenggilis Mejoyo,Apotek,swasta,VIVA GENERIK KENDANGSARI,2024
+906,Tenggilis Mejoyo,Apotek,swasta,DEALOVA,2024
+907,Tenggilis Mejoyo,Apotek,swasta,BYUNGBYOUNG,2024
+908,Tenggilis Mejoyo,Apotek,swasta,Shane Farma,2024
+909,Tenggilis Mejoyo,Toko Obat,swasta,INDOGROSIR,2024
+910,Tenggilis Mejoyo,Toko Obat,swasta,SUPER INDO JEMURSARI,2024
+911,Tenggilis Mejoyo,Klinik Pratama,swasta,MEDICO SIER,2024
+912,Tenggilis Mejoyo,Klinik Pratama,swasta,NURANI JAYA 37,2024
+913,Tenggilis Mejoyo,Klinik Pratama,swasta,SUMBER CAHAYA ANUGERAH,2024
+914,Tenggilis Mejoyo,Klinik Pratama,swasta,LARISSA AESTHETIC TENGGILIS,2024
+915,Tenggilis Mejoyo,Klinik Utama,swasta,SENTRA MEDIKA SURABAYA,2024
+916,Tenggilis Mejoyo,Klinik Utama,swasta,METRODENT,2024
+917,Tenggilis Mejoyo,Klinik Utama,swasta,WESTERINDO,2024
+918,Wiyung,Apotek,lainnya,KIMIA FARMA LONTAR,2024
+919,Wiyung,Apotek,lainnya,KIMIA FARMA WIYUNG 2,2024
+920,Wiyung,Puskesmas Induk,Pemerintah Kota,Puskesmas Balas Klumprik,2024
+921,Wiyung,Puskesmas Induk,Pemerintah Kota,Puskesmas Wiyung,2024
+922,Wiyung,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Babatan,2024
+923,Wiyung,Rumah Sakit Umum,Swasta,RS Wijaya Surabaya,2024
+924,Wiyung,Rumah Sakit Umum,Swasta,RS National Hospital,2024
+925,Wiyung,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Graha Medika,2024
+926,Wiyung,Rumah Sakit Umum,Swasta,RS Wiyung Sejahtera,2024
+927,Wiyung,Apotek,swasta,SINAR HUSADA,2024
+928,Wiyung,Apotek,swasta,RIA FARMA,2024
+929,Wiyung,Apotek,swasta,RIFKY,2024
+930,Wiyung,Apotek,swasta,PASYHA,2024
+931,Wiyung,Apotek,swasta,PUSPASARI,2024
+932,Wiyung,Apotek,swasta,MEGAH,2024
+933,Wiyung,Apotek,swasta,K - 24 WIYUNG,2024
+934,Wiyung,Apotek,swasta,TATA,2024
+935,Wiyung,Apotek,swasta,X WATERPLACE,2024
+936,Wiyung,Apotek,swasta,K - 24 MENGANTI,2024
+937,Wiyung,Apotek,swasta,WIFA FARMA,2024
+938,Wiyung,Apotek,swasta,DENYRA,2024
+939,Wiyung,Apotek,swasta,Daffa Farma,2024
+940,Wiyung,Apotek,swasta,Tia Farma,2024
+941,Wiyung,Toko Obat,swasta,SUPER INDO ROYAL SQUARE,2024
+942,Wiyung,Klinik Utama,swasta,SKIN A,2024
+943,Wiyung,Klinik Pratama,swasta,MITRA SEHAT,2024
+944,Wiyung,Klinik Pratama,swasta,ROYAL DIAMOND,2024
+945,Wiyung,Klinik Pratama,swasta,ALAMANDA,2024
+946,Wiyung,Klinik Pratama,swasta,MAXINE AESTHETIC CLINIC,2024
+947,Wiyung,Klinik Pratama,swasta,DINA,2024
+948,Wiyung,Klinik Utama,swasta,SKIN A,2024
+949,Wonocolo,Apotek,lainnya,KIMIA FARMA 166,2024
+950,Wonocolo,Apotek,lainnya,Kimia Farma 836 Estheva,2024
+951,Wonocolo,Klinik Pratama,lainnya,POLTEKBANG SURABAYA,2024
+952,Wonocolo,Puskesmas Induk,Pemerintah Kota,Puskesmas Jemursari,2024
+953,Wonocolo,Puskesmas Induk,Pemerintah Kota,Puskesmas Sidosermo,2024
+954,Wonocolo,Puskesmas Induk,Pemerintah Kota,Puskesmas Siwalankerto,2024
+955,Wonocolo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Bendul Merisi,2024
+956,Wonocolo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Margorejo,2024
+957,Wonocolo,Rumah Sakit Umum,Swasta,RS Umum Islam Surabaya Jemursari,2024
+958,Wonocolo,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Perdana Medica,2024
+959,Wonocolo,Apotek,swasta,KUTISARI,2024
+960,Wonocolo,Apotek,swasta,RAHARDJO,2024
+961,Wonocolo,Apotek,swasta,FARMARIN,2024
+962,Wonocolo,Apotek,swasta,NUR SEHAT,2024
+963,Wonocolo,Apotek,swasta,SIWALAN,2024
+964,Wonocolo,Apotek,swasta,MALEO,2024
+965,Wonocolo,Apotek,swasta,APOLLO,2024
+966,Wonocolo,Apotek,swasta,TERANG JAYA,2024
+967,Wonocolo,Apotek,swasta,K - 24 JEMURSARI,2024
+968,Wonocolo,Apotek,swasta,JES 8,2024
+969,Wonocolo,Apotek,swasta,VIVA APOTEK SIWALANKERTO,2024
+970,Wonocolo,Apotek,swasta,SAMINA,2024
+971,Wonocolo,Apotek,swasta,SUGIH WARAS MAKMUR,2024
+972,Wonocolo,Apotek,swasta,MORO SEHAT,2024
+973,Wonocolo,Apotek,swasta,MARGOREJO INDAH,2024
+974,WONOCOLO,Apotek,swasta,VIVA APOTEK SIDOSERMO AIRDAS,2024
+975,WONOCOLO,Apotek,swasta,VIVA APOTEK SIWALANKERTO THE SQUARE,2024
+976,Wonocolo,Klinik Pratama,swasta,CITA SEHAT,2024
+977,Wonocolo,Klinik Pratama,swasta,DINAYLA UTAMA 81,2024
+978,Wonocolo,Klinik Pratama,swasta,JEMURSARI EMPAT,2024
+979,Wonocolo,Klinik Pratama,swasta,UK PETRA,2024
+980,Wonocolo,Klinik Pratama,swasta,BRI MEDIKA SURABAYA,2024
+981,Wonocolo,Klinik Pratama,swasta,LORIS,2024
+982,Wonocolo,Klinik Utama,swasta,EL SHAFI,2024
+983,Wonocolo,Klinik Utama,swasta,DIALISA,2024
+984,Wonocolo,Klinik Utama,swasta,SURABAYA EYE CLINIC,2024
+985,Wonocolo,Klinik Utama,swasta,TIRTA MEDICAL CENTRE,2024
+986,Wonocolo,Klinik Utama,swasta,PRODIA (JEMURSARI),2024
+987,Wonocolo,Klinik Utama,swasta,ERHA CLINIC CABANG JEMURSARI,2024
+988,Wonokromo,Klinik Pratama,lainnya,JALA HUSADA,2024
+989,Wonokromo,Puskesmas Induk,Pemerintah Kota,Puskesmas Jagir,2024
+990,Wonokromo,Puskesmas Induk,Pemerintah Kota,Puskesmas Ngagel Rejo,2024
+991,Wonokromo,Puskesmas Induk,Pemerintah Kota,Puskesmas Wonokromo,2024
+992,Wonokromo,Puskesmas Pembantu (Pustu),Pemerintah Kota,Pustu Sawunggaling,2024
+993,Wonokromo,Rumah Sakit Umum,Swasta,RS Umum Katholik Surabaya,2024
+994,Wonokromo,Rumah Sakit Umum,Swasta,RS William Booth Surabaya,2024
+995,Wonokromo,Rumah Sakit Umum,Swasta,RS Islam Surabaya,2024
+996,Wonokromo,Rumah Sakit Khusus,Swasta,RS Ibu dan Anak Lombok Dua Dua,2024
+997,Wonokromo,Rumah Sakit Khusus,Swasta,RS Gigi dan Mulut Nala Husada,2024
+998,Wonokromo,Apotek,swasta,OKEY FARMA,2024
+999,Wonokromo,Apotek,swasta,SATYA FARMA,2024
+1000,Wonokromo,Apotek,swasta,VALENTINE,2024
+1001,Wonokromo,Apotek,swasta,DUTA FARMA II,2024
+1002,Wonokromo,Apotek,swasta,DIPONEGORO,2024
+1003,Wonokromo,Apotek,swasta,TIARA 2,2024
+1004,Wonokromo,Apotek,swasta,SAHABAT,2024
+1005,Wonokromo,Apotek,swasta,ALDA,2024
+1006,Wonokromo,Apotek,swasta,VIZ FARMA,2024
+1007,Wonokromo,Apotek,swasta,RESTU SEHAT,2024
+1008,Wonokromo,Apotek,swasta,TOTAL LIFE CLINIC,2024
+1009,Wonokromo,Apotek,swasta,LOMBOK 25,2024
+1010,Wonokromo,Apotek,swasta,BOSTON HEALTH & BEAUTY ROYAL PLAZA,2024
+1011,Wonokromo,Apotek,swasta,VIVA APOTEK JETIS KULON,2024
+1012,Wonokromo,Apotek,swasta,GUARDIAN TRANSMART NGAGEL,2024
+1013,Wonokromo,Apotek,swasta,K-24 BENDUL MERISI,2024
+1014,Wonokromo,Toko Obat,swasta,Hypermart Royal,2024
+1015,Wonokromo,Toko Obat,swasta,PRIMO,2024
+1016,Wonokromo,Toko Obat,swasta,toko Obat PT. Trans Retail Indonesia Cabang Transmart ngagel,2024
+1017,Wonokromo,Klinik Pratama,swasta,Yakes Telkom,2024
+1018,Wonokromo,Klinik Pratama,swasta,GIGI BHAKTI KASIH,2024
+1019,Wonokromo,Klinik Pratama,swasta,Anugerah Karya Medika 103,2024
+1020,Wonokromo,Klinik Pratama,swasta,PERTAMINA JAGIR,2024
+1021,Wonokromo,Klinik Pratama,swasta,MEDIKA YANI II,2024
+1022,Wonokromo,Klinik Pratama,swasta,KIMIA FARMA SEBELAS MEDIKA,2024
+1023,Wonokromo,Klinik Pratama,swasta,HAYYU SYAR'I,2024
+1024,Wonokromo,Klinik Pratama,swasta,NOVATIC,2024
+1025,Wonokromo,Klinik Pratama,swasta,INDRAGIRI,2024
+1026,Wonokromo,Klinik Pratama,swasta,DNY SKIN CARE (KUTAI),2024
+1027,Wonokromo,Klinik Pratama,swasta,DNY SKIN CARE (KUTISARI),2024
+1028,Wonokromo,Klinik Utama,swasta,JOYOBOYO,2024
+1029,Wonokromo,Klinik Utama,swasta,BAWEAN ORTHOPAEDIC AND REHABILITATION MEDICINE CENTER SURABAYA,2024
+1030,Wonokromo,Klinik Utama,swasta,ELIZABETH MEDICAL CENTRE,2024
+1031,Wonokromo,Klinik Utama,swasta,PKBI JAWA TIMUR,2024
+1032,Wonokromo,Klinik Utama,swasta,TOTAL LIFE CLINIC,2024
+1033,Wonokromo,Klinik Utama,swasta,MEDIKA UTAMA,2024
+1034,Wonokromo,Klinik Utama,swasta,THE NEW BRAIN CLINIC,2024
+1035,Wonokromo,Klinik Utama,swasta,PRODIA HEALTH CARE,2024
+1036,Wonokromo,Klinik Utama,swasta,SANODOC,2024
+1037,Wonokromo,Klinik Utama,swasta,ILHAN EYE CENTER,2024
+1038,Wonokromo,Klinik Utama,swasta,INDAH DENTAL CARE,2024
+1039,Wonokromo,Klinik Utama,swasta,JEC-JAVA@SURABAYA,2024
+1040,Wonokromo,Klinik Utama,swasta,CAHAYA DIAGNOSTIC CENTRE,2024
+1041,Wonokromo,Klinik Utama,swasta,J GLOW,2024
+1042,Wonokromo,Klinik Utama,swasta,BENINGS,2024
+1043,Wonokromo,Rumah Sakit Umum,TNI/POLRI,RS Soemitro Lanud Surabaya,2024
+1044,Wonokromo,Rumah Sakit Umum,TNI/POLRI,RS dr. Ramelan,2024
+1045,Wonokromo,Rumah Sakit Umum,TNI/POLRI,RS Umum Tk. III Brawijaya,2024
+1046,Wonokromo,Klinik Pratama,TNI/POLRI,KESATRIAN,2024
+1047,,Apotek,swasta,Berlin 5,2024
+1048,,Klinik Utama,swasta,KU.Dharma Husada Eye Clinic,2024
+1049,,Klinik Utama,swasta,KU.Mata Royal,2024
+1050,,Klinik Utama,swasta,KU.Idental Villa Bukit Mas,2024
+1051,,Klinik Utama,swasta,KU.Prospek (Simokerto),2024
+1052,,Klinik Utama,swasta,KU.Prodia,2024
+1053,,Klinik Utama,swasta,KU.Pramita Ngagel,2024
+1054,,Klinik Pratama,swasta,KP.Ella Skin Care,2024
+1055,,Klinik Pratama,swasta,KP.Lavender,2024
+1056,,Klinik Pratama,swasta,KP.BG Skin,2024
+1057,,Klinik Pratama,swasta,KP.Maharva,2024
+1058,,Klinik Pratama,swasta,KP.Biotech,2024
+1059,,Klinik Pratama,swasta,KP.Maharva,2024
+1060,,Klinik Pratama,swasta,KP.Beaudent,2024
+1061,,Klinik Pratama,swasta,KP.Hayyu Syari Ngagel,2024
+1062,,Klinik Pratama,swasta,KP.Kebangkitan,2024
+1063,,Klinik Pratama,swasta,NAYAKA HUSADA 05,2024
+1064,,Klinik Pratama,swasta,DERMASENSE,2024
+1065,,Klinik Pratama,swasta,ANNABELLE'S SKIN CARE,2024
+1066,,Klinik Pratama,swasta,GLOSKIN AESTHETIC CLINIC,2024
+1067,,Klinik Pratama,swasta,NAAVAGREEN NATURAL SKINCARE,2024
+1068,,Klinik Pratama,swasta,GLOBAL SEJAHTERA ABADA,2024
+1069,,Klinik Pratama,swasta,LONDON BEAUTY CENTRE,2024
+1070,,Klinik Pratama,swasta,PACIFIC CLINIC,2024
+1071,,Klinik Pratama,swasta,KENCANA MEDIKA,2024
+1072,,Klinik Pratama,swasta,B CLINIC,2024
+1073,,Klinik Pratama,swasta,ESC ESL,2024
+1074,,Klinik Utama,swasta,MIRACLE,2024
+1075,,Klinik Utama,swasta,IMPROVE,2024
+1076,,Klinik Utama,swasta,PRAMITA,2024
+1077,,Klinik Utama,swasta,GIGI SEHAT EAST,2024
+1078,,Klinik Utama,swasta,PHSC,2024
+1079,,Klinik Utama,swasta,PROFIRA,2024
+1080,,Klinik Utama,swasta,CIPUTRA SMG LASIK,2024
+1081,,Klinik Utama,swasta,DR. SJAMSU,2024
+1082,,Klinik Utama,swasta,PRAMITA,2024
+1083,,Klinik Utama,swasta,DENTALAND,2024
+1084,,Klinik Pratama,TNI/POLRI,ADHYAKSA KEJAKSAAN TINGGI JAWA TIMUR,2024
+1085,,Klinik Pratama,TNI/POLRI,POLAIRUD,2024
+1086,,Klinik Pratama,TNI/POLRI,SATLINLAMIL 2,2024

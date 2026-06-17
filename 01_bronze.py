@@ -54,22 +54,26 @@ if __name__ == "__main__":
     
     # List available files in raw_data and process them automatically
     if os.path.exists(raw_data_path):
-        files = os.listdir(raw_data_path)
-        
-        # Filter files
-        data_files = [f for f in files if f.endswith(('.csv', '.json', '.parquet'))]
-        
+        data_files = []
+        for root, _, files in os.walk(raw_data_path):
+            for f in files:
+                if f.endswith(('.csv', '.json', '.parquet')):
+                    rel_path = os.path.relpath(os.path.join(root, f), raw_data_path)
+                    data_files.append(rel_path)
+
         if not data_files:
             print("No data files found in raw_data/. Please put raw files there.")
         else:
             print(f"Files found in raw_data: {data_files}")
-            for f in data_files:
-                if f.endswith('.csv'):
-                    process_to_bronze(f, 'csv')
-                elif f.endswith('.json'):
-                    process_to_bronze(f, 'json')
-                elif f.endswith('.parquet'):
-                    process_to_bronze(f, 'parquet')
+            for rel in data_files:
+                file_path = os.path.join(raw_data_path, rel)
+                ext = rel.lower().split('.')[-1]
+                if ext == 'csv':
+                    process_to_bronze(rel, 'csv')
+                elif ext == 'json':
+                    process_to_bronze(rel, 'json')
+                elif ext == 'parquet':
+                    process_to_bronze(rel, 'parquet')
     else:
         print(f"Directory {raw_data_path} does not exist.")
 
