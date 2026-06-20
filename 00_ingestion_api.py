@@ -1,5 +1,6 @@
 import os
 import re
+import json
 import argparse
 from typing import Any, Dict, List, Optional
 
@@ -21,6 +22,11 @@ HEALTH_DATASET_URLS = [
     'https://ckan.surabaya.go.id/datastore/dump/f63fdf7b-1aad-4629-b54c-f9503cd731a1?bom=True',
     'https://ckan.surabaya.go.id/datastore/dump/83c0268e-e522-45e7-b9b5-9bbcbf84e0a5?bom=True',
 ]
+
+SECURITY_DATASET_URLS = [
+    'https://webapi.bps.go.id/v1/api/view/domain/3500/model/statictable/lang/ind/id/3021/key/2383423d8b5742ff135844ab2ce830ac',
+]
+SECURITY_DEFAULT_FILENAME = 'bps_keamanan.json'
 
 
 def ensure_dir(p: str) -> None:
@@ -53,6 +59,93 @@ def download_default_health_sources() -> List[str]:
     return downloaded_files
 
 
+def get_local_security_download_path(url: str) -> str:
+    basename = os.path.basename(url.split('?', 1)[0])
+    if '.' not in basename:
+        basename = SECURITY_DEFAULT_FILENAME
+    return os.path.join(SECURITY_DIR, basename)
+
+
+def extract_data_url_from_json(path: str) -> Optional[str]:
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            payload = json.load(f)
+    except Exception:
+        return None
+
+    if isinstance(payload, dict):
+        # Look for common fields containing actual dataset URLs.
+        for key in ('excel', 'csv', 'download', 'url', 'file', 'path'):
+            value = payload.get(key)
+            if isinstance(value, str) and value.startswith('http'):
+                return value
+
+        # Some BPS wrapper responses may use nested metadata.
+        for value in payload.values():
+            if isinstance(value, str) and value.startswith('http'):
+                return value
+            if isinstance(value, dict):
+                for nested_key in ('excel', 'csv', 'download', 'url', 'file', 'path'):
+                    nested = value.get(nested_key)
+                    if isinstance(nested, str) and nested.startswith('http'):
+                        return nested
+    return None
+
+
+def resolve_security_metadata_path(json_path: str) -> str:
+    if not json_path.lower().endswith('.json'):
+        return json_path
+
+    actual_data_url = extract_data_url_from_json(json_path)
+    if not actual_data_url:
+        return json_path
+
+    resolved_ext = re.search(r'\.(csv|xlsx|xls|json|parquet)(?:\?|$)', actual_data_url, flags=re.IGNORECASE)
+    if resolved_ext:
+        target_name = f'bps_keamanan.{resolved_ext.group(1).lower()}'
+    else:
+        target_name = 'bps_keamanan_downloaded'
+
+    resolved_path = os.path.join(SECURITY_DIR, target_name)
+    if os.path.exists(resolved_path):
+        return resolved_path
+
+    print(f'[ingest] found actual data URL in JSON metadata: {actual_data_url}')
+    try:
+        downloaded_path = download_to_path(actual_data_url, resolved_path)
+        if downloaded_path == json_path:
+            fallback_path = os.path.join(SECURITY_DIR, 'bps_keamanan_downloaded')
+            downloaded_path = download_to_path(actual_data_url, fallback_path)
+        return downloaded_path
+    except Exception as exc:
+        print(f'[warn] gagal mengunduh data file dari metadata: {exc}')
+        return json_path
+
+
+def download_default_security_sources() -> List[str]:
+    ensure_dir(SECURITY_DIR)
+    downloaded_files: List[str] = []
+    for url in SECURITY_DATASET_URLS:
+        out_path = get_local_security_download_path(url)
+        if os.path.exists(out_path):
+            print(f'[ingest] security source exists, skip download: {out_path}')
+            out_path = resolve_security_metadata_path(out_path)
+            downloaded_files.append(out_path)
+            continue
+
+        print(f'[ingest] downloading security source: {url}')
+        try:
+            saved_path = download_to_path(url, out_path)
+        except Exception as exc:
+            print(f'[warn] gagal mengunduh {url}: {exc}')
+            continue
+
+        out_path = resolve_security_metadata_path(saved_path)
+        print(f'[ingest] saved security source: {out_path}')
+        downloaded_files.append(out_path)
+    return downloaded_files
+
+
 def standardize_health_sources(input_paths: List[str], out_static_csv: str) -> str:
     if not input_paths:
         raise ValueError('Tidak ada file kesehatan yang tersedia untuk distandarisasi.')
@@ -70,15 +163,49 @@ def standardize_health_sources(input_paths: List[str], out_static_csv: str) -> s
     return out_static_csv
 
 
-def download_to_path(url: str, out_path: str) -> None:
+def determine_file_extension(url: str, content_type: str) -> str:
+    url_ext = re.search(r'\.(csv|xlsx|xls|json|parquet)(?:\?|$)', url, flags=re.IGNORECASE)
+    if url_ext:
+        return url_ext.group(1).lower()
+
+    content_type = content_type.lower()
+    if 'application/json' in content_type or 'text/json' in content_type or 'application/vnd.api+json' in content_type:
+        return 'json'
+    if 'text/csv' in content_type or 'application/csv' in content_type:
+        return 'csv'
+    if 'parquet' in content_type:
+        return 'parquet'
+    if 'excel' in content_type or 'spreadsheetml' in content_type:
+        return 'xlsx'
+    return 'bin'
+
+
+def download_to_path(url: str, out_path: str) -> str:
     """Download file dari direct URL ke path lokal."""
     ensure_dir(os.path.dirname(out_path))
-    with requests.get(url, stream=True, timeout=300) as r:
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'Accept': 'application/json, text/plain, */*',
+    }
+    with requests.get(url, headers=headers, stream=True, timeout=300) as r:
         r.raise_for_status()
+        content_type = r.headers.get('Content-Type', '')
+        if 'text/html' in content_type.lower():
+            body = r.content[:4096].decode('utf-8', errors='replace')
+            if 'LTM WAF Block' in body or 'Akses ini ditolak' in body:
+                raise RuntimeError(
+                    'Request blocked by BPS WAF: server returned HTML block page instead of JSON. '
+                    'Pastikan API key dan akses endpoint valid.'
+                )
+        ext = determine_file_extension(url, content_type)
+        base, _ = os.path.splitext(out_path)
+        if ext != 'bin':
+            out_path = f"{base}.{ext}"
         with open(out_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=1024 * 1024):
                 if chunk:
                     f.write(chunk)
+    return out_path
 
 
 def load_path_to_standard_csv(input_source: str, out_static_csv: str, dataset_type: str = 'health') -> str:
@@ -120,6 +247,11 @@ def read_table_by_extension(path: str) -> pd.DataFrame:
         return pd.read_excel(path, dtype=str)
     if low.endswith('.parquet'):
         return pd.read_parquet(path)
+    if low.endswith('.bin'):
+        try:
+            return pd.read_json(path)
+        except ValueError:
+            return pd.read_csv(path, header=0, dtype=str)
     return pd.read_csv(path, header=0, dtype=str)
 
 
@@ -132,6 +264,14 @@ def infer_year_from_source(source_path: Optional[str]) -> int:
     return 2024
 
 
+def resolve_local_security_source(input_source: str) -> str:
+    if not os.path.exists(input_source):
+        return input_source
+    if input_source.lower().endswith('.json'):
+        return resolve_security_metadata_path(input_source)
+    return input_source
+
+
 def load_source_to_df(input_source: str) -> tuple[pd.DataFrame, str]:
     if input_source.lower().startswith(('http://', 'https://')):
         tmp_dir = os.path.join(RAW_DIR, '_tmp_download')
@@ -141,11 +281,14 @@ def load_source_to_df(input_source: str) -> tuple[pd.DataFrame, str]:
         if m:
             ext = m.group(1).lower()
         tmp_path = os.path.join(tmp_dir, f'direct.{ext}')
-        download_to_path(input_source, tmp_path)
+        tmp_path = download_to_path(input_source, tmp_path)
+        if tmp_path.lower().endswith('.json'):
+            tmp_path = resolve_security_metadata_path(tmp_path)
         return read_table_by_extension(tmp_path), tmp_path
     if not os.path.exists(input_source):
         raise FileNotFoundError(f"Input source tidak ditemukan: {input_source}")
-    return read_table_by_extension(input_source), input_source
+    resolved_path = resolve_local_security_source(input_source)
+    return read_table_by_extension(resolved_path), resolved_path
 
 
 DISEASE_COLUMNS = [
@@ -259,8 +402,22 @@ def clean_numeric_string(value: Any) -> Optional[float]:
         return None
 
 
+def read_security_raw_table(path: str) -> pd.DataFrame:
+    low = path.lower()
+    if low.endswith('.xlsx') or low.endswith('.xls'):
+        return pd.read_excel(path, header=None, dtype=str)
+    if low.endswith('.csv'):
+        return pd.read_csv(path, header=None, dtype=str, skip_blank_lines=False)
+    if low.endswith('.json'):
+        try:
+            return pd.read_json(path)
+        except ValueError:
+            return pd.DataFrame()
+    return pd.read_csv(path, header=None, dtype=str, skip_blank_lines=False)
+
+
 def parse_security_bps_table(path: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    raw = pd.read_csv(path, header=None, dtype=str, skip_blank_lines=False)
+    raw = read_security_raw_table(path)
     raw = raw.fillna('').astype(str).apply(lambda col: col.str.replace('\r', ' ', regex=False)
                                                           .str.replace('\n', ' ', regex=False)
                                                           .str.strip())
@@ -551,7 +708,32 @@ def main():
         load_path_to_standard_csv(args.health_input_file, health_output, dataset_type='health')
         print('[ingest] Kesehatan disimpan ke raw_data/kesehatan.')
 
-    if args.security_input_file:
+    if args.security_input_file is None:
+        print('[prototype] Tidak ada security_input_file. Men-download default dataset keamanan dari BPS/JSON API.')
+        downloaded_security_paths = download_default_security_sources()
+        if downloaded_security_paths:
+            print(f'[prototype] Menggunakan sumber keamanan mentah ({len(downloaded_security_paths)} file) ke raw_data/keamanan.')
+            security_input_path = downloaded_security_paths[-1]
+            security_output = os.path.join(BASE_DIR, args.security_output_csv.replace('./', ''))
+            security_output_regency = os.path.join(BASE_DIR, args.security_output_csv_regency.replace('./', ''))
+            security_output_municipality = os.path.join(BASE_DIR, args.security_output_csv_municipality.replace('./', ''))
+            try:
+                print(f'[ingest] Standarisasi keamanan: {security_input_path}')
+                print(f'[ingest] Menyimpan gabungan ke: {security_output}')
+                print(f'[ingest] Menyimpan Regency ke: {security_output_regency}')
+                print(f'[ingest] Menyimpan Municipality ke: {security_output_municipality}')
+                save_security_dataset(
+                    security_input_path,
+                    out_regency_csv=security_output_regency,
+                    out_municipality_csv=security_output_municipality,
+                    out_combined_csv=security_output,
+                )
+                print('[ingest] Keamanan disimpan ke raw_data/keamanan.')
+            except Exception as exc:
+                print(f'[warn] Gagal memproses file keamanan: {exc}')
+        else:
+            print('[warn] Tidak ada file keamanan yang berhasil diunduh; proses keamanan akan mengandalkan dataset yang ada.')
+    else:
         security_output = os.path.join(BASE_DIR, args.security_output_csv.replace('./', ''))
         security_output_regency = os.path.join(BASE_DIR, args.security_output_csv_regency.replace('./', ''))
         security_output_municipality = os.path.join(BASE_DIR, args.security_output_csv_municipality.replace('./', ''))
