@@ -16,6 +16,48 @@ bronze_path = "./lakehouse/bronze"
 # Ensure bronze directory exists
 os.makedirs(bronze_path, exist_ok=True)
 
+
+def sanitize_column_name(name: str) -> str:
+    sanitized = name.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
+    sanitized = ''.join(ch if ch.isalnum() or ch == '_' else '_' for ch in sanitized)
+    sanitized = sanitized.strip('_')
+    if sanitized == '':
+        sanitized = 'column'
+    return sanitized
+
+
+def sanitize_dataframe_columns(df):
+    columns = df.columns
+    sanitized_columns = []
+    seen = {}
+    for col in columns:
+        safe = sanitize_column_name(col)
+        count = seen.get(safe, 0)
+        if count:
+            safe = f"{safe}_{count}"
+        seen[safe] = count + 1
+        sanitized_columns.append(safe)
+    return df.toDF(*sanitized_columns)
+
+
+# Function to detect BPS JSON metadata wrappers that should not be loaded into Bronze
+def is_bps_metadata_json(file_path):
+    if not file_path.lower().endswith('.json'):
+        return False
+    try:
+        import json
+        with open(file_path, 'r', encoding='utf-8') as f:
+            payload = json.load(f)
+    except Exception:
+        return False
+
+    if isinstance(payload, dict):
+        data = payload.get('data')
+        if isinstance(data, dict) and 'excel' in data and 'table' in data and 'status' in payload:
+            return True
+    return False
+
+
 # Function to process raw data to bronze layer
 def process_to_bronze(file_name, file_format="csv"):
     raw_file_path = os.path.join(raw_data_path, file_name)
@@ -46,6 +88,7 @@ def process_to_bronze(file_name, file_format="csv"):
 
     # Save to Bronze Layer as Delta format (No data modification)
     print(f"Saving to Bronze Layer: {output_path}...")
+    df = sanitize_dataframe_columns(df)
     df.write.format("delta").mode("overwrite").save(output_path)
     print(f"Successfully saved {table_name} to Bronze layer.\n")
 
@@ -67,6 +110,10 @@ if __name__ == "__main__":
             print(f"Files found in raw_data: {data_files}")
             for rel in data_files:
                 file_path = os.path.join(raw_data_path, rel)
+                if rel.lower().endswith('.json') and is_bps_metadata_json(file_path):
+                    print(f"Skipping BPS metadata JSON wrapper: {file_path}")
+                    continue
+
                 ext = rel.lower().split('.')[-1]
                 if ext == 'csv':
                     process_to_bronze(rel, 'csv')
