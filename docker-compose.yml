@@ -1,0 +1,184 @@
+# ═══════════════════════════════════════════════════════════════════
+# KECAMATRAS — Docker Compose (Unified Infrastructure)
+# ═══════════════════════════════════════════════════════════════════
+# Project  : KECAMATRAS (Kecamatan Metrics & Anomaly Tracking of Surabaya)
+# Team     : Anti Gravity — Institut Teknologi Sepuluh Nopember (ITS)
+#
+# Services :
+#   1. HDFS    — Namenode + Datanode       (Pilar 2: Hadoop Storage)
+#   2. YARN    — ResourceManager + NodeMgr (Pilar 2: Resource Management)
+#   3. Kafka   — Zookeeper + Broker       (Pilar 5: Event Streaming)
+#   4. Spark   — Master + Worker          (Pilar 3: Distributed Processing)
+#
+# Cara menjalankan:
+#   docker compose up -d
+#   docker compose ps          # Pastikan 8 service running
+#   docker compose down        # Matikan semua
+# ═══════════════════════════════════════════════════════════════════
+
+services:
+
+  # ─────────────────────────────────────────────────────────────
+  # PILAR 2: HADOOP HDFS (Distributed Storage)
+  # ─────────────────────────────────────────────────────────────
+
+  namenode:
+    image: apache/hadoop:3
+    platform: linux/amd64
+    hostname: namenode
+    container_name: kecamatras-namenode
+    ports:
+      - "9870:9870"    # NameNode Web UI
+      - "8020:8020"    # NameNode RPC (HDFS URI)
+    environment:
+      ENSURE_NAMENODE_DIR: /tmp/hadoop-hadoop/dfs/name
+    env_file:
+      - ./hadoop.env
+    command: ["/bin/bash", "-c", "if [ ! -d /tmp/hadoop-hadoop/dfs/name/current ]; then hdfs namenode -format -force -nonInteractive; fi && hdfs namenode"]
+    volumes:
+      - namenode_data:/tmp/hadoop-hadoop/dfs/name
+    networks:
+      - kecamatras-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9870/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  datanode:
+    image: apache/hadoop:3
+    platform: linux/amd64
+    hostname: datanode
+    container_name: kecamatras-datanode
+    depends_on:
+      namenode:
+        condition: service_started
+    env_file:
+      - ./hadoop.env
+    command: ["hdfs", "datanode"]
+    volumes:
+      - datanode_data:/tmp/hadoop-hadoop/dfs/data
+    networks:
+      - kecamatras-net
+
+  # ─────────────────────────────────────────────────────────────
+  # PILAR 2: HADOOP YARN (Resource Management)
+  # ─────────────────────────────────────────────────────────────
+
+  resourcemanager:
+    image: apache/hadoop:3
+    platform: linux/amd64
+    hostname: resourcemanager
+    container_name: kecamatras-resourcemanager
+    depends_on:
+      datanode:
+        condition: service_started
+    ports:
+      - "8088:8088"    # ResourceManager Web UI
+    env_file:
+      - ./hadoop.env
+    command: ["yarn", "resourcemanager"]
+    networks:
+      - kecamatras-net
+
+  nodemanager:
+    image: apache/hadoop:3
+    platform: linux/amd64
+    hostname: nodemanager
+    container_name: kecamatras-nodemanager
+    depends_on:
+      resourcemanager:
+        condition: service_started
+    ports:
+      - "8042:8042"    # NodeManager Web UI
+    env_file:
+      - ./hadoop.env
+    command: ["yarn", "nodemanager"]
+    networks:
+      - kecamatras-net
+
+  # ─────────────────────────────────────────────────────────────
+  # PILAR 5: APACHE KAFKA (Event Streaming Platform)
+  # ─────────────────────────────────────────────────────────────
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    platform: linux/amd64
+    hostname: zookeeper
+    container_name: kecamatras-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - kecamatras-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    platform: linux/amd64
+    hostname: kafka
+    container_name: kecamatras-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"    # External (host → container)
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # Listener untuk akses dari host (localhost:9092) DAN dari container lain (kafka:29092)
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      # Topik otomatis dibuat saat producer pertama kali menulis
+    networks:
+      - kecamatras-net
+
+  # ─────────────────────────────────────────────────────────────
+  # PILAR 3: APACHE SPARK (Distributed Processing Engine)
+  # ─────────────────────────────────────────────────────────────
+
+  spark-master:
+    image: bde2020/spark-master:3.3.0-hadoop3.3
+    platform: linux/amd64
+    hostname: spark-master
+    container_name: kecamatras-spark-master
+    ports:
+      - "8080:8080"    # Spark Master Web UI
+      - "7077:7077"    # Spark Master RPC
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+    networks:
+      - kecamatras-net
+
+  spark-worker:
+    image: bde2020/spark-worker:3.3.0-hadoop3.3
+    platform: linux/amd64
+    hostname: spark-worker
+    container_name: kecamatras-spark-worker
+    depends_on:
+      - spark-master
+    ports:
+      - "8081:8081"    # Spark Worker Web UI
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+    networks:
+      - kecamatras-net
+
+# ─────────────────────────────────────────────────────────────
+# VOLUMES (Persistent Storage untuk HDFS)
+# ─────────────────────────────────────────────────────────────
+volumes:
+  namenode_data:
+    driver: local
+  datanode_data:
+    driver: local
+
+# ─────────────────────────────────────────────────────────────
+# NETWORK (Semua service saling berkomunikasi)
+# ─────────────────────────────────────────────────────────────
+networks:
+  kecamatras-net:
+    driver: bridge

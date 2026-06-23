@@ -1,774 +1,714 @@
+"""
+=============================================================================
+ 00_ingestion_api.py — KECAMATRAS Kafka Producer (RSS News Ingestion)
+=============================================================================
+ Project  : KECAMATRAS (Kecamatan Metrics & Anomaly Tracking of Surabaya)
+ Team     : Anti Gravity — Institut Teknologi Sepuluh Nopember (ITS)
+ Layer    : Ingestion (Hulu Pipeline — Sebelum Bronze Layer)
+ Role     : Kafka Producer — Menyedot berita dari Google News RSS Feed
+            lalu mengirimkan payload JSON ke topik Kafka `kecamatras-stream`.
+ ───────────────────────────────────────────────────────────────────────────
+ Deskripsi:
+   Script ini adalah komponen PERTAMA dari pipeline KECAMATRAS yang
+   bertugas mengekstrak data berita dinamis (Kriminalitas & Kesehatan)
+   dari RSS Feed Google News, membentuknya menjadi payload JSON
+   terstruktur, dan mengirimkannya ke Apache Kafka sebagai message
+   broker. Data ini selanjutnya akan dikonsumsi oleh Bronze Layer
+   (01_bronze.py) melalui Spark Structured Streaming.
+
+   Alur Pipeline:
+     [Google News RSS] → [00_ingestion_api.py (Producer)]
+                          → [Kafka Topic: kecamatras-stream]
+                            → [01_bronze.py (Consumer/Bronze)]
+
+ ───────────────────────────────────────────────────────────────────────────
+ Mapping Kata Kunci RSS → Kategori Penyakit Dataset Puskesmas:
+   Sumber: raw_data/kesehatan/new-penyakit_puskesmas_2022_2026-1.csv
+   ┌────────────────────────────────┬─────────────────────────────────────┐
+   │ Jenis Penyakit (Dataset CSV)   │ Kata Kunci RSS Google News          │
+   ├────────────────────────────────┼─────────────────────────────────────┤
+   │ Penyakit Infeksi dan parasit   │ wabah, klb, infeksi, dbd,          │
+   │                                │ "demam berdarah", tbc, malaria     │
+   │ Penyakit sistem pernafasan     │ ispa, pneumonia, "sesak napas"     │
+   │ Penyakit sistem pencernaan     │ diare, muntaber, tipes, tifus      │
+   │ Keracunan, cedera, dll.        │ keracunan                          │
+   └────────────────────────────────┴─────────────────────────────────────┘
+
+ ───────────────────────────────────────────────────────────────────────────
+ Cara Menjalankan:
+   # Aktivasi virtual environment terlebih dahulu
+   source .venv/bin/activate
+
+   # Mode default: loop terus-menerus (Ctrl+C untuk berhenti)
+   python3 00_ingestion_api.py
+
+   # Mode terbatas: hanya 3 siklus
+   python3 00_ingestion_api.py --max-cycles 3
+
+   # Ubah interval antar siklus (default 60 detik)
+   python3 00_ingestion_api.py --cycle-interval 120
+
+   # Ubah delay antar feed (default 7 detik)
+   python3 00_ingestion_api.py --feed-delay 10
+
+   # Dry-run (tanpa kirim ke Kafka, cetak ke terminal saja)
+   python3 00_ingestion_api.py --dry-run
+ =============================================================================
+"""
+
 import os
-import re
+import sys
 import json
+import time
+import hashlib
+import logging
 import argparse
-from typing import Any, Dict, List, Optional
+from datetime import datetime
+from typing import Dict, List, Optional, Any
 
-import pandas as pd
-import requests
+import feedparser
+from bs4 import BeautifulSoup
 
+# ═══════════════════════════════════════════════════════════════════════════
+# KONFIGURASI GLOBAL
+# ═══════════════════════════════════════════════════════════════════════════
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-RAW_DIR = os.path.join(BASE_DIR, 'raw_data')
-HEALTH_DIR = os.path.join(RAW_DIR, 'kesehatan')
-SECURITY_DIR = os.path.join(RAW_DIR, 'keamanan')
-STATIC_DIR = os.path.join(RAW_DIR, 'static')
+# ── Kafka ──
+KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
+KAFKA_TOPIC             = "kecamatras-stream"
 
-HEALTH_DATASET_URLS = [
-    'https://ckan.surabaya.go.id/datastore/dump/ae25ef5f-fb2f-48ed-8a5b-679066ef7717?bom=True',
-    'https://ckan.surabaya.go.id/datastore/dump/946ec49e-f5fb-44ad-bfee-8cc805689708?bom=True',
-    'https://ckan.surabaya.go.id/datastore/dump/8425e5aa-24ed-4528-a009-472688be59a6?bom=True',
-    'https://ckan.surabaya.go.id/datastore/dump/37bfa690-3e34-4184-ada6-f3ca3f7b837d?bom=True',
-    'https://ckan.surabaya.go.id/datastore/dump/f63fdf7b-1aad-4629-b54c-f9503cd731a1?bom=True',
-    'https://ckan.surabaya.go.id/datastore/dump/83c0268e-e522-45e7-b9b5-9bbcbf84e0a5?bom=True',
-]
+# ── RSS Feed URLs ──
+# Query dirancang selebar mungkin agar mendeteksi berita kriminalitas fisik
+# dan wabah penyakit di tingkat kecamatan Surabaya.
+RSS_FEEDS: Dict[str, str] = {
+    "Kriminalitas": (
+        "https://news.google.com/rss/search?"
+        "q=(kriminalitas+OR+curat+OR+curas+OR+curanmor+OR+begal"
+        "+OR+gangster+OR+perampokan+OR+penganiayaan+OR+pembunuhan"
+        "+OR+narkoba)+kecamatan+surabaya"
+        "&hl=id&gl=ID&ceid=ID:id"
+    ),
+    "Kesehatan": (
+        "https://news.google.com/rss/search?"
+        "q=(wabah+OR+klb+OR+infeksi+OR+dbd"
+        '+OR+"demam+berdarah"+OR+diare+OR+muntaber'
+        "+OR+tipes+OR+ispa+OR+pneumonia+OR+tbc"
+        "+OR+keracunan)+kecamatan+surabaya"
+        "&hl=id&gl=ID&ceid=ID:id"
+    ),
+}
 
-SECURITY_DATASET_URLS = [
-    'https://webapi.bps.go.id/v1/api/view/domain/3500/model/statictable/lang/ind/id/3021/key/2383423d8b5742ff135844ab2ce830ac',
-]
-SECURITY_DEFAULT_FILENAME = 'bps_keamanan.json'
+# ── Timing ──
+DEFAULT_CYCLE_INTERVAL = 60   # Detik antar siklus penuh (2 feed)
+DEFAULT_FEED_DELAY     = 7    # Detik antar penarikan 1 feed (anti rate-limit)
 
-
-def ensure_dir(p: str) -> None:
-    os.makedirs(p, exist_ok=True)
-
-
-def get_local_health_download_path(url: str) -> str:
-    basename = os.path.basename(url.split('?', 1)[0])
-    if '.' not in basename:
-        basename = f"{basename}.csv"
-    return os.path.join(HEALTH_DIR, basename)
-
-
-def download_default_health_sources() -> List[str]:
-    ensure_dir(HEALTH_DIR)
-    downloaded_files: List[str] = []
-    for url in HEALTH_DATASET_URLS:
-        out_path = get_local_health_download_path(url)
-        if os.path.exists(out_path):
-            print(f'[ingest] health source exists, skip download: {out_path}')
-        else:
-            print(f'[ingest] downloading health source: {url}')
-            try:
-                download_to_path(url, out_path)
-            except Exception as exc:
-                print(f'[warn] gagal mengunduh {url}: {exc}')
-                continue
-            print(f'[ingest] saved health source: {out_path}')
-        downloaded_files.append(out_path)
-    return downloaded_files
+# ── Logging ──
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] %(levelname)-8s %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger("KECAMATRAS.Ingestion")
 
 
-def get_local_security_download_path(url: str) -> str:
-    basename = os.path.basename(url.split('?', 1)[0])
-    if '.' not in basename:
-        basename = SECURITY_DEFAULT_FILENAME
-    return os.path.join(SECURITY_DIR, basename)
+# ═══════════════════════════════════════════════════════════════════════════
+# CLASS: KecamatrasNewsProducer
+# ═══════════════════════════════════════════════════════════════════════════
+class KecamatrasNewsProducer:
+    """
+    Kafka Producer yang menyedot berita dari Google News RSS Feed
+    dan mengirimkannya ke topik Kafka `kecamatras-stream`.
 
-
-def extract_data_url_from_json(path: str) -> Optional[str]:
-    try:
-        with open(path, 'r', encoding='utf-8') as f:
-            payload = json.load(f)
-    except Exception:
-        return None
-
-    if isinstance(payload, dict):
-        # Look for common fields containing actual dataset URLs.
-        for key in ('excel', 'csv', 'download', 'url', 'file', 'path'):
-            value = payload.get(key)
-            if isinstance(value, str) and value.startswith('http'):
-                return value
-
-        # Some BPS wrapper responses may use nested metadata.
-        for value in payload.values():
-            if isinstance(value, str) and value.startswith('http'):
-                return value
-            if isinstance(value, dict):
-                for nested_key in ('excel', 'csv', 'download', 'url', 'file', 'path'):
-                    nested = value.get(nested_key)
-                    if isinstance(nested, str) and nested.startswith('http'):
-                        return nested
-    return None
-
-
-def resolve_security_metadata_path(json_path: str) -> str:
-    if not json_path.lower().endswith('.json'):
-        return json_path
-
-    actual_data_url = extract_data_url_from_json(json_path)
-    if not actual_data_url:
-        return json_path
-
-    resolved_ext = re.search(r'\.(csv|xlsx|xls|json|parquet)(?:\?|$)', actual_data_url, flags=re.IGNORECASE)
-    if resolved_ext:
-        target_name = f'bps_keamanan.{resolved_ext.group(1).lower()}'
-    else:
-        target_name = 'bps_keamanan_downloaded'
-
-    resolved_path = os.path.join(SECURITY_DIR, target_name)
-    if os.path.exists(resolved_path):
-        return resolved_path
-
-    print(f'[ingest] found actual data URL in JSON metadata: {actual_data_url}')
-    try:
-        downloaded_path = download_to_path(actual_data_url, resolved_path)
-        if downloaded_path == json_path:
-            fallback_path = os.path.join(SECURITY_DIR, 'bps_keamanan_downloaded')
-            downloaded_path = download_to_path(actual_data_url, fallback_path)
-        return downloaded_path
-    except Exception as exc:
-        print(f'[warn] gagal mengunduh data file dari metadata: {exc}')
-        return json_path
-
-
-def download_default_security_sources() -> List[str]:
-    ensure_dir(SECURITY_DIR)
-    downloaded_files: List[str] = []
-    for url in SECURITY_DATASET_URLS:
-        out_path = get_local_security_download_path(url)
-        if os.path.exists(out_path):
-            print(f'[ingest] security source exists, skip download: {out_path}')
-            out_path = resolve_security_metadata_path(out_path)
-            downloaded_files.append(out_path)
-            continue
-
-        print(f'[ingest] downloading security source: {url}')
-        try:
-            saved_path = download_to_path(url, out_path)
-        except Exception as exc:
-            print(f'[warn] gagal mengunduh {url}: {exc}')
-            continue
-
-        out_path = resolve_security_metadata_path(saved_path)
-        print(f'[ingest] saved security source: {out_path}')
-        downloaded_files.append(out_path)
-    return downloaded_files
-
-
-def standardize_health_sources(input_paths: List[str], out_static_csv: str) -> str:
-    if not input_paths:
-        raise ValueError('Tidak ada file kesehatan yang tersedia untuk distandarisasi.')
-
-    frames: List[pd.DataFrame] = []
-    for path in input_paths:
-        print(f'[ingest] Standarisasi health source: {path}')
-        df = read_table_by_extension(path)
-        df = standardize_health_facilities(df, source_path=path)
-        frames.append(df)
-
-    combined = pd.concat(frames, ignore_index=True)
-    ensure_dir(os.path.dirname(out_static_csv))
-    combined.to_csv(out_static_csv, index=False)
-    return out_static_csv
-
-
-def determine_file_extension(url: str, content_type: str) -> str:
-    url_ext = re.search(r'\.(csv|xlsx|xls|json|parquet)(?:\?|$)', url, flags=re.IGNORECASE)
-    if url_ext:
-        return url_ext.group(1).lower()
-
-    content_type = content_type.lower()
-    if 'application/json' in content_type or 'text/json' in content_type or 'application/vnd.api+json' in content_type:
-        return 'json'
-    if 'text/csv' in content_type or 'application/csv' in content_type:
-        return 'csv'
-    if 'parquet' in content_type:
-        return 'parquet'
-    if 'excel' in content_type or 'spreadsheetml' in content_type:
-        return 'xlsx'
-    return 'bin'
-
-
-def download_to_path(url: str, out_path: str) -> str:
-    """Download file dari direct URL ke path lokal."""
-    ensure_dir(os.path.dirname(out_path))
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
-        'Accept': 'application/json, text/plain, */*',
+    Payload JSON yang dikirim ke Kafka:
+    {
+        "id_berita": "sha256-hash-dari-link",
+        "judul": "Judul berita asli",
+        "link": "https://news.google.com/rss/articles/...",
+        "tanggal_publikasi": "2025-06-23T12:00:00",
+        "sumber": "detik.com / kompas.com / ...",
+        "kategori": "Kriminalitas" | "Kesehatan",
+        "deskripsi_mentah": "Teks deskripsi bersih (tanpa tag HTML)",
+        "ingested_at": "2025-06-23T12:00:05"
     }
-    with requests.get(url, headers=headers, stream=True, timeout=300) as r:
-        r.raise_for_status()
-        content_type = r.headers.get('Content-Type', '')
-        if 'text/html' in content_type.lower():
-            body = r.content[:4096].decode('utf-8', errors='replace')
-            if 'LTM WAF Block' in body or 'Akses ini ditolak' in body:
-                raise RuntimeError(
-                    'Request blocked by BPS WAF: server returned HTML block page instead of JSON. '
-                    'Pastikan API key dan akses endpoint valid.'
-                )
-        ext = determine_file_extension(url, content_type)
-        base, _ = os.path.splitext(out_path)
-        if ext != 'bin':
-            out_path = f"{base}.{ext}"
-        with open(out_path, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=1024 * 1024):
-                if chunk:
-                    f.write(chunk)
-    return out_path
-
-
-def load_path_to_standard_csv(input_source: str, out_static_csv: str, dataset_type: str = 'health') -> str:
-    """Load file lokal atau URL, standarisasi untuk dataset yang sesuai, dan simpan ke CSV di raw_data."""
-    ensure_dir(os.path.dirname(out_static_csv))
-
-    df, source_path = load_source_to_df(input_source)
-
-    if dataset_type == 'health':
-        df = standardize_health_facilities(df, source_path=source_path)
-    elif dataset_type == 'generic':
-        df = standardize_kecamatan_year(df)
-    else:
-        raise ValueError(f"Unknown dataset_type: {dataset_type}")
-
-    df.to_csv(out_static_csv, index=False)
-    return out_static_csv
-
-
-def safe_col(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
-    cols = {c.lower(): c for c in df.columns}
-    for cand in candidates:
-        if cand.lower() in cols:
-            return cols[cand.lower()]
-    for cand in candidates:
-        for lc, orig in cols.items():
-            if cand.lower() in lc:
-                return orig
-    return None
-
-
-def read_table_by_extension(path: str) -> pd.DataFrame:
-    low = path.lower()
-    if low.endswith('.csv'):
-        return pd.read_csv(path, header=0, dtype=str)
-    if low.endswith('.json'):
-        return pd.read_json(path)
-    if low.endswith('.xlsx') or low.endswith('.xls'):
-        return pd.read_excel(path, dtype=str)
-    if low.endswith('.parquet'):
-        return pd.read_parquet(path)
-    if low.endswith('.bin'):
-        try:
-            return pd.read_json(path)
-        except ValueError:
-            return pd.read_csv(path, header=0, dtype=str)
-    return pd.read_csv(path, header=0, dtype=str)
-
-
-def infer_year_from_source(source_path: Optional[str]) -> int:
-    if source_path is None:
-        return 2024
-    m = re.search(r'(20\d{2}|19\d{2})', os.path.basename(source_path))
-    if m:
-        return int(m.group(1))
-    return 2024
-
-
-def resolve_local_security_source(input_source: str) -> str:
-    if not os.path.exists(input_source):
-        return input_source
-    if input_source.lower().endswith('.json'):
-        return resolve_security_metadata_path(input_source)
-    return input_source
-
-
-def load_source_to_df(input_source: str) -> tuple[pd.DataFrame, str]:
-    if input_source.lower().startswith(('http://', 'https://')):
-        tmp_dir = os.path.join(RAW_DIR, '_tmp_download')
-        ensure_dir(tmp_dir)
-        ext = 'bin'
-        m = re.search(r'\.(csv|xlsx|xls|json|parquet)(\?|$)', input_source, flags=re.IGNORECASE)
-        if m:
-            ext = m.group(1).lower()
-        tmp_path = os.path.join(tmp_dir, f'direct.{ext}')
-        tmp_path = download_to_path(input_source, tmp_path)
-        if tmp_path.lower().endswith('.json'):
-            tmp_path = resolve_security_metadata_path(tmp_path)
-        return read_table_by_extension(tmp_path), tmp_path
-    if not os.path.exists(input_source):
-        raise FileNotFoundError(f"Input source tidak ditemukan: {input_source}")
-    resolved_path = resolve_local_security_source(input_source)
-    return read_table_by_extension(resolved_path), resolved_path
-
-
-DISEASE_COLUMNS = [
-    'Difteri',
-    'Pertusis',
-    'Tetanus Neonatorum',
-    'Hepatitis B',
-    'Suspek Campak',
-]
-
-
-def list_health_source_files() -> List[str]:
-    if not os.path.isdir(HEALTH_DIR):
-        return []
-    sources = []
-    for filename in sorted(os.listdir(HEALTH_DIR)):
-        if filename == 'kesehatan_fasilitas_ckan_standard.csv':
-            continue
-        path = os.path.join(HEALTH_DIR, filename)
-        if not os.path.isfile(path):
-            continue
-        sources.append(path)
-    return sources
-
-
-def find_disease_columns(df: pd.DataFrame) -> List[str]:
-    cols: List[str] = []
-    for disease in DISEASE_COLUMNS:
-        match = safe_col(df, [disease])
-        if match and match not in cols:
-            cols.append(match)
-    return cols
-
-
-def compute_health_index_from_sources(paths: List[str]) -> pd.DataFrame:
-    frames: List[pd.DataFrame] = []
-    for path in paths:
-        try:
-            df = read_table_by_extension(path)
-        except Exception:
-            continue
-
-        kec_col = safe_col(df, ['kecamatan', 'Kecamatan', 'kec', 'district', 'nama_kecamatan'])
-        if kec_col is None:
-            continue
-
-        df['kecamatan'] = df[kec_col].astype(str).str.strip()
-        df['tahun'] = infer_year_from_source(path)
-
-        disease_cols = find_disease_columns(df)
-        if not disease_cols:
-            continue
-
-        for c in disease_cols:
-            df[c] = pd.to_numeric(df[c], errors='coerce').fillna(0.0)
-
-        df['jumlah_penyakit'] = (df[disease_cols] > 0).sum(axis=1)
-        frames.append(df[['kecamatan', 'tahun', 'jumlah_penyakit']])
-
-    if not frames:
-        raise ValueError('Tidak ditemukan sumber data penyakit kesehatan untuk menghitung index kesehatan.')
-
-    health = pd.concat(frames, ignore_index=True)
-    health = health.groupby(['kecamatan', 'tahun'], as_index=False)['jumlah_penyakit'].sum()
-    health['risk_fasilitas_kesehatan'] = 1.0 - minmax_risk(health['jumlah_penyakit'])
-    health['I_kesehatan'] = health['risk_fasilitas_kesehatan']
-    return health[['kecamatan', 'tahun', 'I_kesehatan']].reset_index(drop=True)
-
-
-def standardize_health_facilities(df: pd.DataFrame, source_path: Optional[str] = None) -> pd.DataFrame:
-    id_col = safe_col(df, ['_id', 'id'])
-    kec_col = safe_col(df, ['kecamatan', 'Kecamatan', 'kec', 'district', 'nama_kecamatan'])
-    jenis_col = safe_col(df, ['Jenis Faskes', 'jenis_faskes', 'jenis faskes', 'type', 'facility_type'])
-    penyelenggara_col = safe_col(df, ['Penyelenggara Faskes', 'penyelenggara_faskes', 'penyelenggara faskes', 'provider', 'penyelenggara'])
-    nama_col = safe_col(df, ['Nama Faskes', 'nama_faskes', 'nama faskes', 'name'])
-
-    if kec_col is None:
-        raise ValueError(
-            f"Tidak menemukan kolom kecamatan pada dataset kesehatan. Columns={list(df.columns)}"
-        )
-
-    rename_map = {}
-    if id_col:
-        rename_map[id_col] = '_id'
-    rename_map[kec_col] = 'kecamatan'
-    if jenis_col:
-        rename_map[jenis_col] = 'jenis_faskes'
-    if penyelenggara_col:
-        rename_map[penyelenggara_col] = 'penyelenggara_faskes'
-    if nama_col:
-        rename_map[nama_col] = 'nama_faskes'
-
-    out = df.rename(columns=rename_map).copy()
-    out['kecamatan'] = out['kecamatan'].astype(str).str.strip()
-    out['tahun'] = infer_year_from_source(source_path)
-
-    keep_cols = [c for c in ['_id', 'kecamatan', 'jenis_faskes', 'penyelenggara_faskes', 'nama_faskes', 'tahun'] if c in out.columns]
-    out = out[keep_cols]
-    return out
-
-
-def clean_numeric_string(value: Any) -> Optional[float]:
-    if pd.isna(value):
-        return None
-    text = str(value).strip().replace('"', '').replace("'", '').replace('.', '').replace(',', '')
-    if text == '':
-        return None
-    try:
-        return float(text)
-    except ValueError:
-        return None
-
-
-def read_security_raw_table(path: str) -> pd.DataFrame:
-    low = path.lower()
-    if low.endswith('.xlsx') or low.endswith('.xls'):
-        return pd.read_excel(path, header=None, dtype=str)
-    if low.endswith('.csv'):
-        return pd.read_csv(path, header=None, dtype=str, skip_blank_lines=False)
-    if low.endswith('.json'):
-        try:
-            return pd.read_json(path)
-        except ValueError:
-            return pd.DataFrame()
-    return pd.read_csv(path, header=None, dtype=str, skip_blank_lines=False)
-
-
-def parse_security_bps_table(path: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    raw = read_security_raw_table(path)
-    raw = raw.fillna('').astype(str).apply(lambda col: col.str.replace('\r', ' ', regex=False)
-                                                          .str.replace('\n', ' ', regex=False)
-                                                          .str.strip())
-
-    section = None
-    records = {'regency': [], 'municipality': []}
-    for _, row in raw.iterrows():
-        first_cell = row.iloc[0].strip()
-        if not first_cell:
-            continue
-        lower = first_cell.lower()
-        if 'kabupaten/kota' in lower or ('kabupaten' in lower and 'regency' in lower):
-            section = 'regency'
-            continue
-        if 'kota/municipality' in lower:
-            section = 'municipality'
-            continue
-        if lower.startswith('catatan') or lower.startswith('sumber') or 'jawa timur' in lower:
-            continue
-        if section is None:
-            continue
-        if first_cell in ['Kabupaten/Regency', 'Kota/Municipality', 'Kabupaten/Kota', 'Kabupaten/Kota\nRegency/Municipality']:
-            continue
-
-        area = first_cell
-        values = [row.iloc[i] if i < len(row) else '' for i in range(6)]
-        for year, value in [('2019', values[2]), ('2020', values[3]), ('2021', values[4]), ('2022', values[5])]:
-            amount = clean_numeric_string(value)
-            if amount is not None:
-                records[section].append({
-                    'kecamatan': area,
-                    'tahun': int(year),
-                    'jumlah_kejahatan': amount,
-                })
-
-    regency = pd.DataFrame(records['regency'])
-    municipality = pd.DataFrame(records['municipality'])
-    return regency, municipality
-
-
-def save_security_dataset(input_source: str, out_regency_csv: str, out_municipality_csv: str, out_combined_csv: str) -> str:
-    _, source_path = load_source_to_df(input_source)
-    ensure_dir(os.path.dirname(out_regency_csv))
-    ensure_dir(os.path.dirname(out_municipality_csv))
-    ensure_dir(os.path.dirname(out_combined_csv))
-
-    regency_df, municipality_df = parse_security_bps_table(source_path)
-    regency_df.to_csv(out_regency_csv, index=False)
-    municipality_df.to_csv(out_municipality_csv, index=False)
-
-    combined = pd.concat([regency_df, municipality_df], ignore_index=True)
-    combined.to_csv(out_combined_csv, index=False)
-    return out_combined_csv
-
-
-def standardize_kecamatan_year(df: pd.DataFrame) -> pd.DataFrame:
-    kec_col = safe_col(df, ['kecamatan', 'nama_kecamatan', 'kec', 'district', 'kecamatan_name'])
-    year_col = safe_col(df, ['tahun', 'year', 'tah'])
-
-    if kec_col is None or year_col is None:
-        raise ValueError(
-            f"Cannot infer kecamatan/year columns. kec_col={kec_col}, year_col={year_col}. Columns={list(df.columns)}"
-        )
-
-    out = df.copy()
-    out.rename(columns={kec_col: 'kecamatan', year_col: 'tahun'}, inplace=True)
-    out['kecamatan'] = out['kecamatan'].astype(str).str.strip()
-    out['tahun'] = pd.to_numeric(out['tahun'], errors='coerce').astype('Int64')
-    out = out.dropna(subset=['kecamatan', 'tahun'])
-    return out
-
-
-def pick_numeric_column(df: pd.DataFrame, prefer: List[str]) -> Optional[str]:
-    num_cols = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
-
-    if not num_cols:
-        tmp = df.copy()
-        for c in tmp.columns:
-            if c in ['kecamatan', 'tahun']:
-                continue
-            tmp[c] = pd.to_numeric(tmp[c], errors='coerce')
-        num_cols = [c for c in tmp.columns if pd.api.types.is_numeric_dtype(tmp[c])]
-
-    for cand in prefer:
-        match = safe_col(df, [cand])
-        if match and match in df.columns:
-            return match
-
-    return num_cols[0] if num_cols else None
-
-
-def minmax_risk(series: pd.Series) -> pd.Series:
-    s = pd.to_numeric(series, errors='coerce')
-    mn = s.min(skipna=True)
-    mx = s.max(skipna=True)
-    if pd.isna(mn) or pd.isna(mx) or mx == mn:
-        return pd.Series([0.0] * len(s), index=s.index)
-    return (s - mn) / (mx - mn)
-
-
-def compute_pre_silver_index(
-    health_static_csv: str,
-    security_static_csv: str,
-    out_index_csv: str,
-    a_security: float = 0.5,
-) -> None:
-    health = prepare_health_index_df(health_static_csv)
-    security = pd.read_csv(security_static_csv)
-
-    # ---------- HEALTH normalisasi schema ----------
-    # Target akhir: kesehatan punya kolom ['kecamatan','tahun','I_kesehatan']
-    if 'I_kesehatan' not in health.columns:
-        raise ValueError(
-            f"Health index data tidak valid: kolom I_kesehatan tidak ditemukan. Columns={list(health.columns)}"
-        )
-    # Target akhir: keamanan punya kolom ['kecamatan','tahun','jumlah_kejahatan']
-    # Data BPS Anda: tabel wide, header tahun 2019..2022, dan kolom pertama berisi wilayah (mis. Kabupaten/Kota)
-
-    def norm_cell(x: Any) -> str:
-        return str(x).replace('\r', ' ').replace('\n', ' ').strip()
-
-    if 'kecamatan' not in security.columns or 'tahun' not in security.columns:
-        # wilayah: gunakan kolom pertama
-        resort_col = security.columns[0]
-
-        # deteksi kolom tahun
-        year_cols = [c for c in security.columns if norm_cell(c) in ['2019', '2020', '2021', '2022']]
-        if not year_cols:
-            for c in security.columns:
-                m = re.search(r'(19\d{2}|20\d{2})', norm_cell(c))
-                if m and m.group(1) in ['2019', '2020', '2021', '2022']:
-                    year_cols.append(c)
-
-        if not year_cols:
-            raise ValueError(
-                'Tidak menemukan kolom tahun (2019-2022) di dataset keamanan. '
-                f"Columns={list(security.columns)}"
-            )
-
-        sc = security.copy()
-        # konversi kolom tahun ke numerik
-        for yc in year_cols:
-            sc[yc] = pd.to_numeric(sc[yc], errors='coerce')
-        # buang baris yang kosong pada semua tahun
-        sc = sc.dropna(subset=year_cols, how='all')
-
-        sc = sc.rename(columns={resort_col: 'kecamatan'})
-        sc['kecamatan'] = sc['kecamatan'].astype(str).str.replace(r'\r?\n', ' ', regex=True).str.strip()
-
-        long_parts = []
-        for yc in year_cols:
-            tmp = sc[['kecamatan', yc]].copy()
-            tmp = tmp.rename(columns={yc: 'jumlah_kejahatan'})
-            tmp['tahun'] = int(norm_cell(yc))
-            long_parts.append(tmp)
-        security = pd.concat(long_parts, ignore_index=True)
-
-    # pastikan jumlah_kejahatan ada
-    if 'jumlah_kejahatan' not in security.columns:
-        jumlah_col = pick_numeric_column(security, prefer=['jumlah_kejahatan', 'kejahatan', 'crime', 'jumlah', 'count', 'value'])
-        if jumlah_col is None:
-            raise ValueError(f"Tidak menemukan kolom numerik untuk keamanan. Columns={list(security.columns)}")
-        security = security.rename(columns={jumlah_col: 'jumlah_kejahatan'})
-
-    security['jumlah_kejahatan'] = pd.to_numeric(security['jumlah_kejahatan'], errors='coerce')
-    security = security.dropna(subset=['jumlah_kejahatan'])
-
-    security['risk_kejahatan'] = minmax_risk(security['jumlah_kejahatan'])
-    security['I_keamanan'] = security['risk_kejahatan']
-
-    merged = pd.merge(
-        health[['kecamatan', 'tahun', 'I_kesehatan']],
-        security[['kecamatan', 'tahun', 'I_keamanan']],
-        on=['kecamatan', 'tahun'],
-        how='outer'
-    )
-
-    merged['I_kesehatan'] = merged['I_kesehatan'].fillna(merged['I_kesehatan'].median())
-    merged['I_keamanan'] = merged['I_keamanan'].fillna(merged['I_keamanan'].median())
-
-    merged['Index_Keamanan_Kesehatan'] = a_security * merged['I_keamanan'] + (1.0 - a_security) * merged['I_kesehatan']
-
-    ensure_dir(os.path.dirname(out_index_csv))
-    merged.to_csv(out_index_csv, index=False)
-
-
-def prepare_health_index_df(health_static_csv: str) -> pd.DataFrame:
-    if not os.path.exists(health_static_csv):
-        raw_sources = list_health_source_files()
-        if raw_sources:
-            return compute_health_index_from_sources(raw_sources)
-        raise FileNotFoundError(f"Health static file tidak ditemukan: {health_static_csv}")
-
-    health = pd.read_csv(health_static_csv)
-
-    if 'kecamatan' not in health.columns or 'tahun' not in health.columns:
-        kec_col = safe_col(health, ['kecamatan', 'Kecamatan', 'kec', 'district', 'nama_kecamatan'])
-        if kec_col is None:
-            raise ValueError(
-                f'Tidak menemukan kolom kecamatan di dataset kesehatan. Columns={list(health.columns)}'
-            )
-
-        year_guess = None
-        m = re.search(r'(19\d{2}|20\d{2})', os.path.basename(health_static_csv))
-        if m:
-            year_guess = int(m.group(1))
-        if year_guess is None:
-            year_guess = 2024
-
-        hc = health.copy()
-        hc['kecamatan'] = hc[kec_col].astype(str).str.strip()
-        hc['tahun'] = int(year_guess)
-
-        fasilitas_col = safe_col(hc, ['jumlah_fasilitas_kesehatan', 'jumlah', 'count', 'fasilitas', 'fasilitas_kesehatan', 'value'])
-        if fasilitas_col is None:
-            health = hc.groupby(['kecamatan', 'tahun'], as_index=False).size().rename(columns={'size': 'jumlah_fasilitas_kesehatan'})
+    """
+
+    def __init__(
+        self,
+        bootstrap_servers: str = KAFKA_BOOTSTRAP_SERVERS,
+        topic: str = KAFKA_TOPIC,
+        feed_delay: int = DEFAULT_FEED_DELAY,
+        dry_run: bool = False,
+    ):
+        """
+        Inisialisasi Kafka Producer dan konfigurasi RSS.
+
+        Args:
+            bootstrap_servers: Alamat Kafka broker (default: localhost:9092)
+            topic: Nama topik Kafka tujuan
+            feed_delay: Delay (detik) antar penarikan tiap feed RSS
+            dry_run: Jika True, tidak kirim ke Kafka, cetak ke terminal saja
+        """
+        self.bootstrap_servers = bootstrap_servers
+        self.topic = topic
+        self.feed_delay = feed_delay
+        self.dry_run = dry_run
+        self.producer = None
+
+        # Set untuk tracking berita yang sudah dikirim (deduplikasi per sesi)
+        self._sent_ids: set = set()
+
+        # Statistik per sesi
+        self.stats = {
+            "total_fetched": 0,
+            "total_sent": 0,
+            "total_duplicates": 0,
+            "total_errors": 0,
+            "cycles_completed": 0,
+        }
+
+        logger.info("=" * 70)
+        logger.info("  KECAMATRAS — RSS News Ingestion (Kafka Producer)")
+        logger.info("  Tim Anti Gravity | Institut Teknologi Sepuluh Nopember")
+        logger.info("=" * 70)
+        logger.info(f"[INIT] Kafka Broker  : {self.bootstrap_servers}")
+        logger.info(f"[INIT] Kafka Topic   : {self.topic}")
+        logger.info(f"[INIT] Feed Delay    : {self.feed_delay}s")
+        logger.info(f"[INIT] Dry Run       : {self.dry_run}")
+
+        if not self.dry_run:
+            self._init_kafka_producer()
         else:
-            hc['jumlah_fasilitas_kesehatan'] = pd.to_numeric(hc[fasilitas_col], errors='coerce')
-            health = hc.groupby(['kecamatan', 'tahun'], as_index=False)['jumlah_fasilitas_kesehatan'].sum()
+            logger.info("[INIT] Mode DRY-RUN aktif — pesan tidak dikirim ke Kafka.")
 
-    # Jika dataset kesehatan berisi beberapa kolom penyakit, hitung indeks berdasarkan jumlah penyakit yang hadir per kecamatan.
-    disease_cols = find_disease_columns(health)
-    if len(disease_cols) > 0:
-        health = health.copy()
-        health[disease_cols] = health[disease_cols].apply(pd.to_numeric, errors='coerce').fillna(0.0)
-        health['jumlah_penyakit'] = (health[disease_cols] > 0).sum(axis=1)
-        health = health.groupby(['kecamatan', 'tahun'], as_index=False)['jumlah_penyakit'].sum()
-        health['risk_fasilitas_kesehatan'] = 1.0 - minmax_risk(health['jumlah_penyakit'])
-        health['I_kesehatan'] = health['risk_fasilitas_kesehatan']
-        return health[['kecamatan', 'tahun', 'I_kesehatan']].reset_index(drop=True)
+    # ──────────────────────────────────────────────────────────────────
+    # Inisialisasi Kafka Producer
+    # ──────────────────────────────────────────────────────────────────
+    def _init_kafka_producer(self) -> None:
+        """
+        Membuat koneksi KafkaProducer dengan konfigurasi:
+        - Serialisasi value sebagai JSON (UTF-8 bytes)
+        - Serialisasi key sebagai string (UTF-8)
+        - Retry 3x jika pengiriman gagal
+        - Timeout 10 detik untuk koneksi awal
+        """
+        try:
+            from kafka import KafkaProducer as _KafkaProducer
+            from kafka.errors import NoBrokersAvailable
 
-    # jika file kesehatan standar tidak berisi data penyakit, coba sumber raw yang ada di raw_data/kesehatan
-    raw_sources = list_health_source_files()
-    if raw_sources:
-        return compute_health_index_from_sources(raw_sources)
+            self.producer = _KafkaProducer(
+                bootstrap_servers=self.bootstrap_servers,
+                # Serialisasi payload JSON → bytes
+                value_serializer=lambda v: json.dumps(
+                    v, ensure_ascii=False, default=str
+                ).encode("utf-8"),
+                # Serialisasi key → bytes
+                key_serializer=lambda k: k.encode("utf-8") if k else None,
+                # Retry & timeout
+                retries=3,
+                request_timeout_ms=10000,
+                # Kompresi untuk efisiensi bandwidth
+                compression_type="gzip",
+                # Acknowledgement: tunggu leader Kafka mengonfirmasi
+                acks="all",
+            )
 
-    raise ValueError(
-        'Tidak ditemukan data penyakit kesehatan yang valid. Pastikan raw_data/kesehatan berisi file sumber penyakit.'
+            logger.info("[INIT] ✅ Kafka Producer berhasil terhubung.")
+
+        except ImportError:
+            logger.error(
+                "[INIT] ❌ Library 'kafka-python' tidak terinstall.\n"
+                "       Jalankan: pip install kafka-python-ng"
+            )
+            sys.exit(1)
+
+        except Exception as e:
+            logger.error(f"[INIT] ❌ Gagal terhubung ke Kafka Broker: {e}")
+            logger.error(
+                "[INIT] Pastikan Kafka broker sudah berjalan di Docker.\n"
+                "       Atau gunakan flag --dry-run untuk testing tanpa Kafka."
+            )
+            sys.exit(1)
+
+    # ──────────────────────────────────────────────────────────────────
+    # Utility: Pembersih HTML
+    # ──────────────────────────────────────────────────────────────────
+    @staticmethod
+    def clean_html(raw_html: str) -> str:
+        """
+        Membersihkan tag HTML dari deskripsi RSS menggunakan BeautifulSoup.
+        Google News RSS sering menyisipkan tag <a>, <b>, <font>, dll.
+
+        Args:
+            raw_html: String mentah yang mungkin mengandung tag HTML.
+
+        Returns:
+            Teks bersih tanpa tag HTML, di-strip whitespace berlebih.
+        """
+        if not raw_html:
+            return ""
+        soup = BeautifulSoup(raw_html, "html.parser")
+        text = soup.get_text(separator=" ", strip=True)
+        # Bersihkan whitespace berlebih (newline, tab, multiple spaces)
+        text = " ".join(text.split())
+        return text
+
+    # ──────────────────────────────────────────────────────────────────
+    # Utility: Generate ID Berita (Deterministik)
+    # ──────────────────────────────────────────────────────────────────
+    @staticmethod
+    def generate_berita_id(link: str) -> str:
+        """
+        Menghasilkan ID unik deterministik berdasarkan link berita
+        menggunakan SHA-256. Ini memungkinkan deduplikasi lintas sesi
+        jika link yang sama muncul lagi di RSS feed.
+
+        Args:
+            link: URL berita asli.
+
+        Returns:
+            String hash SHA-256 (16 karakter pertama) sebagai ID.
+        """
+        return hashlib.sha256(link.encode("utf-8")).hexdigest()[:16]
+
+    # ──────────────────────────────────────────────────────────────────
+    # Utility: Parse Tanggal Publikasi
+    # ──────────────────────────────────────────────────────────────────
+    @staticmethod
+    def parse_published_date(entry: Any) -> str:
+        """
+        Mengekstrak dan memformat tanggal publikasi dari entry RSS.
+        feedparser menyediakan `published_parsed` sebagai time.struct_time.
+
+        Args:
+            entry: Objek entry dari feedparser.
+
+        Returns:
+            String tanggal format ISO 8601 (YYYY-MM-DDTHH:MM:SS),
+            atau string kosong jika tidak tersedia.
+        """
+        try:
+            if hasattr(entry, "published_parsed") and entry.published_parsed:
+                dt = datetime(*entry.published_parsed[:6])
+                return dt.isoformat()
+            elif hasattr(entry, "published") and entry.published:
+                return entry.published
+        except Exception:
+            pass
+        return datetime.now().isoformat()
+
+    # ──────────────────────────────────────────────────────────────────
+    # Utility: Ekstrak Nama Sumber Berita
+    # ──────────────────────────────────────────────────────────────────
+    @staticmethod
+    def extract_source(entry: Any) -> str:
+        """
+        Mengekstrak nama sumber media dari entry RSS.
+        Google News biasanya menyimpan ini di `entry.source.title`
+        atau di akhir judul setelah tanda " - ".
+
+        Args:
+            entry: Objek entry dari feedparser.
+
+        Returns:
+            Nama sumber media (misal: "detik.com", "Kompas.com").
+        """
+        # Coba dari field source (Google News menyediakan ini)
+        if hasattr(entry, "source") and hasattr(entry.source, "title"):
+            return entry.source.title
+
+        # Fallback: ambil dari akhir judul (format: "Judul - Sumber")
+        title = getattr(entry, "title", "")
+        if " - " in title:
+            return title.rsplit(" - ", 1)[-1].strip()
+
+        return "Unknown"
+
+    # ──────────────────────────────────────────────────────────────────
+    # Core: Fetch RSS Feed
+    # ──────────────────────────────────────────────────────────────────
+    def fetch_rss_feed(self, url: str, kategori: str) -> List[Dict]:
+        """
+        Menarik dan mem-parse RSS feed dari URL Google News.
+
+        Args:
+            url: URL RSS feed Google News.
+            kategori: Label kategori ("Kriminalitas" atau "Kesehatan").
+
+        Returns:
+            List of dict payload berita yang siap dikirim ke Kafka.
+
+        Raises:
+            Tidak melempar exception — error di-handle internal dengan logging.
+        """
+        payloads: List[Dict] = []
+        logger.info(f"[RSS] Menarik feed {kategori}...")
+        logger.info(f"[RSS] URL: {url[:80]}...")
+
+        try:
+            # feedparser menangani HTTP request + XML parsing secara internal
+            feed = feedparser.parse(url)
+
+            # Cek apakah feed berhasil diparsing
+            if feed.bozo and not feed.entries:
+                logger.warning(
+                    f"[RSS] ⚠️  Feed {kategori} bermasalah: "
+                    f"{getattr(feed, 'bozo_exception', 'Unknown error')}"
+                )
+                return payloads
+
+            entry_count = len(feed.entries)
+            logger.info(f"[RSS] Ditemukan {entry_count} entri berita {kategori}.")
+
+            for entry in feed.entries:
+                try:
+                    link = getattr(entry, "link", "")
+                    if not link:
+                        continue
+
+                    # Generate ID deterministik dari link
+                    id_berita = self.generate_berita_id(link)
+
+                    # Cek duplikasi dalam sesi ini
+                    if id_berita in self._sent_ids:
+                        self.stats["total_duplicates"] += 1
+                        continue
+
+                    # Bangun payload JSON sesuai spesifikasi PRD
+                    payload = {
+                        "id_berita": id_berita,
+                        "judul": getattr(entry, "title", ""),
+                        "link": link,
+                        "tanggal_publikasi": self.parse_published_date(entry),
+                        "sumber": self.extract_source(entry),
+                        "kategori": kategori,
+                        "deskripsi_mentah": self.clean_html(
+                            getattr(entry, "summary", "")
+                            or getattr(entry, "description", "")
+                        ),
+                        "ingested_at": datetime.now().isoformat(),
+                    }
+
+                    payloads.append(payload)
+                    self.stats["total_fetched"] += 1
+
+                except Exception as e:
+                    logger.warning(
+                        f"[RSS] ⚠️  Gagal memproses 1 entri {kategori}: {e}"
+                    )
+                    continue
+
+        except Exception as e:
+            logger.error(
+                f"[RSS] ❌ Gagal menarik feed {kategori}: {e}\n"
+                f"       Kemungkinan: koneksi internet terputus, "
+                f"atau Google melakukan rate limiting."
+            )
+            self.stats["total_errors"] += 1
+
+        return payloads
+
+    # ──────────────────────────────────────────────────────────────────
+    # Core: Kirim ke Kafka
+    # ──────────────────────────────────────────────────────────────────
+    def send_to_kafka(self, payloads: List[Dict], kategori: str) -> int:
+        """
+        Mengirim list payload berita ke Kafka topic.
+
+        Args:
+            payloads: List of dict payload berita.
+            kategori: Label kategori untuk logging.
+
+        Returns:
+            Jumlah pesan yang berhasil dikirim.
+        """
+        if not payloads:
+            logger.info(f"[KAFKA] Tidak ada berita baru {kategori} untuk dikirim.")
+            return 0
+
+        sent_count = 0
+
+        if self.dry_run:
+            # Mode dry-run: cetak payload ke terminal
+            for payload in payloads:
+                logger.info(
+                    f"[DRY-RUN] {kategori} | "
+                    f"ID: {payload['id_berita']} | "
+                    f"Judul: {payload['judul'][:60]}..."
+                )
+                self._sent_ids.add(payload["id_berita"])
+                sent_count += 1
+                self.stats["total_sent"] += 1
+            logger.info(
+                f"[DRY-RUN] ✅ {sent_count} berita {kategori} "
+                f"(dicetak ke terminal, tidak dikirim ke Kafka)."
+            )
+            return sent_count
+
+        # Mode produksi: kirim ke Kafka
+        if self.producer is None:
+            logger.error("[KAFKA] ❌ Producer belum diinisialisasi.")
+            return 0
+
+        for payload in payloads:
+            try:
+                # Gunakan id_berita sebagai Kafka message key
+                # agar pesan dengan ID yang sama masuk ke partisi yang sama
+                future = self.producer.send(
+                    topic=self.topic,
+                    key=payload["id_berita"],
+                    value=payload,
+                )
+
+                # Tunggu konfirmasi pengiriman (blocking, timeout 10s)
+                record_metadata = future.get(timeout=10)
+
+                # Tandai sebagai sudah dikirim
+                self._sent_ids.add(payload["id_berita"])
+                sent_count += 1
+                self.stats["total_sent"] += 1
+
+                logger.debug(
+                    f"[KAFKA] Terkirim → "
+                    f"Partition: {record_metadata.partition}, "
+                    f"Offset: {record_metadata.offset}, "
+                    f"ID: {payload['id_berita']}"
+                )
+
+            except Exception as e:
+                logger.error(
+                    f"[KAFKA] ❌ Gagal mengirim berita "
+                    f"'{payload['judul'][:40]}...': {e}"
+                )
+                self.stats["total_errors"] += 1
+
+        # Flush buffer agar semua pesan dikirim
+        try:
+            self.producer.flush(timeout=15)
+        except Exception as e:
+            logger.warning(f"[KAFKA] ⚠️  Flush timeout: {e}")
+
+        logger.info(
+            f"[KAFKA] ✅ Sukses mengirim {sent_count} berita "
+            f"{kategori} ke Kafka (topic: {self.topic})."
+        )
+
+        return sent_count
+
+    # ──────────────────────────────────────────────────────────────────
+    # Core: Satu Siklus Penuh (Fetch + Send untuk semua feed)
+    # ──────────────────────────────────────────────────────────────────
+    def run_single_cycle(self) -> Dict[str, int]:
+        """
+        Menjalankan satu siklus penuh:
+          1. Fetch RSS feed Kriminalitas → Kirim ke Kafka
+          2. Delay antar-feed (anti rate-limit)
+          3. Fetch RSS feed Kesehatan → Kirim ke Kafka
+
+        Returns:
+            Dict ringkasan: {"Kriminalitas": N, "Kesehatan": M}
+        """
+        cycle_start = datetime.now()
+        self.stats["cycles_completed"] += 1
+        cycle_num = self.stats["cycles_completed"]
+
+        logger.info("─" * 60)
+        logger.info(f"[CYCLE {cycle_num}] Memulai siklus penarikan RSS...")
+
+        results: Dict[str, int] = {}
+
+        for idx, (kategori, url) in enumerate(RSS_FEEDS.items()):
+            # Delay antar feed (kecuali feed pertama)
+            if idx > 0:
+                logger.info(
+                    f"[CYCLE {cycle_num}] ⏳ Delay {self.feed_delay}s "
+                    f"(anti rate-limit)..."
+                )
+                time.sleep(self.feed_delay)
+
+            # Fetch RSS
+            payloads = self.fetch_rss_feed(url, kategori)
+
+            # Kirim ke Kafka
+            sent = self.send_to_kafka(payloads, kategori)
+            results[kategori] = sent
+
+        elapsed = (datetime.now() - cycle_start).total_seconds()
+        total_sent = sum(results.values())
+
+        logger.info(f"[CYCLE {cycle_num}] ── Ringkasan Siklus ──")
+        for kat, count in results.items():
+            logger.info(f"[CYCLE {cycle_num}]   {kat:15s}: {count:>3} berita")
+        logger.info(f"[CYCLE {cycle_num}]   {'TOTAL':15s}: {total_sent:>3} berita")
+        logger.info(f"[CYCLE {cycle_num}]   Durasi: {elapsed:.1f}s")
+        logger.info("─" * 60)
+
+        return results
+
+    # ──────────────────────────────────────────────────────────────────
+    # Runner: Loop Utama
+    # ──────────────────────────────────────────────────────────────────
+    def run(
+        self,
+        max_cycles: Optional[int] = None,
+        cycle_interval: int = DEFAULT_CYCLE_INTERVAL,
+    ) -> None:
+        """
+        Menjalankan loop penarikan RSS secara berulang.
+
+        Args:
+            max_cycles: Jumlah siklus maksimum. None = loop tak terbatas.
+            cycle_interval: Detik jeda antar siklus penuh.
+        """
+        logger.info(f"[RUN] Memulai RSS Ingestion Loop...")
+        logger.info(
+            f"[RUN] Max siklus   : "
+            f"{'∞ (tekan Ctrl+C untuk berhenti)' if max_cycles is None else max_cycles}"
+        )
+        logger.info(f"[RUN] Interval      : {cycle_interval}s antar siklus")
+        logger.info(f"[RUN] Feed targets  : {list(RSS_FEEDS.keys())}")
+
+        cycle_count = 0
+
+        try:
+            while True:
+                cycle_count += 1
+
+                # Cek batas siklus
+                if max_cycles is not None and cycle_count > max_cycles:
+                    logger.info(
+                        f"[RUN] Batas {max_cycles} siklus tercapai. Berhenti."
+                    )
+                    break
+
+                # Jalankan 1 siklus
+                self.run_single_cycle()
+
+                # Cek apakah ini siklus terakhir
+                if max_cycles is not None and cycle_count >= max_cycles:
+                    logger.info(
+                        f"[RUN] Siklus terakhir ({cycle_count}/{max_cycles}) selesai."
+                    )
+                    break
+
+                # Jeda antar siklus
+                logger.info(
+                    f"[RUN] 💤 Menunggu {cycle_interval}s sebelum siklus berikutnya...\n"
+                )
+                time.sleep(cycle_interval)
+
+        except KeyboardInterrupt:
+            logger.info("\n[RUN] ⛔ Dihentikan oleh pengguna (Ctrl+C).")
+
+        finally:
+            self._print_session_stats()
+            self.close()
+
+    # ──────────────────────────────────────────────────────────────────
+    # Statistik & Cleanup
+    # ──────────────────────────────────────────────────────────────────
+    def _print_session_stats(self) -> None:
+        """Cetak ringkasan statistik sesi ke terminal."""
+        logger.info("=" * 60)
+        logger.info("[STATS] ── Ringkasan Sesi Ingestion ──")
+        logger.info(f"[STATS]   Siklus selesai  : {self.stats['cycles_completed']}")
+        logger.info(f"[STATS]   Total diambil   : {self.stats['total_fetched']}")
+        logger.info(f"[STATS]   Total dikirim   : {self.stats['total_sent']}")
+        logger.info(f"[STATS]   Duplikat diskip : {self.stats['total_duplicates']}")
+        logger.info(f"[STATS]   Error           : {self.stats['total_errors']}")
+        logger.info(f"[STATS]   Berita unik     : {len(self._sent_ids)}")
+        logger.info("=" * 60)
+
+    def close(self) -> None:
+        """Menutup koneksi Kafka Producer dengan aman."""
+        if self.producer:
+            try:
+                self.producer.flush(timeout=10)
+                self.producer.close(timeout=10)
+                logger.info("[SHUTDOWN] Kafka Producer ditutup dengan aman.")
+            except Exception as e:
+                logger.warning(f"[SHUTDOWN] ⚠️  Error saat menutup producer: {e}")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ENTRY POINT
+# ═══════════════════════════════════════════════════════════════════════════
+def main():
+    """
+    Entry point utama dengan argument parser.
+
+    Contoh penggunaan:
+      python3 00_ingestion_api.py                      # Loop tak terbatas
+      python3 00_ingestion_api.py --max-cycles 5       # 5 siklus saja
+      python3 00_ingestion_api.py --dry-run             # Tanpa Kafka
+      python3 00_ingestion_api.py --dry-run --max-cycles 1  # Test 1x
+    """
+    parser = argparse.ArgumentParser(
+        description=(
+            "KECAMATRAS RSS News Ingestion — "
+            "Kafka Producer untuk berita Kriminalitas & Kesehatan Surabaya"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Contoh penggunaan:
+  python3 00_ingestion_api.py                          # Loop terus-menerus
+  python3 00_ingestion_api.py --max-cycles 3           # Hanya 3 siklus
+  python3 00_ingestion_api.py --dry-run                # Test tanpa Kafka
+  python3 00_ingestion_api.py --dry-run --max-cycles 1 # Quick test
+        """,
     )
 
-
-def compute_health_index(health_static_csv: str, out_health_index_csv: str) -> None:
-    health_index = prepare_health_index_df(health_static_csv)
-    ensure_dir(os.path.dirname(out_health_index_csv))
-    health_index.to_csv(out_health_index_csv, index=False)
-
-
-def main():
-    parser = argparse.ArgumentParser()
-
-    # Direct download / external file mode
-    parser.add_argument('--health_input_file', required=False, default=None,
-                        help='Path lokal atau URL dataset kesehatan yang akan disimpan di raw_data/kesehatan.')
-    parser.add_argument('--health_output_csv', required=False, default='./raw_data/kesehatan/kesehatan_fasilitas_ckan_standard.csv',
-                        help='Output CSV untuk dataset kesehatan yang distandarkan.')
-    parser.add_argument('--security_input_file', required=False, default=None,
-                        help='Path lokal atau URL dataset keamanan yang akan disimpan di raw_data/keamanan.')
-    parser.add_argument('--security_output_csv', required=False, default='./raw_data/keamanan/keamanan_kriminalitas_bps.csv',
-                        help='Output CSV gabungan untuk dataset keamanan yang distandarkan.')
-    parser.add_argument('--security_output_csv_regency', required=False, default='./raw_data/keamanan/keamanan_kriminalitas_bps_regency.csv',
-                        help='Output CSV untuk dataset keamanan Regency/Regency.')
-    parser.add_argument('--security_output_csv_municipality', required=False, default='./raw_data/keamanan/keamanan_kriminalitas_bps_municipality.csv',
-                        help='Output CSV untuk dataset keamanan Municipality/Kota.')
-
-    # index computation
-    parser.add_argument('--health_static_csv', required=False, default='./raw_data/kesehatan/kesehatan_fasilitas_ckan_standard.csv')
-    parser.add_argument('--security_static_csv', required=False, default='./raw_data/keamanan/keamanan_kriminalitas_bps.csv')
-    parser.add_argument('--out_index_csv', required=False, default='./lakehouse/index/index_keamanan_kesehatan.csv')
-    parser.add_argument('--out_health_index_csv', required=False, default='./lakehouse/index/index_kesehatan.csv')
-    parser.add_argument('--a_security_weight', type=float, default=0.5)
+    parser.add_argument(
+        "--max-cycles",
+        type=int,
+        default=None,
+        help="Jumlah siklus maksimum. Default: tak terbatas (Ctrl+C untuk stop).",
+    )
+    parser.add_argument(
+        "--cycle-interval",
+        type=int,
+        default=DEFAULT_CYCLE_INTERVAL,
+        help=f"Jeda (detik) antar siklus penuh. Default: {DEFAULT_CYCLE_INTERVAL}s.",
+    )
+    parser.add_argument(
+        "--feed-delay",
+        type=int,
+        default=DEFAULT_FEED_DELAY,
+        help=f"Jeda (detik) antar penarikan tiap feed RSS. Default: {DEFAULT_FEED_DELAY}s.",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Mode test: cetak payload ke terminal tanpa mengirim ke Kafka.",
+    )
+    parser.add_argument(
+        "--broker",
+        type=str,
+        default=KAFKA_BOOTSTRAP_SERVERS,
+        help=f"Alamat Kafka broker. Default: {KAFKA_BOOTSTRAP_SERVERS}.",
+    )
+    parser.add_argument(
+        "--topic",
+        type=str,
+        default=KAFKA_TOPIC,
+        help=f"Nama Kafka topic tujuan. Default: {KAFKA_TOPIC}.",
+    )
 
     args = parser.parse_args()
 
-    ensure_dir(RAW_DIR)
-    ensure_dir(STATIC_DIR)
-
-    if args.health_input_file is None:
-        print('[prototype] Tidak ada health_input_file. Men-download default dataset kesehatan dari Open Data Surabaya.')
-        downloaded_health_paths = download_default_health_sources()
-        if downloaded_health_paths:
-            print(f'[prototype] Menggunakan sumber penyakit mentah ({len(downloaded_health_paths)} file), tanpa standarisasi fasilitas.')
-        else:
-            print('[warn] Tidak ada file kesehatan yang berhasil diunduh; proses index kesehatan akan mengandalkan dataset yang ada.')
-    else:
-        health_output = os.path.join(BASE_DIR, args.health_output_csv.replace('./', ''))
-        print(f'[ingest] Standarisasi kesehatan: {args.health_input_file}')
-        print(f'[ingest] Menyimpan ke: {health_output}')
-        load_path_to_standard_csv(args.health_input_file, health_output, dataset_type='health')
-        print('[ingest] Kesehatan disimpan ke raw_data/kesehatan.')
-
-    if args.security_input_file is None:
-        print('[prototype] Tidak ada security_input_file. Men-download default dataset keamanan dari BPS/JSON API.')
-        downloaded_security_paths = download_default_security_sources()
-        if downloaded_security_paths:
-            print(f'[prototype] Menggunakan sumber keamanan mentah ({len(downloaded_security_paths)} file) ke raw_data/keamanan.')
-            security_input_path = downloaded_security_paths[-1]
-            security_output = os.path.join(BASE_DIR, args.security_output_csv.replace('./', ''))
-            security_output_regency = os.path.join(BASE_DIR, args.security_output_csv_regency.replace('./', ''))
-            security_output_municipality = os.path.join(BASE_DIR, args.security_output_csv_municipality.replace('./', ''))
-            try:
-                print(f'[ingest] Standarisasi keamanan: {security_input_path}')
-                print(f'[ingest] Menyimpan gabungan ke: {security_output}')
-                print(f'[ingest] Menyimpan Regency ke: {security_output_regency}')
-                print(f'[ingest] Menyimpan Municipality ke: {security_output_municipality}')
-                save_security_dataset(
-                    security_input_path,
-                    out_regency_csv=security_output_regency,
-                    out_municipality_csv=security_output_municipality,
-                    out_combined_csv=security_output,
-                )
-                print('[ingest] Keamanan disimpan ke raw_data/keamanan.')
-            except Exception as exc:
-                print(f'[warn] Gagal memproses file keamanan: {exc}')
-        else:
-            print('[warn] Tidak ada file keamanan yang berhasil diunduh; proses keamanan akan mengandalkan dataset yang ada.')
-    else:
-        security_output = os.path.join(BASE_DIR, args.security_output_csv.replace('./', ''))
-        security_output_regency = os.path.join(BASE_DIR, args.security_output_csv_regency.replace('./', ''))
-        security_output_municipality = os.path.join(BASE_DIR, args.security_output_csv_municipality.replace('./', ''))
-
-        print(f'[ingest] Standarisasi keamanan: {args.security_input_file}')
-        print(f'[ingest] Menyimpan gabungan ke: {security_output}')
-        print(f'[ingest] Menyimpan Regency ke: {security_output_regency}')
-        print(f'[ingest] Menyimpan Municipality ke: {security_output_municipality}')
-        save_security_dataset(
-            args.security_input_file,
-            out_regency_csv=security_output_regency,
-            out_municipality_csv=security_output_municipality,
-            out_combined_csv=security_output,
-        )
-        print('[ingest] Keamanan disimpan ke raw_data/keamanan.')
-
-    print('[index] Compute pre-silver index...')
-    health_csv = os.path.join(BASE_DIR, args.health_static_csv.replace('./', ''))
-    security_csv = os.path.join(BASE_DIR, args.security_static_csv.replace('./', ''))
-    out_index = os.path.join(BASE_DIR, args.out_index_csv.replace('./', ''))
-
-    compute_pre_silver_index(
-        health_static_csv=health_csv,
-        security_static_csv=security_csv,
-        out_index_csv=out_index,
-        a_security=args.a_security_weight,
+    # Inisialisasi Producer
+    producer = KecamatrasNewsProducer(
+        bootstrap_servers=args.broker,
+        topic=args.topic,
+        feed_delay=args.feed_delay,
+        dry_run=args.dry_run,
     )
 
-    out_health_index = os.path.join(BASE_DIR, args.out_health_index_csv.replace('./', ''))
-    compute_health_index(health_static_csv=health_csv, out_health_index_csv=out_health_index)
+    # Jalankan loop
+    producer.run(
+        max_cycles=args.max_cycles,
+        cycle_interval=args.cycle_interval,
+    )
 
-    print(f'[index] Wrote: {out_index}')
-    print(f'[index] Wrote: {out_health_index}')
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-

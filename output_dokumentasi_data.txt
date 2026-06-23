@@ -1,0 +1,148 @@
+(.venv) reiziq@Reiziq-Laptop:/mnt/c/Users/Hikar/Documents/Kuliah/Bahan Belajar Kuliah Semester 4/Bigdata/kelompok-1-eas-bigdata$ ./ambil_dokumentasi.sh
+📸 Mengambil cuplikan data dari HDFS (Bronze, Silver, Gold)...
+Harap tunggu sekitar ~1 menit untuk inisialisasi PySpark...
+:: loading settings :: url = jar:file:/usr/local/lib/python3.12/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /root/.ivy2/cache
+The jars for the packages stored in: /root/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-c18956e3-a95b-4b7c-bca6-ebc1ca11f845;1.0
+        confs: [default]
+        found io.delta#delta-spark_2.12;3.0.0 in central
+        found io.delta#delta-storage;3.0.0 in central
+        found org.antlr#antlr4-runtime;4.9.3 in central
+downloading https://repo1.maven.org/maven2/io/delta/delta-spark_2.12/3.0.0/delta-spark_2.12-3.0.0.jar ...
+        [SUCCESSFUL ] io.delta#delta-spark_2.12;3.0.0!delta-spark_2.12.jar (417ms)
+downloading https://repo1.maven.org/maven2/io/delta/delta-storage/3.0.0/delta-storage-3.0.0.jar ...
+        [SUCCESSFUL ] io.delta#delta-storage;3.0.0!delta-storage.jar (97ms)
+downloading https://repo1.maven.org/maven2/org/antlr/antlr4-runtime/4.9.3/antlr4-runtime-4.9.3.jar ...
+        [SUCCESSFUL ] org.antlr#antlr4-runtime;4.9.3!antlr4-runtime.jar (117ms)
+:: resolution report :: resolve 2785ms :: artifacts dl 637ms
+        :: modules in use:
+        io.delta#delta-spark_2.12;3.0.0 from central in [default]
+        io.delta#delta-storage;3.0.0 from central in [default]
+        org.antlr#antlr4-runtime;4.9.3 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   3   |   3   |   3   |   0   ||   3   |   3   |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-c18956e3-a95b-4b7c-bca6-ebc1ca11f845
+        confs: [default]
+        3 artifacts copied, 0 already retrieved (5230kB/28ms)
+26/06/23 17:09:13 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+
+████████████████████████████████████████████████████████████████████████████████
+ 🥉 DOKUMENTASI BRONZE LAYER (RAW DATA) 🥉
+████████████████████████████████████████████████████████████████████████████████
+Path HDFS: hdfs://namenode:8020/kecamatras/delta/bronze/tbl_raw_news
++----------------+-----------------+-----------------------+
+|kafka_key       |kafka_topic      |kafka_timestamp        |
++----------------+-----------------+-----------------------+
+|fefbcbc6babec23a|kecamatras-stream|2026-06-23 15:44:38.951|
+|e42e549c5c87909c|kecamatras-stream|2026-06-23 15:44:39.156|
+|5439f820122cee55|kecamatras-stream|2026-06-23 15:44:39.167|
+|6ca25f3266059074|kecamatras-stream|2026-06-23 15:44:39.178|
+|a486093fd365c97f|kecamatras-stream|2026-06-23 15:44:39.182|
++----------------+-----------------+-----------------------+
+only showing top 5 rows
+
+Total Data Streaming Masuk: 152 baris
+
+████████████████████████████████████████████████████████████████████████████████
+ 🥈 DOKUMENTASI SILVER LAYER (CLEANED & PARSED DATA) 🥈
+████████████████████████████████████████████████████████████████████████████████
+Path HDFS: hdfs://namenode:8020/kecamatras/delta/silver/tbl_clean_news
+Contoh Data Kriminalitas:
++----------------+------------+--------------------+
+|id_berita       |kategori    |kecamatan_terdeteksi|
++----------------+------------+--------------------+
+|fefbcbc6babec23a|Kriminalitas|unknown             |
+|e42e549c5c87909c|Kriminalitas|unknown             |
+|5439f820122cee55|Kriminalitas|unknown             |
++----------------+------------+--------------------+
+only showing top 3 rows
+
+Contoh Data Kesehatan (Wabah/Penyakit):
++----------------+---------+--------------------+
+|id_berita       |kategori |kecamatan_terdeteksi|
++----------------+---------+--------------------+
+|7d8a6716ea3fb1c0|Kesehatan|unknown             |
+|5c7db4e645436236|Kesehatan|Mulyorejo           |
+|b632a46457a29288|Kesehatan|unknown             |
++----------------+---------+--------------------+
+only showing top 3 rows
+
+Contoh Data dengan Kecamatan Terdeteksi:
++----------------+------------+--------------------+
+|id_berita       |kategori    |kecamatan_terdeteksi|
++----------------+------------+--------------------+
+|71289df6395f4ce4|Kriminalitas|Wiyung              |
+|3723f6a8f4fa51f3|Kriminalitas|Dukuh Pakis         |
+|6707c30d991eed44|Kriminalitas|Wonokromo           |
++----------------+------------+--------------------+
+only showing top 3 rows
+
+Total Keseluruhan Berita Terekstrak: 152 baris
+
+████████████████████████████████████████████████████████████████████████████████
+ 🥇 DOKUMENTASI GOLD LAYER (FINAL BUSINESS INDEX) 🥇
+████████████████████████████████████████████████████████████████████████████████
+Path HDFS: hdfs://namenode:8020/kecamatras/delta/gold/tbl_index_kriminalitas
++---------+------------------+-------------------+
+|kecamatan|crime_rate        |indeks_kriminalitas|
++----------------+------------+--------------------+
+only showing top 3 rows
+
+Total Keseluruhan Berita Terekstrak: 152 baris
+
+████████████████████████████████████████████████████████████████████████████████
+ 🥇 DOKUMENTASI GOLD LAYER (FINAL BUSINESS INDEX) 🥇
+████████████████████████████████████████████████████████████████████████████████
+Path HDFS: hdfs://namenode:8020/kecamatras/delta/gold/tbl_index_kriminalitas
++---------+------------------+-------------------+
+|kecamatan|crime_rate        |indeks_kriminalitas|
++---------+------------------+-------------------+
+|Tandes   |192.84406868299487|100.0              |
+|Kenjeran |178.6450460354542 |92.60395738998004  |
+|Asemrowo |171.98665055998035|89.13570623823628  |
+|Semampir |171.40826522293526|88.83443461525333  |
+|Jambangan|164.1702943997639 |85.06429198311037  |
++---------+------------------+-------------------+
+only showing top 5 rows
+
+Path HDFS: hdfs://namenode:8020/kecamatras/delta/gold/tbl_index_kesehatan
++----------+------------------+------------------+------------------+
+ 🥇 DOKUMENTASI GOLD LAYER (FINAL BUSINESS INDEX) 🥇
+████████████████████████████████████████████████████████████████████████████████
+Path HDFS: hdfs://namenode:8020/kecamatras/delta/gold/tbl_index_kriminalitas
++---------+------------------+-------------------+
+|kecamatan|crime_rate        |indeks_kriminalitas|
++---------+------------------+-------------------+
+|Tandes   |192.84406868299487|100.0              |
++---------+------------------+-------------------+
+|Tandes   |192.84406868299487|100.0              |
+|Tandes   |192.84406868299487|100.0              |
+|Kenjeran |178.6450460354542 |92.60395738998004  |
+|Asemrowo |171.98665055998035|89.13570623823628  |
+|Semampir |171.40826522293526|88.83443461525333  |
+|Jambangan|164.1702943997639 |85.06429198311037  |
++---------+------------------+-------------------+
+only showing top 5 rows
+
+Path HDFS: hdfs://namenode:8020/kecamatras/delta/gold/tbl_index_kesehatan
++----------+------------------+------------------+------------------+
+|kecamatan |incidence_rate    |hfr               |indeks_kesehatan  |
++----------+------------------+------------------+------------------+
+|Semampir  |1072930.0361629634|167.436610297038  |79.72047623696626 |
+|Kenjeran  |934375.4294352068 |110.10718702762126|77.62451299202552 |
+|Krembangan|308302.71794961084|58.06766144899274 |43.08123982033196 |
+|Bubutan   |262366.6032428855 |54.392786234281935|40.52937230708142 |
+|Sawahan   |261215.21690946826|60.44852807834129 |39.720796628433746|
++----------+------------------+------------------+------------------+
+only showing top 5 rows
+
+✅ Pengambilan Data Selesai.
+(.venv) reiziq@Reiziq-Laptop:/mnt/c/Users/Hikar/Documents/Kuliah/Bahan Belajar Kuliah Semester 4/Bigdata/kelompok-1-eas-bigdata$

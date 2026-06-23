@@ -1,4 +1,17 @@
+# ═══════════════════════════════════════════════════════════════
+# KECAMATRAS — Python Dependencies
+# Install: pip install -r requirements.txt
+# ═══════════════════════════════════════════════════════════════
+
+# ── Data Processing (Bronze/Silver/Gold Layer) ──
 pyspark>=3.3.0
 delta-spark>=2.3.0
-pandas>=3.0.3
-requests>=2.34.0
+pandas>=1.5.0
+
+# ── Kafka Producer (00_ingestion_api.py) ──
+kafka-python-ng>=2.2.2
+feedparser>=6.0.0
+beautifulsoup4>=4.12.0
+
+# ── HTTP & Utilities ──
+requests>=2.28.0

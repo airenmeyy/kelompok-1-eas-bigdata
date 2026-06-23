@@ -12,9 +12,14 @@ __pycache__/
 # Environment
 .env
 venv/
+.venv/
 env/
 
-# Spark/Delta logs
+# Spark/Delta logs & output
 derby.log
 metastore_db/
 spark-warehouse/
+/delta/
+
+# Legacy / backup files
+*_legacy_*.py
