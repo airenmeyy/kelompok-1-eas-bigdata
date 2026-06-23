@@ -145,4 +145,3 @@ Path HDFS: hdfs://namenode:8020/kecamatras/delta/gold/tbl_index_kesehatan
 only showing top 5 rows
 
 ✅ Pengambilan Data Selesai.
-(.venv) reiziq@Reiziq-Laptop:/mnt/c/Users/Hikar/Documents/Kuliah/Bahan Belajar Kuliah Semester 4/Bigdata/kelompok-1-eas-bigdata$
