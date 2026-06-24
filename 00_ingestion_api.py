@@ -365,6 +365,11 @@ class KecamatrasNewsProducer:
                     if not link:
                         continue
 
+                    # Skip search URLs to ensure we only ingest direct article links/redirects
+                    if "news.google.com/search" in link or "google.com/search" in link:
+                        logger.info(f"[RSS] Menghindari tautan pencarian (grouped coverage): {getattr(entry, 'title', '')}")
+                        continue
+
                     # Generate ID deterministik dari link
                     id_berita = self.generate_berita_id(link)
 

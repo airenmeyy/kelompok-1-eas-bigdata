@@ -253,6 +253,71 @@ class GoldLayerProcessor:
 
         logger.info("[GOLD] ✅ Penyimpanan Selesai.")
 
+    def export_to_dashboard(self, df_kriminal, df_kesehatan):
+        logger.info("[EXPORT] Mengambil data berita dari HDFS Silver...")
+        try:
+            df_news = self.spark.read.format("delta").load(TBL_CLEAN_NEWS)
+            # Ambil berita yang valid (kategori Kesehatan atau Kriminalitas) dan urutkan berdasarkan tanggal publikasi desc
+            df_news_filtered = df_news.filter(col("kecamatan_terdeteksi") != "unknown") \
+                                      .orderBy(col("tanggal_publikasi").desc()) \
+                                      .limit(100)
+            
+            # Collect data
+            kriminal_list = [
+                {
+                    "kecamatan": row["kecamatan"],
+                    "total_kasus_kriminal": int(row["total_kasus_kriminal"]),
+                    "crime_rate": float(row["crime_rate"]),
+                    "indeks_kriminalitas": float(row["indeks_kriminalitas"])
+                }
+                for row in df_kriminal.orderBy(col("indeks_kriminalitas").desc()).collect()
+            ]
+            
+            kesehatan_list = [
+                {
+                    "kecamatan": row["kecamatan"],
+                    "total_kasus_wabah": int(row["total_kasus_wabah"]),
+                    "incidence_rate": float(row["incidence_rate"]),
+                    "hfr": float(row["hfr"]),
+                    "indeks_kesehatan": float(row["indeks_kesehatan"])
+                }
+                for row in df_kesehatan.orderBy(col("indeks_kesehatan").desc()).collect()
+            ]
+            
+            berita_list = [
+                {
+                    "id_berita": row["id_berita"],
+                    "judul": row["judul"],
+                    "link": row["link"],
+                    "tanggal_publikasi": row["tanggal_publikasi"],
+                    "sumber": row["sumber"],
+                    "kategori": row["kategori"],
+                    "kecamatan_terdeteksi": row["kecamatan_terdeteksi"]
+                }
+                for row in df_news_filtered.collect()
+            ]
+            
+            import json
+            from datetime import datetime
+            
+            dashboard_json = {
+                "last_updated": datetime.now().isoformat() + "Z",
+                "kriminalitas": kriminal_list,
+                "kesehatan": kesehatan_list,
+                "berita": berita_list
+            }
+            
+            os.makedirs("dashboard/data", exist_ok=True)
+            export_path = "dashboard/data/kecamatras_data.json"
+            
+            with open(export_path, "w", encoding="utf-8") as f:
+                json.dump(dashboard_json, f, indent=2, ensure_ascii=False)
+                
+            logger.info(f"[EXPORT] ✅ Dashboard data berhasil diexport ke {export_path}")
+            
+        except Exception as e:
+            logger.error(f"[EXPORT] ❌ Gagal mengeksport data dashboard: {e}")
+
 if __name__ == "__main__":
     processor = GoldLayerProcessor()
     df_kriminal_news, df_sehat_news = processor.run_ml_pipeline()
@@ -260,5 +325,6 @@ if __name__ == "__main__":
     if df_kriminal_news is not None and df_sehat_news is not None:
         df_idx_kriminal, df_idx_kesehatan = processor.calculate_indexes(df_kriminal_news, df_sehat_news)
         processor.save_to_gold(df_idx_kriminal, df_idx_kesehatan)
+        processor.export_to_dashboard(df_idx_kriminal, df_idx_kesehatan)
     else:
         logger.error("Gagal mengeksekusi Gold Layer karena ML Pipeline tidak mengembalikan DataFrames valid.")
