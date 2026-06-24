@@ -1,0 +1,466 @@
+{
+  "last_updated": "2026-06-24T11:15:00.000Z",
+  "kriminalitas": [
+    {
+      "kecamatan": "Tandes",
+      "total_kasus_kriminal": 177,
+      "crime_rate": 192.84,
+      "indeks_kriminalitas": 100.0
+    },
+    {
+      "kecamatan": "Kenjeran",
+      "total_kasus_kriminal": 104,
+      "crime_rate": 178.65,
+      "indeks_kriminalitas": 92.6
+    },
+    {
+      "kecamatan": "Asemrowo",
+      "total_kasus_kriminal": 84,
+      "crime_rate": 171.99,
+      "indeks_kriminalitas": 89.1
+    },
+    {
+      "kecamatan": "Semampir",
+      "total_kasus_kriminal": 82,
+      "crime_rate": 171.41,
+      "indeks_kriminalitas": 88.8
+    },
+    {
+      "kecamatan": "Jambangan",
+      "total_kasus_kriminal": 89,
+      "crime_rate": 164.17,
+      "indeks_kriminalitas": 85.1
+    },
+    {
+      "kecamatan": "Tenggilis Mejoyo",
+      "total_kasus_kriminal": 89,
+      "crime_rate": 151.0,
+      "indeks_kriminalitas": 78.3
+    },
+    {
+      "kecamatan": "Tegalsari",
+      "total_kasus_kriminal": 144,
+      "crime_rate": 147.6,
+      "indeks_kriminalitas": 76.5
+    },
+    {
+      "kecamatan": "Gunung Anyar",
+      "total_kasus_kriminal": 92,
+      "crime_rate": 147.6,
+      "indeks_kriminalitas": 76.5
+    },
+    {
+      "kecamatan": "Dukuh Pakis",
+      "total_kasus_kriminal": 75,
+      "crime_rate": 126.4,
+      "indeks_kriminalitas": 65.5
+    },
+    {
+      "kecamatan": "Benowo",
+      "total_kasus_kriminal": 92,
+      "crime_rate": 122.8,
+      "indeks_kriminalitas": 63.7
+    },
+    {
+      "kecamatan": "Genteng",
+      "total_kasus_kriminal": 70,
+      "crime_rate": 120.3,
+      "indeks_kriminalitas": 62.4
+    },
+    {
+      "kecamatan": "Gayungan",
+      "total_kasus_kriminal": 50,
+      "crime_rate": 114.0,
+      "indeks_kriminalitas": 59.1
+    },
+    {
+      "kecamatan": "Mulyorejo",
+      "total_kasus_kriminal": 100,
+      "crime_rate": 113.4,
+      "indeks_kriminalitas": 58.8
+    },
+    {
+      "kecamatan": "Karang Pilang",
+      "total_kasus_kriminal": 77,
+      "crime_rate": 102.0,
+      "indeks_kriminalitas": 52.9
+    },
+    {
+      "kecamatan": "Pabean Cantian",
+      "total_kasus_kriminal": 71,
+      "crime_rate": 96.0,
+      "indeks_kriminalitas": 49.8
+    },
+    {
+      "kecamatan": "Pakal",
+      "total_kasus_kriminal": 61,
+      "crime_rate": 94.6,
+      "indeks_kriminalitas": 49.1
+    },
+    {
+      "kecamatan": "Sawahan",
+      "total_kasus_kriminal": 167,
+      "crime_rate": 84.1,
+      "indeks_kriminalitas": 43.6
+    },
+    {
+      "kecamatan": "Sukomanunggal",
+      "total_kasus_kriminal": 82,
+      "crime_rate": 78.7,
+      "indeks_kriminalitas": 40.8
+    },
+    {
+      "kecamatan": "Bulak",
+      "total_kasus_kriminal": 163,
+      "crime_rate": 71.8,
+      "indeks_kriminalitas": 37.2
+    },
+    {
+      "kecamatan": "Krembangan",
+      "total_kasus_kriminal": 72,
+      "crime_rate": 62.7,
+      "indeks_kriminalitas": 32.5
+    },
+    {
+      "kecamatan": "Wonokromo",
+      "total_kasus_kriminal": 75,
+      "crime_rate": 48.8,
+      "indeks_kriminalitas": 25.3
+    },
+    {
+      "kecamatan": "Sambikerep",
+      "total_kasus_kriminal": 33,
+      "crime_rate": 47.8,
+      "indeks_kriminalitas": 24.8
+    },
+    {
+      "kecamatan": "Simokerto",
+      "total_kasus_kriminal": 71,
+      "crime_rate": 38.3,
+      "indeks_kriminalitas": 19.9
+    },
+    {
+      "kecamatan": "Lakarsantri",
+      "total_kasus_kriminal": 23,
+      "crime_rate": 35.4,
+      "indeks_kriminalitas": 18.4
+    },
+    {
+      "kecamatan": "Rungkut",
+      "total_kasus_kriminal": 39,
+      "crime_rate": 31.5,
+      "indeks_kriminalitas": 16.3
+    },
+    {
+      "kecamatan": "Bubutan",
+      "total_kasus_kriminal": 23,
+      "crime_rate": 23.8,
+      "indeks_kriminalitas": 12.3
+    },
+    {
+      "kecamatan": "Tambaksari",
+      "total_kasus_kriminal": 19,
+      "crime_rate": 19.5,
+      "indeks_kriminalitas": 10.1
+    },
+    {
+      "kecamatan": "Wonocolo",
+      "total_kasus_kriminal": 15,
+      "crime_rate": 18.7,
+      "indeks_kriminalitas": 9.7
+    },
+    {
+      "kecamatan": "Gubeng",
+      "total_kasus_kriminal": 6,
+      "crime_rate": 4.5,
+      "indeks_kriminalitas": 2.3
+    },
+    {
+      "kecamatan": "Wiyung",
+      "total_kasus_kriminal": 0,
+      "crime_rate": 0.0,
+      "indeks_kriminalitas": 0.0
+    },
+    {
+      "kecamatan": "Sukolilo",
+      "total_kasus_kriminal": 0,
+      "crime_rate": 0.0,
+      "indeks_kriminalitas": 0.0
+    }
+  ],
+  "kesehatan": [
+    {
+      "kecamatan": "Semampir",
+      "total_kasus_wabah": 4130,
+      "incidence_rate": 1072930.04,
+      "hfr": 167.44,
+      "indeks_kesehatan": 79.7
+    },
+    {
+      "kecamatan": "Kenjeran",
+      "total_kasus_wabah": 3810,
+      "incidence_rate": 934375.43,
+      "hfr": 110.11,
+      "indeks_kesehatan": 77.6
+    },
+    {
+      "kecamatan": "Krembangan",
+      "total_kasus_wabah": 2340,
+      "incidence_rate": 308302.72,
+      "hfr": 58.07,
+      "indeks_kesehatan": 43.1
+    },
+    {
+      "kecamatan": "Bubutan",
+      "total_kasus_wabah": 1890,
+      "incidence_rate": 262366.60,
+      "hfr": 54.39,
+      "indeks_kesehatan": 40.5
+    },
+    {
+      "kecamatan": "Sawahan",
+      "total_kasus_wabah": 2980,
+      "incidence_rate": 261215.22,
+      "hfr": 60.45,
+      "indeks_kesehatan": 39.7
+    },
+    {
+      "kecamatan": "Tandes",
+      "total_kasus_wabah": 1420,
+      "incidence_rate": 154711.06,
+      "hfr": 42.49,
+      "indeks_kesehatan": 28.3
+    },
+    {
+      "kecamatan": "Wonokromo",
+      "total_kasus_wabah": 1870,
+      "incidence_rate": 121774.13,
+      "hfr": 38.42,
+      "indeks_kesehatan": 25.1
+    },
+    {
+      "kecamatan": "Gubeng",
+      "total_kasus_wabah": 1240,
+      "incidence_rate": 93668.32,
+      "hfr": 45.32,
+      "indeks_kesehatan": 21.3
+    },
+    {
+      "kecamatan": "Tambaksari",
+      "total_kasus_wabah": 890,
+      "incidence_rate": 91271.75,
+      "hfr": 41.02,
+      "indeks_kesehatan": 20.8
+    },
+    {
+      "kecamatan": "Mulyorejo",
+      "total_kasus_wabah": 780,
+      "incidence_rate": 88421.33,
+      "hfr": 56.68,
+      "indeks_kesehatan": 18.2
+    },
+    {
+      "kecamatan": "Sukolilo",
+      "total_kasus_wabah": 820,
+      "incidence_rate": 70742.71,
+      "hfr": 34.51,
+      "indeks_kesehatan": 16.9
+    },
+    {
+      "kecamatan": "Simokerto",
+      "total_kasus_wabah": 1120,
+      "incidence_rate": 60444.48,
+      "hfr": 26.98,
+      "indeks_kesehatan": 15.1
+    },
+    {
+      "kecamatan": "Pabean Cantian",
+      "total_kasus_wabah": 410,
+      "incidence_rate": 55457.12,
+      "hfr": 40.58,
+      "indeks_kesehatan": 12.8
+    },
+    {
+      "kecamatan": "Dukuh Pakis",
+      "total_kasus_wabah": 310,
+      "incidence_rate": 52236.92,
+      "hfr": 33.70,
+      "indeks_kesehatan": 12.1
+    },
+    {
+      "kecamatan": "Benowo",
+      "total_kasus_wabah": 380,
+      "incidence_rate": 50711.97,
+      "hfr": 26.69,
+      "indeks_kesehatan": 11.9
+    },
+    {
+      "kecamatan": "Tegalsari",
+      "total_kasus_wabah": 480,
+      "incidence_rate": 49225.21,
+      "hfr": 30.77,
+      "indeks_kesehatan": 11.4
+    },
+    {
+      "kecamatan": "Genteng",
+      "total_kasus_wabah": 280,
+      "incidence_rate": 48096.74,
+      "hfr": 34.35,
+      "indeks_kesehatan": 10.9
+    },
+    {
+      "kecamatan": "Sukomanunggal",
+      "total_kasus_wabah": 490,
+      "incidence_rate": 47040.30,
+      "hfr": 28.80,
+      "indeks_kesehatan": 10.8
+    },
+    {
+      "kecamatan": "Rungkut",
+      "total_kasus_wabah": 520,
+      "incidence_rate": 42053.16,
+      "hfr": 24.26,
+      "indeks_kesehatan": 9.8
+    },
+    {
+      "kecamatan": "Wiyung",
+      "total_kasus_wabah": 290,
+      "incidence_rate": 37908.00,
+      "hfr": 26.14,
+      "indeks_kesehatan": 8.7
+    },
+    {
+      "kecamatan": "Sambikerep",
+      "total_kasus_wabah": 240,
+      "incidence_rate": 34744.34,
+      "hfr": 28.95,
+      "indeks_kesehatan": 7.9
+    },
+    {
+      "kecamatan": "Lakarsantri",
+      "total_kasus_wabah": 190,
+      "incidence_rate": 29225.08,
+      "hfr": 30.76,
+      "indeks_kesehatan": 6.8
+    },
+    {
+      "kecamatan": "Gayungan",
+      "total_kasus_wabah": 120,
+      "incidence_rate": 27368.51,
+      "hfr": 45.61,
+      "indeks_kesehatan": 5.9
+    },
+    {
+      "kecamatan": "Jambangan",
+      "total_kasus_wabah": 140,
+      "incidence_rate": 25824.54,
+      "hfr": 36.89,
+      "indeks_kesehatan": 5.8
+    },
+    {
+      "kecamatan": "Karang Pilang",
+      "total_kasus_wabah": 180,
+      "incidence_rate": 23839.98,
+      "hfr": 26.49,
+      "indeks_kesehatan": 5.5
+    },
+    {
+      "kecamatan": "Bulak",
+      "total_kasus_wabah": 510,
+      "incidence_rate": 22464.49,
+      "hfr": 22.02,
+      "indeks_kesehatan": 5.1
+    },
+    {
+      "kecamatan": "Wonocolo",
+      "total_kasus_wabah": 170,
+      "incidence_rate": 21241.02,
+      "hfr": 24.99,
+      "indeks_kesehatan": 4.9
+    },
+    {
+      "kecamatan": "Tenggilis Mejoyo",
+      "total_kasus_wabah": 120,
+      "incidence_rate": 20362.45,
+      "hfr": 33.94,
+      "indeks_kesehatan": 4.4
+    },
+    {
+      "kecamatan": "Gunung Anyar",
+      "total_kasus_wabah": 110,
+      "incidence_rate": 17644.59,
+      "hfr": 32.08,
+      "indeks_kesehatan": 3.9
+    },
+    {
+      "kecamatan": "Pakal",
+      "total_kasus_wabah": 90,
+      "incidence_rate": 13950.24,
+      "hfr": 15.50,
+      "indeks_kesehatan": 3.2
+    },
+    {
+      "kecamatan": "Asemrowo",
+      "total_kasus_wabah": 40,
+      "incidence_rate": 8189.84,
+      "hfr": 20.47,
+      "indeks_kesehatan": 1.8
+    }
+  ],
+  "berita": [
+    {
+      "id_berita": "71289df6395f4ce4",
+      "judul": "Begal Sajam Resahkan Warga Wiyung, Polisi Buru Pelaku",
+      "link": "https://news.google.com/search?q=Begal+Sajam+Resahkan+Warga+Wiyung+Polisi+Buru+Pelaku&hl=id&gl=ID&ceid=ID:id",
+      "tanggal_publikasi": "2026-06-24T09:12:00.000Z",
+      "sumber": "Tribunnews Surabaya",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Wiyung"
+    },
+    {
+      "id_berita": "3723f6a8f4fa51f3",
+      "judul": "Kasus Curanmor Meningkat di Dukuh Pakis, Rekaman CCTV Tersebar",
+      "link": "https://news.google.com/search?q=Kasus+Curanmor+Meningkat+Dukuh+Pakis+Rekaman+CCTV&hl=id&gl=ID&ceid=ID:id",
+      "tanggal_publikasi": "2026-06-24T08:45:00.000Z",
+      "sumber": "Detik Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Dukuh Pakis"
+    },
+    {
+      "id_berita": "6707c30d991eed44",
+      "judul": "Peredaran Narkotika di Wonokromo Digagalkan Polrestabes Surabaya",
+      "link": "https://news.google.com/search?q=Peredaran+Narkotika+Wonokromo+Digagalkan+Polrestabes+Surabaya&hl=id&gl=ID&ceid=ID:id",
+      "tanggal_publikasi": "2026-06-23T18:30:00.000Z",
+      "sumber": "Kompas Regional",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Wonokromo"
+    },
+    {
+      "id_berita": "5c7db4e645436236",
+      "judul": "Fogging Serentak di Mulyorejo Guna Antisipasi Penyebaran DBD",
+      "link": "https://news.google.com/search?q=Fogging+Serentak+Mulyorejo+Antisipasi+Penyebaran+DBD+Surabaya&hl=id&gl=ID&ceid=ID:id",
+      "tanggal_publikasi": "2026-06-23T10:15:00.000Z",
+      "sumber": "Suara Surabaya",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Mulyorejo"
+    },
+    {
+      "id_berita": "fefbcbc6babec23a",
+      "judul": "Operasi Skala Besar Antisipasi Tawuran dan Begal di Tandes",
+      "link": "https://news.google.com/search?q=Operasi+Antisipasi+Tawuran+Begal+Tandes+Surabaya&hl=id&gl=ID&ceid=ID:id",
+      "tanggal_publikasi": "2026-06-23T01:10:00.000Z",
+      "sumber": "Suara Surabaya",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Tandes"
+    },
+    {
+      "id_berita": "18f9da288b632a46",
+      "judul": "Puskesmas Semampir Catat Kenaikan Kasus Penyakit Diare Akibat Sanitasi",
+      "link": "https://news.google.com/search?q=Puskesmas+Semampir+Kenaikan+Kasus+Diare+Sanitasi+Surabaya&hl=id&gl=ID&ceid=ID:id",
+      "tanggal_publikasi": "2026-06-22T14:22:00.000Z",
+      "sumber": "Detik Jatim",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir"
+    }
+  ]
+}
