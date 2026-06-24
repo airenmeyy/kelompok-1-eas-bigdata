@@ -251,6 +251,7 @@ class SilverLayerProcessor:
                 .outputMode("append")
                 .option("checkpointLocation", CHECKPOINT_DIR)
                 .option("mergeSchema", "true")
+                .trigger(availableNow=True)
                 .start(TBL_CLEAN_NEWS)
             )
 

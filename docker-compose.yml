@@ -27,6 +27,7 @@ services:
     platform: linux/amd64
     hostname: namenode
     container_name: kecamatras-namenode
+    user: "root"
     ports:
       - "9870:9870"    # NameNode Web UI
       - "8020:8020"    # NameNode RPC (HDFS URI)
@@ -50,6 +51,7 @@ services:
     platform: linux/amd64
     hostname: datanode
     container_name: kecamatras-datanode
+    user: "root"
     depends_on:
       namenode:
         condition: service_started
@@ -144,6 +146,12 @@ services:
       - "7077:7077"    # Spark Master RPC
     environment:
       - INIT_DAEMON_STEP=setup_spark
+      - HADOOP_USER_NAME=hadoop
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - HDFS_NAMENODE=hdfs://namenode:8020
+    volumes:
+      - .:/app                  # Mount seluruh project ke /app
+    command: ["/spark/bin/spark-class", "org.apache.spark.deploy.master.Master", "--host", "spark-master", "--port", "7077", "--webui-port", "8080"]
     networks:
       - kecamatras-net
 
@@ -158,6 +166,7 @@ services:
       - "8081:8081"    # Spark Worker Web UI
     environment:
       - "SPARK_MASTER=spark://spark-master:7077"
+    command: ["/spark/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077", "--webui-port", "8081"]
     networks:
       - kecamatras-net
 

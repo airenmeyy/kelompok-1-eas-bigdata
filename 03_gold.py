@@ -58,7 +58,24 @@ class GoldLayerProcessor:
 
     def run_ml_pipeline(self):
         logger.info("[ML-LDA] Membaca data tbl_clean_news dari Silver Layer...")
-        df_news = self.spark.read.format("delta").load(TBL_CLEAN_NEWS)
+        if not self.spark._jsparkSession.catalog().tableExists(f"delta.`{TBL_CLEAN_NEWS}`"):
+            logger.warning("[ML-LDA] Tabel tbl_clean_news belum ada di HDFS. Membuat DataFrame kosong...")
+            from pyspark.sql.types import StructType, StructField, StringType, TimestampType
+            schema = StructType([
+                StructField("id_berita", StringType(), True),
+                StructField("judul", StringType(), True),
+                StructField("link", StringType(), True),
+                StructField("tanggal_publikasi", TimestampType(), True),
+                StructField("sumber", StringType(), True),
+                StructField("kategori", StringType(), True),
+                StructField("deskripsi_mentah", StringType(), True),
+                StructField("kafka_timestamp", TimestampType(), True),
+                StructField("kecamatan_terdeteksi", StringType(), True),
+                StructField("silver_processed_at", TimestampType(), True)
+            ])
+            df_news = self.spark.createDataFrame([], schema)
+        else:
+            df_news = self.spark.read.format("delta").load(TBL_CLEAN_NEWS)
         
         # Filter berita yang kecamatannya terdeteksi
         df_filtered = df_news.filter(col("kecamatan_terdeteksi") != "unknown")
@@ -256,12 +273,6 @@ class GoldLayerProcessor:
     def export_to_dashboard(self, df_kriminal, df_kesehatan):
         logger.info("[EXPORT] Mengambil data berita dari HDFS Silver...")
         try:
-            df_news = self.spark.read.format("delta").load(TBL_CLEAN_NEWS)
-            # Ambil berita yang valid (kategori Kesehatan atau Kriminalitas) dan urutkan berdasarkan tanggal publikasi desc
-            df_news_filtered = df_news.filter(col("kecamatan_terdeteksi") != "unknown") \
-                                      .orderBy(col("tanggal_publikasi").desc()) \
-                                      .limit(100)
-            
             # Collect data
             kriminal_list = [
                 {
@@ -283,19 +294,28 @@ class GoldLayerProcessor:
                 }
                 for row in df_kesehatan.orderBy(col("indeks_kesehatan").desc()).collect()
             ]
-            
-            berita_list = [
-                {
-                    "id_berita": row["id_berita"],
-                    "judul": row["judul"],
-                    "link": row["link"],
-                    "tanggal_publikasi": row["tanggal_publikasi"],
-                    "sumber": row["sumber"],
-                    "kategori": row["kategori"],
-                    "kecamatan_terdeteksi": row["kecamatan_terdeteksi"]
-                }
-                for row in df_news_filtered.collect()
-            ]
+
+            if not self.spark._jsparkSession.catalog().tableExists(f"delta.`{TBL_CLEAN_NEWS}`"):
+                logger.warning("[EXPORT] Tabel tbl_clean_news belum ada di HDFS. Menggunakan list berita kosong.")
+                berita_list = []
+            else:
+                df_news = self.spark.read.format("delta").load(TBL_CLEAN_NEWS)
+                # Ambil berita yang valid (kategori Kesehatan atau Kriminalitas) dan urutkan berdasarkan tanggal publikasi desc
+                df_news_filtered = df_news.filter(col("kecamatan_terdeteksi") != "unknown") \
+                                          .orderBy(col("tanggal_publikasi").desc()) \
+                                          .limit(100)
+                berita_list = [
+                    {
+                        "id_berita": row["id_berita"],
+                        "judul": row["judul"],
+                        "link": row["link"],
+                        "tanggal_publikasi": row["tanggal_publikasi"].isoformat() if row["tanggal_publikasi"] and hasattr(row["tanggal_publikasi"], "isoformat") else (str(row["tanggal_publikasi"]) if row["tanggal_publikasi"] else None),
+                        "sumber": row["sumber"],
+                        "kategori": row["kategori"],
+                        "kecamatan_terdeteksi": row["kecamatan_terdeteksi"]
+                    }
+                    for row in df_news_filtered.collect()
+                ]
             
             import json
             from datetime import datetime

@@ -111,6 +111,11 @@ const HEALTH_IMAGES = [
 
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
+    // Fix cached invalid model issue
+    const currentCached = localStorage.getItem('kecamatras_gemini_model');
+    if (currentCached === 'gemini-2.5-flash' || currentCached === 'gemini-1.5-flash') {
+        localStorage.setItem('kecamatras_gemini_model', 'gemini-flash-lite-latest');
+    }
     initTheme();
     initDashboard();
     startLiveClock();
@@ -1441,16 +1446,13 @@ function populateNewsPortal() {
         card.style.cursor = 'pointer';
         card.onclick = () => openNewsModal(item);
         card.innerHTML = `
-            <div class="news-card-img">
-                <span class="news-card-category cat-badge ${isKrim ? 'cat-krim' : 'cat-sehat'}">
-                    ${item.kategori}
-                </span>
-                <img src="${coverImg}" alt="${item.judul}">
-            </div>
             <div class="news-card-body">
-                <div class="news-card-meta">
+                <div class="news-card-meta" style="margin-bottom: 8px;">
+                    <span class="cat-badge ${isKrim ? 'cat-krim' : 'cat-sehat'}" style="margin-right: 8px; font-size: 11px;">
+                        ${item.kategori}
+                    </span>
                     <span class="news-card-source">${item.sumber}</span>
-                    <span>${dateStr}</span>
+                    <span style="margin-left: auto;">${dateStr}</span>
                 </div>
                 <h3 class="news-card-title">${item.judul}</h3>
                 <p class="news-card-desc">${descSnippet}</p>
@@ -1476,7 +1478,7 @@ function filterNewsGrid() {
     
     cards.forEach(card => {
         const title = card.querySelector('.news-card-title').textContent.toLowerCase();
-        const category = card.querySelector('.news-card-category').textContent.trim();
+        const category = card.querySelector('.cat-badge').textContent.trim();
         const kecNode = card.querySelector('.news-card-kecamatan').textContent.trim();
         const kecamatan = kecNode.replace("Kecamatan", "").trim();
 
@@ -2157,24 +2159,73 @@ function parseMarkdownToHtml(markdown) {
     let lines = markdown.split('\n');
     let html = [];
     let inList = false;
+    let inTable = false;
+    let tableRowCount = 0;
     
     for (let line of lines) {
         let trimmed = line.trim();
         
-        // Headings
-        if (trimmed.startsWith('## ')) {
+        // Table handling
+        let isTableLine = trimmed.startsWith('|');
+        if (isTableLine) {
             if (inList) { html.push('</ul>'); inList = false; }
-            html.push(`<h4 style="margin: 14px 0 8px; font-weight: 700; font-size: 14px; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">${trimmed.substring(3)}</h4>`);
+            if (!inTable) {
+                inTable = true;
+                tableRowCount = 0;
+                html.push('<div style="overflow-x:auto; margin: 10px 0;"><table class="styled-table" style="width:100%; margin:0; border-collapse: collapse; font-size: 12px;">');
+            }
+            // skip alignment row e.g., |:---|:---|
+            if (trimmed.match(/^\|?[\s-:]+\|/)) continue;
+            
+            // split by |, ignoring the first and last empty strings if they exist
+            let parts = trimmed.split('|');
+            if (parts[0] === '') parts.shift();
+            if (parts[parts.length - 1] === '') parts.pop();
+            
+            let cells = parts.map(c => formatInlineMarkdown(c.trim()));
+            let isHeader = tableRowCount === 0;
+            let tag = isHeader ? 'th' : 'td';
+            let thStyle = isHeader ? 'background:var(--bg-panel); font-weight:700; color:var(--text-primary);' : 'color:var(--text-secondary);';
+            
+            html.push('<tr>' + cells.map(c => `<${tag} style="text-align:left; padding:8px 12px; border:1px solid var(--border-color); ${thStyle}">${c}</${tag}>`).join('') + '</tr>');
+            tableRowCount++;
             continue;
+        } else if (inTable) {
+            if (trimmed === '') {
+                // Ignore empty lines inside a table to prevent breaking it prematurely
+                continue;
+            } else {
+                html.push('</table></div>');
+                inTable = false;
+            }
         }
-        if (trimmed.startsWith('# ')) {
+        
+        // Headings
+        if (trimmed.startsWith('#### ')) {
             if (inList) { html.push('</ul>'); inList = false; }
-            html.push(`<h3 style="margin: 16px 0 10px; font-weight: 700; font-size: 16px; color: var(--text-primary);">${trimmed.substring(2)}</h3>`);
+            html.push(`<h6 style="margin: 10px 0 4px; font-weight: 700; font-size: 12px; color: var(--text-primary);">${formatInlineMarkdown(trimmed.substring(5))}</h6>`);
             continue;
         }
         if (trimmed.startsWith('### ')) {
             if (inList) { html.push('</ul>'); inList = false; }
-            html.push(`<h5 style="margin: 12px 0 6px; font-weight: 700; font-size: 12.5px; color: var(--text-secondary);">${trimmed.substring(4)}</h5>`);
+            html.push(`<h5 style="margin: 12px 0 6px; font-weight: 700; font-size: 12.5px; color: var(--text-secondary);">${formatInlineMarkdown(trimmed.substring(4))}</h5>`);
+            continue;
+        }
+        if (trimmed.startsWith('## ')) {
+            if (inList) { html.push('</ul>'); inList = false; }
+            html.push(`<h4 style="margin: 14px 0 8px; font-weight: 700; font-size: 14px; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">${formatInlineMarkdown(trimmed.substring(3))}</h4>`);
+            continue;
+        }
+        if (trimmed.startsWith('# ')) {
+            if (inList) { html.push('</ul>'); inList = false; }
+            html.push(`<h3 style="margin: 16px 0 10px; font-weight: 700; font-size: 16px; color: var(--text-primary);">${formatInlineMarkdown(trimmed.substring(2))}</h3>`);
+            continue;
+        }
+        
+        // Horizontal Rule
+        if (trimmed === '---' || trimmed === '***') {
+            if (inList) { html.push('</ul>'); inList = false; }
+            html.push('<hr style="border: none; border-top: 1px solid var(--border-color); margin: 16px 0;">');
             continue;
         }
         
@@ -2213,17 +2264,21 @@ function parseMarkdownToHtml(markdown) {
     }
     
     if (inList) { html.push('</ul>'); }
+    if (inTable) { html.push('</table></div>'); }
     return html.join('\n');
 }
 
 function formatInlineMarkdown(text) {
+    if (!text) return '';
     return text
         // Bold
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         // Italic
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         // Inline code
-        .replace(/`(.*?)`/g, '<code style="background:var(--bg-panel); padding:2px 4px; border-radius:4px; font-family:monospace; font-size:11.5px; border: 1px solid var(--border-color);">$1</code>');
+        .replace(/`(.*?)`/g, '<code style="background:var(--bg-panel); padding:2px 4px; border-radius:4px; font-family:monospace; font-size:11.5px; border: 1px solid var(--border-color);">$1</code>')
+        // Strip any remaining raw asterisks so they don't bleed into the text
+        .replace(/\*/g, '');
 }
 
 function appendAIMessage(role, text, isLoading = false) {
@@ -2235,7 +2290,7 @@ function appendAIMessage(role, text, isLoading = false) {
 
     if (role === 'bot') {
         div.innerHTML = `
-            <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="ai-avatar"><img src="data/logo.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" alt="AI"></div>
             <div class="ai-bubble">${isLoading ? '<i class="fa-solid fa-spinner fa-spin"></i> Sedang berpikir...' : parseMarkdownToHtml(text)}</div>
         `;
     } else {
@@ -2272,6 +2327,7 @@ async function sendAIMessage() {
         const cityCtx = buildCityContext();
         const kecCtx = selectedKec ? `\nData spesifik ${selectedKec}:\n${buildKecamatanContext(selectedKec)}` : '';
         const systemPrompt = `Kamu adalah AI analis data kota bernama KECAMATRAS AI, spesialis analisis kriminalitas dan kesehatan di Surabaya, Indonesia. Jawab dalam Bahasa Indonesia. 
+        Jangan gunakan format markdown seperti bintang-bintang (**) atau (*) untuk menebalkan atau memformat teks. Tuliskan jawaban dalam teks biasa yang bersih tanpa menggunakan karakter bintang (*) sama sekali.
         Berikan prediksi, analisis risiko, dan rekomendasi berbasis data berikut:
         ${cityCtx}${kecCtx}
         
@@ -2316,7 +2372,7 @@ async function runQuickPredictions() {
     for (const kec of top3Crime) {
         try {
             const ctx = buildKecamatanContext(kec.kecamatan);
-            const prompt = `${buildCityContext()}\n\nFokus: ${kec.kecamatan}\n${ctx}\n\nBerikan prediksi 1 bulan ke depan untuk kecamatan ini dalam 2-3 kalimat singkat. Sertakan rekomendasi tindakan prioritas.`;
+            const prompt = `${buildCityContext()}\n\nFokus: ${kec.kecamatan}\n${ctx}\n\nBerikan prediksi 1 bulan ke depan untuk kecamatan ini dalam 2-3 kalimat singkat. Sertakan rekomendasi tindakan prioritas. Jangan gunakan format markdown bintang-bintang (* atau **).`;
             const result = await askGemini(prompt);
             predictions.push({ kecamatan: kec.kecamatan, type: 'kriminalitas', score: kec.indeks_kriminalitas, text: result });
         } catch {
@@ -2327,7 +2383,7 @@ async function runQuickPredictions() {
     for (const kec of top3Health.slice(0,2)) {
         try {
             const ctx = buildKecamatanContext(kec.kecamatan);
-            const prompt = `${buildCityContext()}\n\nFokus kesehatan: ${kec.kecamatan}\n${ctx}\n\nBerikan prediksi risiko wabah 1 bulan ke depan dalam 2-3 kalimat. Sertakan rekomendasi intervensi.`;
+            const prompt = `${buildCityContext()}\n\nFokus kesehatan: ${kec.kecamatan}\n${ctx}\n\nBerikan prediksi risiko wabah 1 bulan ke depan dalam 2-3 kalimat. Sertakan rekomendasi intervensi. Jangan gunakan format markdown bintang-bintang (* atau **).`;
             const result = await askGemini(prompt);
             predictions.push({ kecamatan: kec.kecamatan, type: 'kesehatan', score: kec.indeks_kesehatan, text: result });
         } catch {
@@ -2354,9 +2410,9 @@ async function generateRecommendations() {
     container.innerHTML = `<div class="loading-state" style="grid-column:1/-1;"><i class="fa-solid fa-spinner fa-spin"></i><p>Gemini sedang menyusun rekomendasi...</p></div>`;
 
     const categories = [
-        { title: 'Prioritas Keamanan', icon: 'fa-shield-halved', color: 'color-red', prompt: `${buildCityContext()}\n\nBerikan 3 rekomendasi kebijakan keamanan prioritas untuk kota Surabaya berbasis data kriminalitas. Format: daftar bernomor, singkat.` },
-        { title: 'Intervensi Kesehatan', icon: 'fa-heart-pulse', color: 'color-orange', prompt: `${buildCityContext()}\n\nBerikan 3 rekomendasi intervensi kesehatan masyarakat untuk kota Surabaya berbasis data wabah. Format: daftar bernomor, singkat.` },
-        { title: 'Alokasi Sumber Daya', icon: 'fa-sitemap', color: 'color-blue', prompt: `${buildCityContext()}\n\nBerikan 3 rekomendasi alokasi sumber daya pemerintah (polisi, puskesmas, dll) berbasis data risiko kecamatan. Format: daftar bernomor, singkat.` },
+        { title: 'Prioritas Keamanan', icon: 'fa-shield-halved', color: 'color-red', prompt: `${buildCityContext()}\n\nBerikan 3 rekomendasi kebijakan keamanan prioritas untuk kota Surabaya berbasis data kriminalitas. Format: daftar bernomor, singkat. Jangan gunakan format markdown bintang-bintang (* atau **).` },
+        { title: 'Intervensi Kesehatan', icon: 'fa-heart-pulse', color: 'color-orange', prompt: `${buildCityContext()}\n\nBerikan 3 rekomendasi intervensi kesehatan masyarakat untuk kota Surabaya berbasis data wabah. Format: daftar bernomor, singkat. Jangan gunakan format markdown bintang-bintang (* atau **).` },
+        { title: 'Alokasi Sumber Daya', icon: 'fa-sitemap', color: 'color-blue', prompt: `${buildCityContext()}\n\nBerikan 3 rekomendasi alokasi sumber daya pemerintah (polisi, puskesmas, dll) berbasis data risiko kecamatan. Format: daftar bernomor, singkat. Jangan gunakan format markdown bintang-bintang (* atau **).` },
     ];
 
     const results = await Promise.allSettled(categories.map(c => askGemini(c.prompt)));
@@ -2497,7 +2553,7 @@ function getActiveGeminiKey() {
 }
 
 function getActiveGeminiModel() {
-    return localStorage.getItem('kecamatras_gemini_model') || 'gemini-2.5-flash';
+    return localStorage.getItem('kecamatras_gemini_model') || 'gemini-flash-lite-latest';
 }
 
 function buildGeminiUrl() {
@@ -2509,7 +2565,7 @@ function openSettingsModal() {
     if (existing) { existing.remove(); return; }
 
     const currentKey = localStorage.getItem('kecamatras_gemini_key') || '';
-    const currentModel = localStorage.getItem('kecamatras_gemini_model') || 'gemini-2.5-flash';
+    const currentModel = localStorage.getItem('kecamatras_gemini_model') || 'gemini-flash-lite-latest';
     const keyStatus = !currentKey ? 'Belum diset' : 'Key tersimpan';
     const statusColor = !currentKey ? 'var(--color-orange)' : 'var(--color-green)';
 
@@ -2563,10 +2619,9 @@ function openSettingsModal() {
                         <i class="fa-solid fa-microchip" style="color:var(--text-muted);margin-right:4px;"></i> Model
                     </label>
                     <select id="settings-gemini-model" style="width:100%;background:var(--bg-panel);border:1px solid var(--border-color);border-radius:8px;padding:9px 12px;color:var(--text-primary);font-family:var(--font-primary);font-size:13px;cursor:pointer;">
-                        <option value="gemini-2.5-flash" ${currentModel==='gemini-2.5-flash'?'selected':''}>gemini-2.5-flash — Rekomendasi (Cepat & Akurat)</option>
-                        <option value="gemini-2.0-flash" ${currentModel==='gemini-2.0-flash'?'selected':''}>gemini-2.0-flash — Terbaru v2.0</option>
-                        <option value="gemini-1.5-flash" ${currentModel==='gemini-1.5-flash'?'selected':''}>gemini-1.5-flash — Versi 1.5</option>
-                        <option value="gemini-1.5-pro" ${currentModel==='gemini-1.5-pro'?'selected':''}>gemini-1.5-pro — Lebih akurat</option>
+                        <option value="gemini-flash-lite-latest" ${currentModel==='gemini-flash-lite-latest'?'selected':''}>gemini-flash-lite-latest — Rekomendasi (Cepat & Stabil)</option>
+                        <option value="gemini-flash-latest" ${currentModel==='gemini-flash-latest'?'selected':''}>gemini-flash-latest — Flash Terbaru</option>
+                        <option value="gemini-2.5-pro" ${currentModel==='gemini-2.5-pro'?'selected':''}>gemini-2.5-pro — Pro Terbaik</option>
                     </select>
                 </div>
 
@@ -2593,7 +2648,7 @@ function openSettingsModal() {
 
 async function testGeminiKey() {
     const key = document.getElementById('settings-gemini-key')?.value?.trim();
-    const model = document.getElementById('settings-gemini-model')?.value || 'gemini-2.5-flash';
+    const model = document.getElementById('settings-gemini-model')?.value || 'gemini-flash-lite-latest';
     const resultEl = document.getElementById('api-test-result');
     const btn = document.getElementById('btn-test-api');
 
@@ -2642,7 +2697,7 @@ async function testGeminiKey() {
 
 function saveGeminiKey() {
     const key = document.getElementById('settings-gemini-key')?.value?.trim();
-    const model = document.getElementById('settings-gemini-model')?.value || 'gemini-2.5-flash';
+    const model = document.getElementById('settings-gemini-model')?.value || 'gemini-flash-lite-latest';
     if (key) {
         localStorage.setItem('kecamatras_gemini_key', key);
     } else {
@@ -2762,32 +2817,52 @@ function renderComparePanel() {
 }
 
 // =============================================================================
-// FIX: askGemini — always use dynamic key from localStorage
+// FIX: askGemini — always use dynamic key from localStorage with Retry logic
 // =============================================================================
 async function askGemini(prompt) {
     const key = getActiveGeminiKey();
     if (!key || key.length < 10) throw new Error('API key belum diset. Buka Settings di sidebar untuk memasukkan key.');
 
-    const res = await fetch(buildGeminiUrl(), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { maxOutputTokens: 600, temperature: 0.75 }
-        })
-    });
+    let retries = 3;
+    let delay = 2000;
 
-    if (!res.ok) {
+    while (retries >= 0) {
+        const res = await fetch(buildGeminiUrl(), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { maxOutputTokens: 2048, temperature: 0.75 }
+            })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text || '(Tidak ada respons AI)';
+        }
+
         const err = await res.json().catch(() => ({}));
         const msg = err?.error?.message || `HTTP ${res.status}`;
-        if (res.status === 429 || msg.includes('quota') || msg.includes('limit: 0')) {
-            throw new Error('Quota habis. Coba ganti API key atau model via tombol Settings di sidebar.');
+        
+        // Don't retry if quota is actually empty
+        if (msg.toLowerCase().includes('quota') || msg.includes('limit: 0') || res.status === 400 || res.status === 403) {
+            if (msg.toLowerCase().includes('quota')) {
+                throw new Error('Quota habis. Coba ganti API key atau model via tombol Settings di sidebar.');
+            }
+            throw new Error(msg);
         }
+
+        // Retry on 503 (Service Unavailable) or 429 (Too Many Requests) or 500
+        if ((res.status === 503 || res.status === 429 || res.status >= 500) && retries > 0) {
+            console.warn(`Gemini API error ${res.status}: ${msg}. Retrying in ${delay}ms... (${retries} retries left)`);
+            await new Promise(r => setTimeout(r, delay));
+            delay *= 2; // Exponential backoff
+            retries--;
+            continue;
+        }
+
         throw new Error(msg);
     }
-
-    const data = await res.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || '(Tidak ada respons AI)';
 }
 
 // =============================================================================

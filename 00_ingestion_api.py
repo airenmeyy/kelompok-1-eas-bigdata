@@ -324,6 +324,27 @@ class KecamatrasNewsProducer:
         return "Unknown"
 
     # ──────────────────────────────────────────────────────────────────
+    # Utility: Resolve Google News Redirect Link
+    # ──────────────────────────────────────────────────────────────────
+    @staticmethod
+    def resolve_google_news_link(link: str) -> str:
+        """
+        Mengikuti redirect dari Google News untuk mendapatkan URL berita asli.
+        """
+        import urllib.request
+        try:
+            req = urllib.request.Request(
+                link,
+                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+            )
+            # Menggunakan urlopen dengan timeout singkat agar tidak memblokir pipeline jika lambat
+            with urllib.request.urlopen(req, timeout=4) as response:
+                return response.geturl()
+        except Exception as e:
+            logger.debug(f"[RESOLVER] Gagal me-resolve link {link}: {e}")
+            return link
+
+    # ──────────────────────────────────────────────────────────────────
     # Core: Fetch RSS Feed
     # ──────────────────────────────────────────────────────────────────
     def fetch_rss_feed(self, url: str, kategori: str) -> List[Dict]:
@@ -378,11 +399,14 @@ class KecamatrasNewsProducer:
                         self.stats["total_duplicates"] += 1
                         continue
 
+                    # Resolve Google News redirection link to direct article URL
+                    resolved_link = self.resolve_google_news_link(link)
+
                     # Bangun payload JSON sesuai spesifikasi PRD
                     payload = {
                         "id_berita": id_berita,
                         "judul": getattr(entry, "title", ""),
-                        "link": link,
+                        "link": resolved_link,
                         "tanggal_publikasi": self.parse_published_date(entry),
                         "sumber": self.extract_source(entry),
                         "kategori": kategori,
@@ -546,6 +570,17 @@ class KecamatrasNewsProducer:
         logger.info(f"[CYCLE {cycle_num}]   {'TOTAL':15s}: {total_sent:>3} berita")
         logger.info(f"[CYCLE {cycle_num}]   Durasi: {elapsed:.1f}s")
         logger.info("─" * 60)
+
+        # Beri suara jika ada update berita
+        if total_sent > 0:
+            try:
+                import winsound
+                winsound.Beep(880, 200) # Beep frequency 880Hz for 200ms
+                time.sleep(0.1)
+                winsound.Beep(1046, 300) # Beep frequency 1046Hz for 300ms
+            except Exception:
+                # Fallback jika bukan Windows
+                print("\a\a", end="", flush=True)
 
         return results
 

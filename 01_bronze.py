@@ -208,6 +208,7 @@ class BronzeLayerEngine:
                 .outputMode("append")
                 .option("checkpointLocation", CHECKPOINT_DIR)
                 .option("mergeSchema", "true")
+                .trigger(availableNow=True)
                 .start(TBL_RAW_NEWS)
             )
 
@@ -263,6 +264,7 @@ class BronzeLayerEngine:
                 .outputMode("append")
                 .option("checkpointLocation", CHECKPOINT_DIR)
                 .option("mergeSchema", "true")
+                .trigger(availableNow=True)
                 .start(TBL_RAW_NEWS)
             )
 
