@@ -1,0 +1,4 @@
+FROM python:3.12-slim
+RUN apt-get update && apt-get install -y default-jre && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir pyspark==3.5.1 delta-spark==3.0.0 kafka-python-ng bs4 feedparser numpy setuptools pandas requests
+WORKDIR /app
