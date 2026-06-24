@@ -29,8 +29,10 @@
     --color-green: #2B9C80;         /* Clear Teal Green for safe indicators */
     --color-green-glow: rgba(43, 156, 128, 0.15);
     
-    --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     
+    --border-subtle: rgba(75, 162, 172, 0.2);
+
     --shadow-sm: 0 2px 4px rgba(28, 51, 53, 0.05);
     --shadow-md: 0 4px 12px rgba(28, 51, 53, 0.08);
     --shadow-lg: 0 10px 25px rgba(28, 51, 53, 0.12);
@@ -112,6 +114,7 @@ body {
     height: 40px;
     background: linear-gradient(135deg, var(--color-blue), var(--color-green));
     border-radius: 10px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -555,18 +558,33 @@ body {
 }
 
 select {
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 7px 32px 7px 12px;
+    border-radius: 8px;
     background: var(--bg-panel);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
     font-family: var(--font-primary);
     cursor: pointer;
-    font-size: 13px;
+    font-size: 12.5px;
+    font-weight: 500;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7A7D' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+    min-height: 34px;
+    line-height: 1.4;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 select:focus {
     outline: none;
+    border-color: var(--color-blue);
+    box-shadow: 0 0 0 3px rgba(75, 162, 172, 0.12);
+}
+
+select:hover {
     border-color: var(--color-blue);
 }
 
@@ -1356,3 +1374,706 @@ select:focus {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(75, 162, 172, 0.18);
 }
+
+/* =========================================================
+   Dark Theme System
+   ========================================================= */
+body.dark-theme {
+    --bg-primary: #333446;          /* Dark grayish-purple/slate */
+    --bg-secondary: #2A2B3B;        /* Main panels */
+    --bg-panel: #3A3B4F;            /* Cards & Nested sections */
+    --bg-hover: #484962;            /* Hover states */
+    
+    --text-primary: #EAEFEF;        /* Bright clean text (off-white) */
+    --text-secondary: #B8CFCE;      /* Muted light text (pale sage) */
+    --text-muted: #7F8CAA;          /* Darker muted text (slate gray-blue) */
+    
+    --border-color: rgba(127, 140, 170, 0.25);
+    --border-subtle: rgba(127, 140, 170, 0.18);
+    
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+/* Sun icon color in dark mode (matched to light mode cream background) */
+#theme-toggle-icon.fa-sun {
+    color: #F0EEC9 !important;
+}
+
+/* Dark Theme Leaflet Customization */
+body.dark-theme .leaflet-popup-content-wrapper,
+body.dark-theme .leaflet-popup-tip {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+}
+
+/* Specific elements that need styling adjustments for dark mode */
+body.dark-theme .sidebar-menu-item a {
+    color: var(--text-secondary);
+}
+
+body.dark-theme .sidebar-menu-item.active a {
+    background: var(--color-blue);
+    color: #333446;
+    box-shadow: 0 4px 12px rgba(75, 162, 172, 0.3);
+}
+
+body.dark-theme .theme-toggle {
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+body.dark-theme .theme-toggle:hover {
+    color: var(--text-primary) !important;
+    transform: scale(1.03);
+}
+
+/* =========================================================
+   Mobile View Enhancements & Balanced Layouts
+   ========================================================= */
+@media (max-width: 950px) {
+    .sidebar-menu-item {
+        flex: 1 1 120px;
+    }
+    .sidebar-menu-item a {
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+/* =============================================================================
+   FIX: News card image scrollbar & overflow
+   ============================================================================= */
+.news-card {
+    overflow: hidden; /* ensure already applied */
+    isolation: isolate;
+}
+
+.news-card-img {
+    overflow: hidden;
+    flex-shrink: 0;
+    contain: strict;
+}
+
+.news-card-img img {
+    display: block;
+    will-change: transform;
+}
+
+/* =============================================================================
+   Risk Zone Cards (Kriminalitas / Kesehatan enhanced views)
+   ============================================================================= */
+.risk-zone-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: var(--transition-fast);
+}
+
+.risk-zone-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-blue);
+}
+
+.risk-zone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.risk-zone-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.risk-zone-bar-bg {
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.risk-zone-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.risk-zone-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* =============================================================================
+   Donut Chart Legend
+   ============================================================================= */
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.donut-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.donut-legend-label strong {
+    color: var(--text-primary);
+}
+
+/* =============================================================================
+   AI Analyst Panel — minimal, data-dashboard style
+   ============================================================================= */
+.ai-chat-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+    min-height: 480px;
+}
+
+.ai-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.ai-msg {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    animation: viewFadeIn 0.2s ease;
+}
+
+.ai-msg-user {
+    flex-direction: row-reverse;
+}
+
+.ai-avatar {
+    width: 28px;
+    height: 28px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-blue);
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.ai-avatar-user {
+    background: var(--color-blue);
+    border-color: transparent;
+    color: white;
+}
+
+.ai-bubble {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 4px 12px 12px 12px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 88%;
+}
+
+.ai-bubble-user {
+    background: var(--color-blue);
+    color: white;
+    border-color: transparent;
+    border-radius: 12px 4px 12px 12px;
+    font-size: 12.5px;
+}
+
+.ai-input-bar {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    flex-shrink: 0;
+}
+
+.ai-kec-select {
+    flex: 0 0 150px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--bg-panel);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    font-family: var(--font-primary);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.ai-text-input {
+    flex: 1;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    font-size: 13px;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.ai-text-input:focus {
+    border-color: var(--color-blue);
+    box-shadow: 0 0 8px var(--color-blue-glow);
+}
+
+.ai-send-btn {
+    padding: 8px 16px;
+    background: var(--color-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.ai-send-btn:hover {
+    background: var(--color-green);
+}
+
+/* =============================================================================
+   AI Prediction Cards
+   ============================================================================= */
+.ai-prediction-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.ai-prediction-card:hover {
+    border-color: var(--color-blue);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.ai-pred-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ai-pred-kec {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.ai-pred-score {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.ai-pred-text {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* =============================================================================
+   AI Recommendation Cards
+   ============================================================================= */
+.ai-reco-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: var(--transition-fast);
+}
+
+.ai-reco-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-blue);
+}
+
+.ai-reco-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ai-reco-header h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ai-reco-body {
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* =============================================================================
+   Premium panel glow effect for AI view
+   ============================================================================= */
+#view-prediksi .grid-panel {
+    border: 1px solid rgba(75, 162, 172, 0.2);
+    box-shadow: 0 4px 24px rgba(75, 162, 172, 0.06);
+}
+
+/* News scroll scrollbar fix - ensure no horizontal overflow */
+.news-scroll {
+    overflow-x: hidden;
+}
+
+/* Leaflet custom tooltip */
+.kecamatan-tooltip {
+    background: white !important;
+    border: 1px solid rgba(28,51,53,0.12) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 24px rgba(28,51,53,0.15) !important;
+    padding: 10px 14px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+.kecamatan-tooltip::before { display: none !important; }
+.leaflet-tooltip { pointer-events: none; }
+
+/* =============================================================================
+   Rank badges in kecamatan detail panel
+   ============================================================================= */
+.rank-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+.rank-crime {
+    background: rgba(217, 93, 57, 0.12);
+    color: var(--color-red);
+    border: 1px solid rgba(217, 93, 57, 0.25);
+}
+.rank-health {
+    background: rgba(75, 162, 172, 0.12);
+    color: var(--color-blue);
+    border: 1px solid rgba(75, 162, 172, 0.25);
+}
+
+/* =============================================================================
+   AI Quick Chips
+   ============================================================================= */
+.ai-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: var(--font-primary);
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+.ai-chip:hover {
+    background: var(--color-blue-glow);
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+}
+
+/* =============================================================================
+   Kecamatan Comparison Panel
+   ============================================================================= */
+.compare-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+.compare-kec-name {
+    font-size: 12px;
+    font-weight: 700;
+    max-width: 42%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.compare-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    padding: 4px 0;
+}
+.compare-val {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 12px;
+    min-width: 38px;
+    text-align: center;
+}
+.compare-label {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    text-align: center;
+    flex: 1;
+    padding: 0 6px;
+}
+.compare-divider {
+    border-top: 1px dashed var(--border-color);
+    margin: 6px 0;
+}
+
+/* =============================================================================
+   Mobile fixes for new sections
+   ============================================================================= */
+@media (max-width: 600px) {
+    .main-content {
+        padding: 12px;
+        gap: 16px;
+    }
+    .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .kpi-card {
+        padding: 16px;
+    }
+    .kpi-info h3 {
+        font-size: 22px;
+    }
+    .panel-header {
+        padding: 12px 16px;
+    }
+    .panel-body {
+        padding: 16px;
+    }
+    .view-title-bar h2 {
+        font-size: 18px;
+    }
+}
+
+/* =============================================================================
+   ANTIGRAVITY ADDITIONS - PREMIUM STYLING & FOCUS OUTLINES
+   ============================================================================= */
+button, input, select, textarea, option, .leaflet-container, .mapboxgl-map {
+    font-family: var(--font-primary) !important;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 32px 8px 12px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition-fast);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='%232C4F53'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+select:hover {
+    background-color: var(--bg-hover);
+    border-color: rgba(75, 162, 172, 0.3);
+}
+
+select:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--color-blue-glow);
+}
+
+.leaflet-interactive:focus, path.leaflet-interactive:focus, svg:focus {
+    outline: none !important;
+}
+
+/* Redesigned Premium Zone Profile Cards */
+.zone-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    min-height: 110px;
+}
+
+.zone-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-blue);
+    background: var(--bg-secondary);
+}
+
+.zone-card-rank {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-muted);
+    background: var(--bg-panel);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.zone-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.zone-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 40px 0 0; /* Leave space for absolute rank badge */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.zone-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto; /* Push to bottom of the card */
+}
+
+.zone-card-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.zone-card-score {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.zone-card-progress {
+    height: 6px;
+    background: var(--bg-panel);
+    border-radius: 3px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.zone-card-progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Chatbox Panel Height Alignment */
+.ai-chat-panel {
+    min-height: 550px !important;
+    height: 550px !important;
+}
+
+/* Moved panels layout under the map inside the map card */
+.map-below-panels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+
+.below-panel-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.below-panel-col h4 {
+    margin: 0 0 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.below-panel-col h4 a {
+    font-size: 10px;
+    color: var(--color-blue);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.below-panel-col h4 a:hover {
+    text-decoration: underline;
+}
+
+

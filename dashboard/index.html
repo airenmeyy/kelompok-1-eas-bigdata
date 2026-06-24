@@ -9,10 +9,10 @@
     <meta name="description" content="Kecamatan Metrics & Anomaly Tracking of Surabaya. Platform Data Lakehouse untuk memantau indeks kriminalitas dan risiko kesehatan lingkungan di 31 kecamatan Kota Surabaya.">
     <meta name="author" content="Tim Anti Gravity - ITS">
     
-    <!-- Google Fonts: Outfit -->
+    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,8 +20,12 @@
     <!-- Leaflet Map CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet" />
+
     <!-- Custom Style CSS -->
-    <link rel="stylesheet" href="css/style.css?v=1.1.3">
+    <link rel="stylesheet" href="css/style.css?v=2.0.0">
 </head>
 <body class="light-cream-theme">
     <div class="app-container">
@@ -30,7 +34,7 @@
         <aside class="app-sidebar">
             <div class="sidebar-brand">
                 <div class="logo-icon">
-                    <i class="fa-solid fa-city"></i>
+                    <img src="data/logo.jpeg" alt="KECAMATRAS" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fa-solid fa-city\'></i>'">
                 </div>
                 <div>
                     <h1>KECAMATRAS</h1>
@@ -69,14 +73,30 @@
                         <span>Berita Anomali</span>
                     </a>
                 </li>
+                <li class="sidebar-menu-item" id="menu-prediksi">
+                    <a onclick="switchView('prediksi')">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>Prediksi AI</span>
+                    </a>
+                </li>
             </ul>
             
             <div class="sidebar-status">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <div class="theme-toggle" onclick="toggleTheme()" title="Ubah Tema" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-secondary);">
+                        <i class="fa-solid fa-moon" id="theme-toggle-icon"></i>
+                        <span id="theme-toggle-text">Mode Gelap</span>
+                    </div>
+                    <button onclick="openSettingsModal()" title="Pengaturan API Key" style="border:none;background:var(--bg-panel);color:var(--text-muted);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);" onmouseover="this.style.color='var(--color-blue)'" onmouseout="this.style.color='var(--text-muted)'">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
                 <span class="badge badge-pulse">
                     <span class="pulse-dot"></span>
                     HDFS Data Lakehouse
                 </span>
                 <span id="last-updated" style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Aktual: Memuat...</span>
+                <span id="live-clock" style="font-size:12px;font-weight:700;color:var(--text-primary);letter-spacing:0.5px;font-variant-numeric:tabular-nums;"></span>
             </div>
         </aside>
 
@@ -136,6 +156,7 @@
                     <div class="grid-panel">
                         <div class="panel-header">
                             <h2><i class="fa-solid fa-chart-column"></i> Perbandingan Dual-Indeks Kota</h2>
+                            <button class="btn btn-sm" onclick="showAllKecamatanModal('all')"><i class="fa-solid fa-eye"></i> Lihat Semua</button>
                         </div>
                         <div class="panel-body">
                             <div class="chart-container">
@@ -146,12 +167,34 @@
                     <div class="grid-panel">
                         <div class="panel-header">
                             <h2><i class="fa-solid fa-circle-exclamation"></i> Berita Anomali Terkini (Real-time)</h2>
+                            <button class="btn btn-sm" onclick="switchView('berita')"><i class="fa-solid fa-eye"></i> Lihat Semua</button>
                         </div>
                         <div class="panel-body news-scroll" id="news-feed-container" style="max-height: 400px;">
                             <div class="loading-state">
                                 <i class="fa-solid fa-spinner fa-spin"></i> Memuat feed berita...
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Tren Historis Kriminalitas Surabaya BPS -->
+                <div class="dashboard-grid" style="grid-template-columns:1.5fr 1fr;">
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-chart-line"></i> Tren Historis Kriminalitas Surabaya</h2>
+                            <span class="badge" style="font-size:10px;">BPS 2019–2022</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="chart-container" style="height:200px;">
+                                <canvas id="trendHistoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-table-cells"></i> Ringkasan Statistik Kota</h2>
+                        </div>
+                        <div class="panel-body" id="city-stats-panel" style="display:flex;flex-direction:column;gap:10px;"></div>
                     </div>
                 </div>
             </section>
@@ -168,22 +211,58 @@
                     <div class="grid-panel">
                         <div class="panel-header">
                             <h2><i class="fa-solid fa-earth-asia"></i> Peta Spasial Indeks Surabaya</h2>
-                            <div class="map-controls">
+                            <div class="map-controls" style="display: flex; gap: 8px; align-items: center;">
                                 <button id="btn-map-crime" class="btn btn-sm btn-active" onclick="switchMapLayer('kriminalitas')">Indeks Kriminalitas</button>
                                 <button id="btn-map-health" class="btn btn-sm" onclick="switchMapLayer('kesehatan')">Indeks Kesehatan</button>
+                                <button id="btn-map-engine" class="btn btn-sm" onclick="toggleMapEngine()" style="background-color: var(--color-blue); color: white; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-earth-americas"></i> Mapbox 3D</button>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div id="map" class="map-container"></div>
+                            <div class="map-wrapper" style="position:relative;height:480px;width:100%;border-radius:12px;overflow:hidden;">
+                                <div id="map" class="map-container" style="height:100%;border-radius:12px;"></div>
+                                <div id="mapbox-map" class="map-container hidden" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;"></div>
+
+                                <!-- Floating legend inside map -->
+                                <div id="map-float-legend" style="position:absolute;bottom:28px;left:12px;z-index:1000;background:rgba(253,253,246,0.95);backdrop-filter:blur(6px);border-radius:10px;padding:10px 14px;box-shadow:0 4px 16px rgba(28,51,53,0.15);border:1px solid rgba(28,51,53,0.1);font-family:'Poppins',sans-serif;">
+                                    <div style="font-size:10px;font-weight:700;color:#2C4F53;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;" id="legend-title-text">Indeks Kriminalitas</div>
+                                    <div style="display:flex;flex-direction:column;gap:3px;">
+                                        <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="width:12px;height:12px;border-radius:3px;background:#C0392B;display:inline-block;flex-shrink:0;"></span><span>81–100 Ekstrim</span></div>
+                                        <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="width:12px;height:12px;border-radius:3px;background:#E67E22;display:inline-block;flex-shrink:0;"></span><span>61–80 Tinggi</span></div>
+                                        <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="width:12px;height:12px;border-radius:3px;background:#F1C40F;display:inline-block;flex-shrink:0;"></span><span>41–60 Sedang</span></div>
+                                        <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="width:12px;height:12px;border-radius:3px;background:#27AE60;display:inline-block;flex-shrink:0;"></span><span>21–40 Waspada</span></div>
+                                        <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="width:12px;height:12px;border-radius:3px;background:#2ECC71;display:inline-block;flex-shrink:0;"></span><span>0–20 Aman</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- Map info chip -->
+                                <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(28,51,53,0.82);color:white;border-radius:20px;padding:5px 14px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.3px;pointer-events:none;">
+                                    Kota Surabaya — 31 Kecamatan
+                                </div>
+                            </div>
                             <div id="map-fallback" class="map-fallback-grid hidden"></div>
-                            <div class="map-legend">
-                                <span class="legend-title">Skala Kerawanan:</span>
-                                <div class="legend-scale">
-                                    <span class="scale-item"><span class="color-block scale-0"></span> 0 - 20 (Rendah)</span>
-                                    <span class="scale-item"><span class="color-block scale-1"></span> 21 - 40 (Waspada)</span>
-                                    <span class="scale-item"><span class="color-block scale-2"></span> 41 - 60 (Sedang)</span>
-                                    <span class="scale-item"><span class="color-block scale-3"></span> 61 - 80 (Tinggi)</span>
-                                    <span class="scale-item"><span class="color-block scale-4"></span> 81 - 100 (Ekstrim)</span>
+
+                            <!-- Unified Panels Directly Under the Map -->
+                            <div class="map-below-panels">
+                                <div class="below-panel-col">
+                                    <h4>
+                                        <span><i class="fa-solid fa-ranking-star" style="color:var(--color-red);margin-right:6px;"></i>Top Kriminalitas</span>
+                                        <a onclick="switchView('kriminalitas')">Detail</a>
+                                    </h4>
+                                    <div id="kec-map-crime-rank"></div>
+                                </div>
+                                <div class="below-panel-col">
+                                    <h4>
+                                        <span><i class="fa-solid fa-virus" style="color:var(--color-orange);margin-right:6px;"></i>Top Kesehatan</span>
+                                        <a onclick="switchView('kesehatan')">Detail</a>
+                                    </h4>
+                                    <div id="kec-map-health-rank"></div>
+                                </div>
+                                <div class="below-panel-col">
+                                    <h4>
+                                        <span><i class="fa-solid fa-newspaper" style="color:var(--color-green);margin-right:6px;"></i>Anomali Terkini</span>
+                                        <a onclick="switchView('berita')">Semua</a>
+                                    </h4>
+                                    <div id="kec-map-news-mini" style="display:flex;flex-direction:column;gap:6px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -261,6 +340,24 @@
                                         <p style="font-size: 11px; color: var(--text-muted);">Tidak ada berita khusus.</p>
                                     </div>
                                 </div>
+
+                                <!-- Comparison Panel -->
+                                <div style="margin-top:12px;">
+                                    <h4 style="margin:0 0 8px;font-size:12px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;">
+                                        <i class="fa-solid fa-code-compare" style="color:var(--color-orange);"></i> Bandingkan Dengan:
+                                    </h4>
+                                    <select onchange="setCompareKecamatan(this.value)" style="width:100%;font-size:12px;margin-bottom:8px;">
+                                        <option value="">-- Pilih kecamatan pembanding --</option>
+                                    </select>
+                                    <div id="compare-panel" style="background:var(--bg-panel);border-radius:10px;padding:12px;border:1px solid var(--border-color);">
+                                        <p style="color:var(--text-muted);font-size:12px;text-align:center;padding:8px 0;margin:0;">Pilih kecamatan pembanding di atas.</p>
+                                    </div>
+                                </div>
+
+                                <button onclick="askQuick('Analisis lengkap risiko dan prediksi untuk kecamatan '+activeKecamatan+'. Apa potensi ancaman terbesar dan rekomendasi intervensi?', activeKecamatan)"
+                                    style="width:100%;margin-top:10px;padding:10px;background:linear-gradient(135deg,rgba(75,162,172,0.15),rgba(78,184,167,0.1));border:1px solid var(--color-blue);border-radius:8px;cursor:pointer;font-family:var(--font-primary);font-size:12px;font-weight:600;color:var(--color-blue);transition:var(--transition-fast);">
+                                    <i class="fa-solid fa-robot"></i> Analisis AI Kecamatan Ini
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -294,6 +391,46 @@
                             <p>Rerata Indeks Kriminalitas Kota</p>
                         </div>
                     </div>
+                    <div class="kpi-card" style="cursor:pointer;" onclick="switchView('kecamatan'); setTimeout(()=>selectKecamatan(window._crimeMaxKec||''),200)">
+                        <div class="kpi-icon color-red">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <div class="kpi-info">
+                            <h3 id="crime-extreme-count">-</h3>
+                            <p>Kecamatan Zona Ekstrim (&gt;80)</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card" style="cursor:pointer;" onclick="switchView('kecamatan'); setTimeout(()=>selectKecamatan(window._crimeMinKec||''),200)">
+                        <div class="kpi-icon color-green">
+                            <i class="fa-solid fa-shield-check"></i>
+                        </div>
+                        <div class="kpi-info">
+                            <h3 id="crime-min-name">-</h3>
+                            <p>Kecamatan Paling Aman</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Zone Distribution -->
+                <div class="dashboard-grid" style="grid-template-columns: 0.55fr 1.45fr;">
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-chart-pie"></i> Distribusi Zona Risiko</h2>
+                        </div>
+                        <div class="panel-body" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+                            <div style="position:relative;height:200px;width:200px;">
+                                <canvas id="crimeDonutChart"></canvas>
+                            </div>
+                            <div id="crime-donut-legend" class="donut-legend"></div>
+                        </div>
+                    </div>
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-ranking-star"></i> Profil Zona Bahaya Kriminalitas</h2>
+                            <button class="btn btn-sm" onclick="exportCSV('kriminalitas')"><i class="fa-solid fa-file-csv"></i> Unduh CSV</button>
+                        </div>
+                        <div class="panel-body" id="crime-risk-zones" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
+                    </div>
                 </div>
 
                 <!-- Chart & Table -->
@@ -301,6 +438,7 @@
                     <div class="grid-panel">
                         <div class="panel-header">
                             <h2><i class="fa-solid fa-chart-bar"></i> 15 Kecamatan dengan Kerawanan Tertinggi</h2>
+                            <button class="btn btn-sm" onclick="showAllKecamatanModal('kriminalitas')"><i class="fa-solid fa-eye"></i> Lihat Semua</button>
                         </div>
                         <div class="panel-body">
                             <div class="chart-container" style="height: 380px;">
@@ -333,6 +471,22 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Top 5 + Bottom 5 -->
+                <div class="dashboard-grid" style="grid-template-columns:1fr 1fr;">
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-arrow-up-right-dots"></i> 5 Kecamatan Paling Rawan</h2>
+                        </div>
+                        <div class="panel-body" id="crime-top5-panel"></div>
+                    </div>
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-arrow-down-right-dots"></i> 5 Kecamatan Paling Aman</h2>
+                        </div>
+                        <div class="panel-body" id="crime-bottom5-panel"></div>
+                    </div>
+                </div>
             </section>
 
             <!-- 4. VIEW: KESEHATAN (Analitik Khusus) -->
@@ -362,6 +516,46 @@
                             <p>Rerata Indeks Kesehatan Kota</p>
                         </div>
                     </div>
+                    <div class="kpi-card" style="cursor:pointer;" onclick="switchView('kecamatan'); setTimeout(()=>selectKecamatan(window._healthMaxKec||''),200)">
+                        <div class="kpi-icon color-orange">
+                            <i class="fa-solid fa-virus"></i>
+                        </div>
+                        <div class="kpi-info">
+                            <h3 id="health-extreme-count">-</h3>
+                            <p>Kecamatan Risiko Tinggi (&gt;50)</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card" style="cursor:pointer;" onclick="switchView('kecamatan'); setTimeout(()=>selectKecamatan(window._healthMinKec||''),200)">
+                        <div class="kpi-icon color-green">
+                            <i class="fa-solid fa-heart-circle-check"></i>
+                        </div>
+                        <div class="kpi-info">
+                            <h3 id="health-min-name">-</h3>
+                            <p>Kecamatan Paling Sehat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Risk Zone Distribution -->
+                <div class="dashboard-grid" style="grid-template-columns: 0.55fr 1.45fr;">
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-chart-pie"></i> Distribusi Zona Risiko</h2>
+                        </div>
+                        <div class="panel-body" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+                            <div style="position:relative;height:200px;width:200px;">
+                                <canvas id="healthDonutChart"></canvas>
+                            </div>
+                            <div id="health-donut-legend" class="donut-legend"></div>
+                        </div>
+                    </div>
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-ranking-star"></i> Profil Zona Risiko Kesehatan</h2>
+                            <button class="btn btn-sm" onclick="exportCSV('kesehatan')"><i class="fa-solid fa-file-csv"></i> Unduh CSV</button>
+                        </div>
+                        <div class="panel-body" id="health-risk-zones" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
+                    </div>
                 </div>
 
                 <!-- Chart & Table -->
@@ -369,6 +563,7 @@
                     <div class="grid-panel">
                         <div class="panel-header">
                             <h2><i class="fa-solid fa-chart-bar"></i> 15 Kecamatan dengan Risiko Tertinggi</h2>
+                            <button class="btn btn-sm" onclick="showAllKecamatanModal('kesehatan')"><i class="fa-solid fa-eye"></i> Lihat Semua</button>
                         </div>
                         <div class="panel-body">
                             <div class="chart-container" style="height: 380px;">
@@ -402,6 +597,22 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Top 5 + Bottom 5 Kesehatan -->
+                <div class="dashboard-grid" style="grid-template-columns:1fr 1fr;">
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-virus"></i> 5 Zona Risiko Kesehatan Tertinggi</h2>
+                        </div>
+                        <div class="panel-body" id="health-top5-panel"></div>
+                    </div>
+                    <div class="grid-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-heart-circle-check"></i> 5 Kecamatan Paling Sehat</h2>
+                        </div>
+                        <div class="panel-body" id="health-bottom5-panel"></div>
+                    </div>
+                </div>
             </section>
 
             <!-- 5. VIEW: BERITA (Portal Berita Terintegrasi) -->
@@ -410,6 +621,9 @@
                     <h2><i class="fa-solid fa-newspaper"></i> Portal Deteksi Anomali Berita</h2>
                     <p>Feed berita regional terintegrasi, disaring secara real-time dari Kafka Streaming</p>
                 </div>
+
+                <!-- Berita Stats Bar -->
+                <div class="kpi-grid" id="berita-stats-bar" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));"></div>
 
                 <!-- News filters controls -->
                 <div class="news-control-bar">
@@ -438,6 +652,114 @@
                 </div>
             </section>
 
+            <!-- 6. VIEW: PREDIKSI AI (Gemini) -->
+            <section id="view-prediksi" class="dashboard-view">
+                <div class="view-title-bar">
+                    <h2><i class="fa-solid fa-brain"></i> Prediksi &amp; Analisis AI Gemini</h2>
+                    <p>Analisis prediktif risiko kecamatan berbasis Google Gemini — terintegrasi penuh dengan data HDFS Gold Layer KECAMATRAS</p>
+                </div>
+
+                <!-- AI Status bar -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon color-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="kpi-info"><h3 id="ai-highrisk-count">-</h3><p>Kecamatan Risiko Kritis</p></div>
+                    </div>
+                    <div class="kpi-card" style="cursor:pointer;" onclick="openSettingsModal()">
+                        <div class="kpi-icon color-blue"><i class="fa-solid fa-microchip"></i></div>
+                        <div class="kpi-info"><h3 id="ai-model-name">Gemini</h3><p>Klik untuk konfigurasi model</p></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon color-green"><i class="fa-solid fa-database"></i></div>
+                        <div class="kpi-info"><h3>Gold Layer</h3><p>HDFS Delta Lakehouse</p></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon color-orange"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <div class="kpi-info"><h3 id="ai-total-analyzed">31</h3><p>Kecamatan Dianalisis</p></div>
+                    </div>
+                </div>
+
+                <!-- Analyst Panel -->
+                <div class="dashboard-grid" style="grid-template-columns: 1.3fr 0.7fr;">
+                    <div class="grid-panel ai-chat-panel" style="display:flex;flex-direction:column;">
+                        <div class="panel-header" style="flex-shrink:0;">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <h2><i class="fa-solid fa-chart-line"></i> Analisis Data AI</h2>
+                                <span id="ai-online-badge" class="badge" style="font-size:10px;padding:3px 8px;background:rgba(43,156,128,0.12);color:var(--color-green);border:1px solid rgba(43,156,128,0.25);">
+                                    <span class="pulse-dot" style="background:var(--color-green);"></span> Siap
+                                </span>
+                            </div>
+                            <button onclick="openSettingsModal()" class="btn btn-sm" title="Pengaturan API Key">
+                                <i class="fa-solid fa-gear"></i> Settings
+                            </button>
+                        </div>
+
+                        <!-- Prompt chips -->
+                        <div style="padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--border-color);flex-shrink:0;">
+                            <button class="ai-chip" onclick="askQuick('Kecamatan mana dengan risiko kriminalitas tertinggi di Surabaya dan mengapa?')">
+                                <i class="fa-solid fa-shield-halved"></i> Zona Berbahaya
+                            </button>
+                            <button class="ai-chip" onclick="askQuick('Kecamatan mana yang paling aman dan sehat di Surabaya berdasarkan data?')">
+                                <i class="fa-solid fa-shield-check"></i> Zona Aman
+                            </button>
+                            <button class="ai-chip" onclick="askQuick('Apa korelasi antara indeks kriminalitas dan indeks kesehatan di Surabaya?')">
+                                <i class="fa-solid fa-arrows-left-right"></i> Korelasi
+                            </button>
+                            <button class="ai-chip" onclick="askQuick('Berikan prediksi tren kriminalitas Surabaya untuk 6 bulan ke depan.')">
+                                <i class="fa-solid fa-chart-line"></i> Prediksi Tren
+                            </button>
+                            <button class="ai-chip" onclick="askQuick('Berikan 5 rekomendasi intervensi kebijakan pemerintah Surabaya berdasarkan data KECAMATRAS.')">
+                                <i class="fa-solid fa-list-check"></i> Rekomendasi
+                            </button>
+                        </div>
+
+                        <!-- Message thread -->
+                        <div id="ai-chat-messages" class="ai-chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:0;">
+                            <div class="ai-msg ai-msg-bot">
+                                <div class="ai-avatar"><i class="fa-solid fa-chart-line"></i></div>
+                                <div class="ai-bubble">
+                                    Sistem analitik KECAMATRAS siap. Pilih pertanyaan cepat di atas atau masukkan query di bawah. Data mencakup 31 kecamatan Surabaya dari HDFS Gold Layer.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input -->
+                        <div class="ai-input-bar" style="flex-shrink:0;">
+                            <select id="ai-kec-select" class="ai-kec-select">
+                                <option value="">Semua kecamatan</option>
+                            </select>
+                            <input type="text" id="ai-text-input" class="ai-text-input"
+                                placeholder="Tanya tentang data kriminalitas, kesehatan, atau prediksi..."
+                                onkeydown="if(event.key==='Enter') sendAIMessage()">
+                            <button class="ai-send-btn" onclick="sendAIMessage()">
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid-panel" style="display:flex;flex-direction:column;height:550px;min-height:550px;">
+                        <div class="panel-header" style="flex-shrink:0;">
+                            <h2><i class="fa-solid fa-bolt"></i> Prediksi Cepat</h2>
+                            <button class="btn btn-sm" onclick="runQuickPredictions()"><i class="fa-solid fa-rotate"></i> Jalankan</button>
+                        </div>
+                        <div class="panel-body" id="ai-quick-predictions" style="overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:8px;">
+                            <p style="color:var(--text-muted);font-size:12px;text-align:center;padding:24px 0;">Klik <strong>Jalankan</strong> untuk prediksi AI berbasis data Gold Layer.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Recommendations -->
+                <div class="grid-panel">
+                    <div class="panel-header">
+                        <h2><i class="fa-solid fa-lightbulb"></i> Rekomendasi Intervensi Prioritas AI</h2>
+                        <button class="btn btn-sm" onclick="generateRecommendations()"><i class="fa-solid fa-robot"></i> Analisis</button>
+                    </div>
+                    <div class="panel-body" id="ai-recommendations" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;min-height:120px;">
+                        <div class="loading-state" style="grid-column:1/-1;"><p style="color:var(--text-muted);">Klik "Analisis" untuk rekomendasi AI berbasis data Gold Layer.</p></div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Footer -->
             <footer class="app-footer">
                 <p>&copy; 2026 KECAMATRAS</p>
@@ -452,6 +774,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom App JS -->
-    <script src="js/app.js?v=1.1.3"></script>
+    <script src="js/app.js?v=2.0.0"></script>
 </body>
 </html>
