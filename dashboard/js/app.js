@@ -805,7 +805,8 @@ async function initNewsMapbox() {
             const popup = new mapboxgl.Popup({
                 closeButton: false,
                 closeOnClick: false,
-                offset: 15
+                offset: 15,
+                anchor: 'top' // Renders below the point coordinates
             });
             
             // Hover cursor on clusters
@@ -881,20 +882,11 @@ async function initNewsMapbox() {
             const kecPopup = new mapboxgl.Popup({
                 closeButton: false,
                 closeOnClick: false,
-                offset: 10
+                offset: 15,
+                anchor: 'bottom' // Renders above the cursor coordinates
             });
             
             newsMapboxInstance.on('mousemove', 'kecamatan-fills', (e) => {
-                // Check if hovering over a point marker or cluster to avoid overlapping popups
-                const hoveredPoints = newsMapboxInstance.queryRenderedFeatures(e.point, {
-                    layers: ['unclustered-point', 'clusters', 'cluster-count']
-                });
-                
-                if (hoveredPoints.length > 0) {
-                    kecPopup.remove();
-                    return;
-                }
-
                 if (e.features.length > 0) {
                     newsMapboxInstance.getCanvas().style.cursor = 'pointer';
                     const props = e.features[0].properties;
