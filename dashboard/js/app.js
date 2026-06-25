@@ -8,6 +8,9 @@ let activeKecamatan = null;
 let mapInstance = null;
 let mapboxInstance = null;
 let newsMapboxInstance = null;
+let newsMapStyleLoaded = false;
+let surabayaBoundaryData = null;
+let boundaryFetchPromise = null;
 let currentMapEngine = 'leaflet'; // 'leaflet' or 'mapbox'
 let geojsonLayer = null;
 let tileLayerInstance = null;
@@ -249,7 +252,16 @@ function switchView(viewId) {
             initNewsMapbox();
         } else {
             setTimeout(() => {
-                newsMapboxInstance.resize();
+                if (newsMapboxInstance) {
+                    newsMapboxInstance.resize();
+                    newsMapboxInstance.easeTo({
+                        center: [112.7521, -7.2575],
+                        zoom: 10.8,
+                        pitch: 35,
+                        bearing: 0,
+                        duration: 800
+                    });
+                }
             }, 100);
         }
     } else if (viewId === 'prediksi') {
@@ -563,6 +575,7 @@ async function loadGeoJSON() {
         if (!response.ok) throw new Error('GeoJSON fetch failed');
         const geojsonData = await response.json();
         
+        surabayaBoundaryData = geojsonData;
         renderMapPolygons(geojsonData);
     } catch (error) {
         console.warn("Failed loading GeoJSON boundaries, loading grid fallback.", error);
@@ -735,6 +748,7 @@ function getJitteredCoords(kecName, index) {
 async function initNewsMapbox() {
     if (newsMapboxInstance) return;
     
+    newsMapStyleLoaded = false;
     const isDark = document.body.classList.contains('dark-theme');
     const styleUrl = isDark ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11';
     
@@ -751,7 +765,38 @@ async function initNewsMapbox() {
         
         newsMapboxInstance.addControl(new mapboxgl.NavigationControl(), 'top-right');
         
+        // Add reload button handler
+        const reloadBtn = document.getElementById('btn-reload-news-map');
+        if (reloadBtn) {
+            reloadBtn.onclick = () => {
+                if (newsMapboxInstance) {
+                    newsMapboxInstance.easeTo({
+                        center: [112.7521, -7.2575],
+                        zoom: 10.8,
+                        pitch: 35,
+                        bearing: 0,
+                        duration: 1000
+                    });
+                }
+            };
+        }
+        
+        // Dynamic layout container size fix on initialization
+        setTimeout(() => {
+            if (newsMapboxInstance) {
+                newsMapboxInstance.resize();
+                newsMapboxInstance.easeTo({
+                    center: [112.7521, -7.2575],
+                    zoom: 10.8,
+                    pitch: 35,
+                    bearing: 0,
+                    duration: 800
+                });
+            }
+        }, 150);
+        
         newsMapboxInstance.on('style.load', () => {
+            newsMapStyleLoaded = true;
             addNewsMapbox3DBuildings();
             updateNewsMapboxPoints();
         });
@@ -831,14 +876,86 @@ async function initNewsMapbox() {
                     openNewsModal(rawItem);
                 }
             });
+            
+            // Hover popup for kecamatan fills
+            const kecPopup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false,
+                offset: 10
+            });
+            
+            newsMapboxInstance.on('mousemove', 'kecamatan-fills', (e) => {
+                // Check if hovering over a point marker or cluster to avoid overlapping popups
+                const hoveredPoints = newsMapboxInstance.queryRenderedFeatures(e.point, {
+                    layers: ['unclustered-point', 'clusters', 'cluster-count']
+                });
+                
+                if (hoveredPoints.length > 0) {
+                    kecPopup.remove();
+                    return;
+                }
+
+                if (e.features.length > 0) {
+                    newsMapboxInstance.getCanvas().style.cursor = 'pointer';
+                    const props = e.features[0].properties;
+                    const name = props.original_name || "Kecamatan";
+                    const bad = props.badCount || 0;
+                    const good = props.goodCount || 0;
+                    const total = props.totalCount || 0;
+                    
+                    let statusLabel = 'Tidak ada laporan';
+                    let statusColor = 'var(--text-muted)';
+                    if (total > 0) {
+                        const score = props.newsScore;
+                        if (score >= 80) { statusLabel = 'Sangat Rawan (Kriminal)'; statusColor = '#C0392B'; }
+                        else if (score >= 60) { statusLabel = 'Rawan Kriminal'; statusColor = '#E67E22'; }
+                        else if (score >= 40) { statusLabel = 'Kondisi Sedang'; statusColor = '#F1C40F'; }
+                        else if (score >= 20) { statusLabel = 'Kondisi Kondusif'; statusColor = '#27AE60'; }
+                        else { statusLabel = 'Sangat Kondusif (Sehat)'; statusColor = '#2ECC71'; }
+                    }
+                    
+                    kecPopup.setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div style="font-family:'Poppins',sans-serif; padding:6px; font-size:11px; min-width:160px;">
+                                <h4 style="margin:0 0 6px 0; font-size:12px; font-weight:700; color:#1C3335; border-bottom:1px solid var(--border-color); padding-bottom:3px;">
+                                    Kec. ${name}
+                                </h4>
+                                <div style="display:flex; flex-direction:column; gap:4px; font-weight:500;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2px;">
+                                        <span>Status:</span>
+                                        <span style="color:${statusColor}; font-weight:700; font-size:9.5px;">${statusLabel}</span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span><i class="fa-solid fa-circle" style="color:#D95D39; font-size:7px; margin-right:4px;"></i>Kriminal:</span>
+                                        <strong style="color:#D95D39;">${bad} Berita</strong>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span><i class="fa-solid fa-circle" style="color:#2B9C80; font-size:7px; margin-right:4px;"></i>Kesehatan:</span>
+                                        <strong style="color:#2B9C80;">${good} Berita</strong>
+                                    </div>
+                                    <div style="border-top:1px dashed var(--border-color); padding-top:4px; margin-top:2px; display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#1C3335;">
+                                        <span>Total Berita:</span>
+                                        <span>${total}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        .addTo(newsMapboxInstance);
+                }
+            });
+            
+            newsMapboxInstance.on('mouseleave', 'kecamatan-fills', () => {
+                newsMapboxInstance.getCanvas().style.cursor = '';
+                kecPopup.remove();
+            });
         });
     } catch (error) {
         console.error('Failed to initialize News Mapbox map:', error);
     }
 }
 
-function updateNewsMapboxPoints() {
-    if (!newsMapboxInstance || !newsMapboxInstance.isStyleLoaded()) return;
+async function updateNewsMapboxPoints() {
+    if (!newsMapboxInstance || !newsMapStyleLoaded) return;
     
     const searchInput = document.getElementById('news-search-input');
     const catSelect = document.getElementById('news-filter-category');
@@ -862,6 +979,98 @@ function updateNewsMapboxPoints() {
         return matchSearch && matchCat && matchKec;
     });
     
+    // Fetch boundaries if not already loaded and not in progress
+    if (!surabayaBoundaryData && !boundaryFetchPromise) {
+        boundaryFetchPromise = (async () => {
+            try {
+                const response = await fetch(SURABAYA_GEOJSON_URL);
+                if (response.ok) {
+                    surabayaBoundaryData = await response.json();
+                } else {
+                    console.error("Failed to load surabaya boundaries for News Mapbox");
+                }
+            } catch (err) {
+                console.error("Error fetching boundaries for News Mapbox:", err);
+            } finally {
+                boundaryFetchPromise = null;
+            }
+        })();
+    }
+    
+    if (boundaryFetchPromise) {
+        await boundaryFetchPromise;
+    }
+    
+    // Process choropleth color properties based on news ratio
+    if (surabayaBoundaryData) {
+        surabayaBoundaryData.features.forEach(feature => {
+            const name = feature.properties.NAME_3 || feature.properties.kecamatan || feature.properties.name || "";
+            const nameNorm = cleanKecamatanName(name);
+            
+            // Count matching news for this kecamatan
+            const kecNews = filteredNews.filter(item => cleanKecamatanName(item.kecamatan_terdeteksi) === nameNorm);
+            const badCount = kecNews.filter(item => item.kategori === 'Kriminalitas').length;
+            const goodCount = kecNews.filter(item => item.kategori === 'Kesehatan').length;
+            const totalCount = badCount + goodCount;
+            
+            const isDark = document.body.classList.contains('dark-theme');
+            let color = isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.03)';
+            let score = null;
+            
+            if (totalCount > 0) {
+                const badRatio = badCount / totalCount;
+                score = badRatio * 100;
+                
+                // Color mapping: bad news vs good news
+                if (score >= 80) color = 'rgba(192, 57, 43, 0.45)'; // deep red
+                else if (score >= 60) color = 'rgba(230, 126, 34, 0.45)'; // orange
+                else if (score >= 40) color = 'rgba(241, 196, 15, 0.45)'; // yellow
+                else if (score >= 20) color = 'rgba(39, 174, 96, 0.45)'; // soft green
+                else color = 'rgba(46, 204, 113, 0.45)'; // bright green
+            }
+            
+            feature.properties.newsScore = score;
+            feature.properties.newsColor = color;
+            feature.properties.badCount = badCount;
+            feature.properties.goodCount = goodCount;
+            feature.properties.totalCount = totalCount;
+            feature.properties.clean_name = nameNorm;
+            feature.properties.original_name = name;
+        });
+        
+        // Add boundaries source & layer first so it is rendered below news points
+        if (newsMapboxInstance.getSource('kecamatan-boundaries')) {
+            newsMapboxInstance.getSource('kecamatan-boundaries').setData(surabayaBoundaryData);
+        } else {
+            newsMapboxInstance.addSource('kecamatan-boundaries', {
+                type: 'geojson',
+                data: surabayaBoundaryData
+            });
+            
+            newsMapboxInstance.addLayer({
+                id: 'kecamatan-fills',
+                type: 'fill',
+                source: 'kecamatan-boundaries',
+                paint: {
+                    'fill-color': ['get', 'newsColor'],
+                    'fill-opacity': 1.0
+                }
+            });
+            
+            newsMapboxInstance.addLayer({
+                id: 'kecamatan-borders',
+                type: 'line',
+                source: 'kecamatan-boundaries',
+                paint: {
+                    'line-color': ['case', ['boolean', ['has', 'newsScore'], false], '#1C3335', '#BDC3C7'],
+                    'line-width': ['case', ['boolean', ['has', 'newsScore'], false], 1.2, 0.6],
+                    'line-opacity': 0.35
+                }
+            });
+        }
+    }
+    
+    // Process point dots
     const features = filteredNews.map((item, index) => {
         const coords = getJitteredCoords(item.kecamatan_terdeteksi, index);
         return {
@@ -1881,6 +2090,7 @@ function toggleTheme() {
     
     // Update Mapbox theme if active
     if (newsMapboxInstance) {
+        newsMapStyleLoaded = false;
         const styleUrl = isDark ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11';
         newsMapboxInstance.setStyle(styleUrl);
     }

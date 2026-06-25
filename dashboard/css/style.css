@@ -2088,6 +2088,16 @@ select:focus {
     background-color: var(--bg-panel);
 }
 
+#btn-reload-news-map:hover {
+    background-color: var(--border-color) !important;
+    color: var(--color-blue) !important;
+    transform: scale(1.08);
+}
+
+#btn-reload-news-map:active {
+    transform: scale(0.95);
+}
+
 /* Mapbox news popup styles */
 .news-popup-detail {
     font-family: var(--font-primary);
