@@ -7,6 +7,7 @@ let currentMapLayer = 'kriminalitas'; // 'kriminalitas' or 'kesehatan'
 let activeKecamatan = null;
 let mapInstance = null;
 let mapboxInstance = null;
+let newsMapboxInstance = null;
 let currentMapEngine = 'leaflet'; // 'leaflet' or 'mapbox'
 let geojsonLayer = null;
 let tileLayerInstance = null;
@@ -23,6 +24,42 @@ let healthChart = null;
 
 // GeoJSON Surabaya boundary URL (Pemuatan Lokal)
 const SURABAYA_GEOJSON_URL = `data/surabaya.geojson?v=${new Date().getTime()}`;
+
+// Centroid coordinates of all 31 Kecamatan in Surabaya (for plotting news points)
+const KECAMATAN_COORDS = {
+    "tandes": [112.6789, -7.2605],
+    "kenjeran": [112.7844, -7.2211],
+    "asemrowo": [112.6953, -7.2348],
+    "aseminrowo": [112.6953, -7.2348],
+    "semampir": [112.7601, -7.2114],
+    "jambangan": [112.7161, -7.3188],
+    "tenggilis mejoyo": [112.7667, -7.3175],
+    "tegalsari": [112.7388, -7.2661],
+    "gunung anyar": [112.7936, -7.3361],
+    "dukuh pakis": [112.6934, -7.2882],
+    "benowo": [112.6391, -7.2514],
+    "genteng": [112.7441, -7.2584],
+    "gayungan": [112.7247, -7.3323],
+    "mulyorejo": [112.7951, -7.2644],
+    "karang pilang": [112.6942, -7.3298],
+    "pabean cantian": [112.7369, -7.2183],
+    "pakal": [112.6105, -7.2356],
+    "sawahan": [112.7176, -7.2713],
+    "sukomanunggal": [112.6974, -7.2647],
+    "bulak": [112.7954, -7.2319],
+    "krembangan": [112.7214, -7.2289],
+    "wonokromo": [112.7383, -7.3005],
+    "sambikerep": [112.6514, -7.2833],
+    "simokerto": [112.7571, -7.2392],
+    "lakarsantri": [112.6464, -7.3114],
+    "rungkut": [112.7836, -7.3204],
+    "bubutan": [112.7303, -7.2471],
+    "tambaksari": [112.7674, -7.2526],
+    "wonocolo": [112.7356, -7.3142],
+    "gubeng": [112.7595, -7.2797],
+    "wiyung": [112.6908, -7.3044],
+    "sukolilo": [112.7961, -7.2997]
+};
 
 // Luas wilayah BPS (km2) per kecamatan Kota Surabaya
 const KECAMATAN_LUAS = {
@@ -207,6 +244,14 @@ function switchView(viewId) {
     } else if (viewId === 'kesehatan') {
         if (healthChart) healthChart.resize();
         if (healthDonutChart) healthDonutChart.resize();
+    } else if (viewId === 'berita') {
+        if (!newsMapboxInstance) {
+            initNewsMapbox();
+        } else {
+            setTimeout(() => {
+                newsMapboxInstance.resize();
+            }, 100);
+        }
     } else if (viewId === 'prediksi') {
         // AI view ready
     }
@@ -672,204 +717,281 @@ function switchMapLayer(layer) {
 // -----------------------------------------------------------------------------
 // Mapbox GL JS 3D Engine Implementation
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// Mapbox GL JS 3D Engine for News Visualization
+// -----------------------------------------------------------------------------
 let mapboxGeojsonData = null;
 
-function prepareGeojsonDataForMapbox(geojsonData) {
-    if (!geojsonData || !geojsonData.features) return geojsonData;
-    geojsonData.features.forEach(feature => {
-        const props = feature.properties;
-        const name = props.NAME_3 || props.kecamatan || props.name || "";
-        const score = getIndexScore(name, currentMapLayer);
-        feature.properties.index_score = score;
-        feature.properties.color = getColorByScore(score);
-        feature.properties.standard_name = name;
-        feature.properties.clean_name = cleanKecamatanName(name);
-    });
-    return geojsonData;
+function getJitteredCoords(kecName, index) {
+    const coords = KECAMATAN_COORDS[cleanKecamatanName(kecName)] || [112.7521, -7.2575];
+    // Stable jitter based on index to prevent overlapping dots
+    const seedLat = Math.sin(index + 1) * 10000;
+    const seedLng = Math.cos(index + 1) * 10000;
+    const jitterLat = (seedLat - Math.floor(seedLat) - 0.5) * 0.012; // spread within ~1km
+    const jitterLng = (seedLng - Math.floor(seedLng) - 0.5) * 0.012;
+    return [coords[0] + jitterLng, coords[1] + jitterLat];
 }
 
-function setupMapboxLayers() {
-    if (!mapboxInstance) return;
-    
-    if (!mapboxInstance.getSource('surabaya-bounds') && mapboxGeojsonData) {
-        const preparedData = prepareGeojsonDataForMapbox(JSON.parse(JSON.stringify(mapboxGeojsonData)));
-        
-        mapboxInstance.addSource('surabaya-bounds', {
-            type: 'geojson',
-            data: preparedData
-        });
-        
-        // Fill Layer
-        mapboxInstance.addLayer({
-            id: 'surabaya-fill',
-            type: 'fill',
-            source: 'surabaya-bounds',
-            paint: {
-                'fill-color': ['get', 'color'],
-                'fill-opacity': 0.65
-            }
-        });
-        
-        // Borders Layer
-        mapboxInstance.addLayer({
-            id: 'surabaya-borders',
-            type: 'line',
-            source: 'surabaya-bounds',
-            paint: {
-                'line-color': '#2C4F53',
-                'line-width': 1.5
-            }
-        });
-        
-        // Highlight Layer for selected kecamatan
-        mapboxInstance.addLayer({
-            id: 'surabaya-highlight',
-            type: 'line',
-            source: 'surabaya-bounds',
-            paint: {
-                'line-color': '#1C3335',
-                'line-width': 3.5
-            },
-            filter: ['==', ['get', 'clean_name'], activeKecamatan ? cleanKecamatanName(activeKecamatan) : '']
-        });
-    }
-}
-
-async function initMapbox() {
-    if (mapboxInstance) return;
+async function initNewsMapbox() {
+    if (newsMapboxInstance) return;
     
     const isDark = document.body.classList.contains('dark-theme');
     const styleUrl = isDark ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11';
     
     try {
-        mapboxInstance = new mapboxgl.Map({
-            container: 'mapbox-map',
+        newsMapboxInstance = new mapboxgl.Map({
+            container: 'news-mapbox-map',
             style: styleUrl,
             center: [112.7521, -7.2575], // Lng, Lat
-            zoom: 11.2,
-            pitch: 45,
-            bearing: -10,
+            zoom: 10.8,
+            pitch: 35,
+            bearing: 0,
             antialias: true
         });
         
-        mapboxInstance.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        newsMapboxInstance.addControl(new mapboxgl.NavigationControl(), 'top-right');
         
-        mapboxInstance.on('style.load', () => {
-            setupMapboxLayers();
-            addMapbox3DBuildings();
+        newsMapboxInstance.on('style.load', () => {
+            addNewsMapbox3DBuildings();
+            updateNewsMapboxPoints();
         });
         
-        mapboxInstance.on('load', async () => {
-            // Load boundaries from cache or fetch
-            if (!mapboxGeojsonData) {
-                const response = await fetch(SURABAYA_GEOJSON_URL);
-                mapboxGeojsonData = await response.json();
-            }
-            
-            setupMapboxLayers();
-            
-            const mapboxPopup = new mapboxgl.Popup({
+        newsMapboxInstance.on('load', () => {
+            const popup = new mapboxgl.Popup({
                 closeButton: false,
                 closeOnClick: false,
                 offset: 15
             });
             
-            // Hover events
-            mapboxInstance.on('mousemove', 'surabaya-fill', (e) => {
-                mapboxInstance.getCanvas().style.cursor = 'pointer';
+            // Hover cursor on clusters
+            newsMapboxInstance.on('mouseenter', 'clusters', () => {
+                newsMapboxInstance.getCanvas().style.cursor = 'pointer';
+            });
+            newsMapboxInstance.on('mouseleave', 'clusters', () => {
+                newsMapboxInstance.getCanvas().style.cursor = '';
+            });
+            
+            // Click cluster to zoom in
+            newsMapboxInstance.on('click', 'clusters', (e) => {
+                const features = newsMapboxInstance.queryRenderedFeatures(e.point, {
+                    layers: ['clusters']
+                });
+                const clusterId = features[0].properties.cluster_id;
+                newsMapboxInstance.getSource('news-points').getClusterExpansionZoom(
+                    clusterId,
+                    (err, zoom) => {
+                        if (err) return;
+                        newsMapboxInstance.easeTo({
+                            center: features[0].geometry.coordinates,
+                            zoom: zoom + 0.5
+                        });
+                    }
+                );
+            });
+            
+            // Hover cursor and show popup on single points
+            newsMapboxInstance.on('mouseenter', 'unclustered-point', (e) => {
+                newsMapboxInstance.getCanvas().style.cursor = 'pointer';
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const props = e.features[0].properties;
                 
-                const feature = e.features[0];
-                const props = feature.properties;
-                const name = props.standard_name || "Kecamatan";
-                const score = props.index_score || 0;
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
                 
-                mapboxPopup.setLngLat(e.lngLat)
+                popup.setLngLat(coordinates)
                     .setHTML(`
-                        <div class="map-popup-detail">
-                            <h4 style="margin:0 0 4px 0; font-size:12px; font-weight:700;">${name}</h4>
-                            <p style="margin:0; font-size:10px; color:var(--text-secondary);">
-                                Indeks ${currentMapLayer === 'kriminalitas' ? 'Kriminal' : 'Kesehatan'}: 
-                                <span class="popup-val" style="font-weight:700; color:var(--text-primary);">${parseFloat(score).toFixed(1)}</span>
+                        <div class="news-popup-detail">
+                            <div class="popup-meta" style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                                <span class="badge" style="background-color:${props.category === 'Kriminalitas' ? 'var(--color-red)' : 'var(--color-green)'}; color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700;">
+                                    ${props.category}
+                                </span>
+                                <span style="font-size: 9px; color: var(--text-muted); font-weight:600;">${props.source}</span>
+                            </div>
+                            <h4 style="margin:0 0 6px 0; font-size:12px; font-weight:700; color:#1C3335; line-height:1.4;">${props.title}</h4>
+                            <p style="margin:0 0 8px 0; font-size:10px; color:var(--text-secondary); font-weight:500;">
+                                <i class="fa-solid fa-location-dot"></i> Kecamatan ${props.kecamatan}
                             </p>
-                            <p style="margin:4px 0 0 0; font-size: 8px; color: var(--text-muted);">Klik untuk detail lengkap</p>
+                            <span class="popup-btn">Klik untuk detail lengkap →</span>
                         </div>
                     `)
-                    .addTo(mapboxInstance);
+                    .addTo(newsMapboxInstance);
             });
             
-            mapboxInstance.on('mouseleave', 'surabaya-fill', () => {
-                mapboxInstance.getCanvas().style.cursor = '';
-                mapboxPopup.remove();
+            newsMapboxInstance.on('mouseleave', 'unclustered-point', () => {
+                newsMapboxInstance.getCanvas().style.cursor = '';
+                popup.remove();
             });
             
-            // Click events
-            mapboxInstance.on('click', 'surabaya-fill', (e) => {
-                const feature = e.features[0];
-                const name = feature.properties.standard_name || "";
-                selectKecamatan(name);
+            // Click single point to open news detail modal
+            newsMapboxInstance.on('click', 'unclustered-point', (e) => {
+                const props = e.features[0].properties;
+                const rawItem = dashboardData.berita.find(x => x.judul === props.title);
+                if (rawItem) {
+                    openNewsModal(rawItem);
+                }
             });
-            
-            // Zoom to active kecamatan if pre-selected
-            if (activeKecamatan) {
-                zoomToPolygon(activeKecamatan);
-            }
         });
     } catch (error) {
-        console.error('Failed to initialize Mapbox GL JS map:', error);
+        console.error('Failed to initialize News Mapbox map:', error);
     }
 }
 
-function updateMapboxLayers() {
-    if (!mapboxInstance || !mapboxInstance.isStyleLoaded() || !mapboxInstance.getSource('surabaya-bounds')) return;
+function updateNewsMapboxPoints() {
+    if (!newsMapboxInstance || !newsMapboxInstance.isStyleLoaded()) return;
     
-    if (mapboxGeojsonData) {
-        const preparedData = prepareGeojsonDataForMapbox(JSON.parse(JSON.stringify(mapboxGeojsonData)));
-        mapboxInstance.getSource('surabaya-bounds').setData(preparedData);
-    }
-}
-
-function toggleMapEngine() {
-    const leafletMapDiv = document.getElementById('map');
-    const mapboxMapDiv = document.getElementById('mapbox-map');
-    const toggleBtn = document.getElementById('btn-map-engine');
+    const searchInput = document.getElementById('news-search-input');
+    const catSelect = document.getElementById('news-filter-category');
+    const kecSelect = document.getElementById('news-filter-kecamatan');
     
-    if (currentMapEngine === 'leaflet') {
-        currentMapEngine = 'mapbox';
-        leafletMapDiv.classList.add('hidden');
-        mapboxMapDiv.classList.remove('hidden');
+    const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const catFilter = catSelect ? catSelect.value : 'All';
+    const kecFilter = kecSelect ? kecSelect.value : 'All';
+    
+    if (!dashboardData || !dashboardData.berita) return;
+    
+    const filteredNews = dashboardData.berita.filter(item => {
+        const title = item.judul.toLowerCase();
+        const category = item.kategori;
+        const kecamatan = item.kecamatan_terdeteksi || '';
         
-        toggleBtn.innerHTML = '<i class="fa-solid fa-map"></i> Peta Leaflet 2D';
-        toggleBtn.style.backgroundColor = 'var(--text-secondary)';
+        const matchSearch = title.includes(searchVal);
+        const matchCat = catFilter === 'All' || category === catFilter;
+        const matchKec = kecFilter === 'All' || cleanKecamatanName(kecamatan) === cleanKecamatanName(kecFilter);
         
-        if (!mapboxInstance) {
-            initMapbox();
-        } else {
-            setTimeout(() => {
-                mapboxInstance.resize();
-                updateMapboxLayers();
-                if (activeKecamatan) {
-                    zoomToPolygon(activeKecamatan);
-                }
-            }, 100);
-        }
+        return matchSearch && matchCat && matchKec;
+    });
+    
+    const features = filteredNews.map((item, index) => {
+        const coords = getJitteredCoords(item.kecamatan_terdeteksi, index);
+        return {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: coords
+            },
+            properties: {
+                id: index,
+                title: item.judul,
+                category: item.kategori,
+                source: item.sumber,
+                kecamatan: item.kecamatan_terdeteksi,
+                date: item.tanggal_publikasi
+            }
+        };
+    });
+    
+    const newsGeojson = {
+        type: 'FeatureCollection',
+        features: features
+    };
+    
+    if (newsMapboxInstance.getSource('news-points')) {
+        newsMapboxInstance.getSource('news-points').setData(newsGeojson);
     } else {
-        currentMapEngine = 'leaflet';
-        mapboxMapDiv.classList.add('hidden');
-        leafletMapDiv.classList.remove('hidden');
+        newsMapboxInstance.addSource('news-points', {
+            type: 'geojson',
+            data: newsGeojson,
+            cluster: true,
+            clusterMaxZoom: 14,
+            clusterRadius: 50
+        });
         
-        toggleBtn.innerHTML = '<i class="fa-solid fa-earth-americas"></i> Mapbox 3D';
-        toggleBtn.style.backgroundColor = 'var(--color-blue)';
+        // Cluster circles layer
+        newsMapboxInstance.addLayer({
+            id: 'clusters',
+            type: 'circle',
+            source: 'news-points',
+            filter: ['has', 'point_count'],
+            paint: {
+                'circle-color': [
+                    'step',
+                    ['get', 'point_count'],
+                    'rgba(142, 68, 173, 0.75)', // <= 3 news: purple
+                    3,
+                    'rgba(142, 68, 173, 0.85)', // <= 10 news
+                    10,
+                    'rgba(142, 68, 173, 0.95)'  // > 10 news
+                ],
+                'circle-radius': [
+                    'step',
+                    ['get', 'point_count'],
+                    16,
+                    3,
+                    20,
+                    10,
+                    25
+                ],
+                'circle-stroke-width': 2,
+                'circle-stroke-color': '#ffffff'
+            }
+        });
         
-        if (mapInstance) {
-            setTimeout(() => {
-                mapInstance.invalidateSize();
-                if (activeKecamatan) {
-                    zoomToPolygon(activeKecamatan);
-                }
-            }, 100);
-        }
+        // Cluster count text layer
+        newsMapboxInstance.addLayer({
+            id: 'cluster-count',
+            type: 'symbol',
+            source: 'news-points',
+            filter: ['has', 'point_count'],
+            layout: {
+                'text-field': '{point_count}',
+                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                'text-size': 11,
+                'text-allow-overlap': true,
+                'text-ignore-placement': true
+            },
+            paint: {
+                'text-color': '#ffffff'
+            }
+        });
+        
+        // Unclustered point dots layer
+        newsMapboxInstance.addLayer({
+            id: 'unclustered-point',
+            type: 'circle',
+            source: 'news-points',
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+                'circle-color': [
+                    'match',
+                    ['get', 'category'],
+                    'Kriminalitas',
+                    '#D95D39', // soft terracotta red
+                    'Kesehatan',
+                    '#2B9C80', // teal green
+                    '#E68A00'  // default orange
+                ],
+                'circle-radius': 8,
+                'circle-stroke-width': 2,
+                'circle-stroke-color': '#ffffff'
+            }
+        });
     }
 }
+
+function addNewsMapbox3DBuildings() {
+    if (!newsMapboxInstance || !newsMapboxInstance.isStyleLoaded()) return;
+    try {
+        if (newsMapboxInstance.getLayer('3d-buildings')) return;
+        newsMapboxInstance.addLayer({
+            id: '3d-buildings',
+            source: 'composite',
+            'source-layer': 'building',
+            filter: ['==', 'extrude', 'true'],
+            type: 'fill-extrusion',
+            minzoom: 13,
+            paint: {
+                'fill-extrusion-color': document.body.classList.contains('dark-theme') ? '#3A3B4F' : '#DCD8A3',
+                'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 13, 0, 14, ['get', 'height']],
+                'fill-extrusion-base': ['get', 'min_height'],
+                'fill-extrusion-opacity': 0.55
+            }
+        });
+    } catch (e) {
+        console.warn('3D buildings news map skipped:', e.message);
+    }
+}
+
 
 function showFallbackGrid() {
     const mapEl = document.getElementById('map');
@@ -1466,6 +1588,9 @@ function populateNewsPortal() {
         `;
         container.appendChild(card);
     });
+    
+    // Update Mapbox news points on initial load
+    updateNewsMapboxPoints();
 }
 
 function filterNewsGrid() {
@@ -1514,6 +1639,9 @@ function filterNewsGrid() {
             noResultNode.remove();
         }
     }
+    
+    // Update Mapbox news points dynamically based on current filters
+    updateNewsMapboxPoints();
 }
 
 // -----------------------------------------------------------------------------
@@ -1749,6 +1877,12 @@ function toggleTheme() {
     // Update Map tile layer URL
     if (tileLayerInstance) {
         tileLayerInstance.setUrl(getTileLayerUrl());
+    }
+    
+    // Update Mapbox theme if active
+    if (newsMapboxInstance) {
+        const styleUrl = isDark ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11';
+        newsMapboxInstance.setStyle(styleUrl);
     }
     
     // Redraw charts with the new colors
