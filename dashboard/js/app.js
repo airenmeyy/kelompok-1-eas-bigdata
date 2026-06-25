@@ -2586,93 +2586,141 @@ function openNewsModal(item) {
     const accentColor = isKrim ? 'var(--color-red)' : 'var(--color-blue)';
     const accentBg = isKrim ? 'rgba(217,93,57,0.08)' : 'rgba(75,162,172,0.08)';
 
-    // Pipeline provenance text
-    const pipeline = isKrim
-        ? 'Kafka Ingest → Bronze → Silver → Gold (Delta Lakehouse)'
-        : 'Kafka Ingest → Bronze → Silver → Gold (Delta Lakehouse)';
-
     const overlay = document.createElement('div');
     overlay.id = 'news-detail-modal';
     overlay.style.cssText = `position:fixed;inset:0;background:rgba(18,35,38,0.72);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeInModal 0.2s ease;`;
     overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
     overlay.innerHTML = `
-<div style="background:var(--bg-primary);border-radius:16px;width:620px;max-width:98vw;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(18,35,38,0.4);border:1px solid var(--border-color);font-family:var(--font-primary);animation:slideUpModal 0.25s ease;">
+<div style="background:var(--bg-primary);border-radius:20px;width:640px;max-width:98vw;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(18,35,38,0.45);border:1px solid var(--border-color);font-family:var(--font-primary);animation:slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
     <!-- Header bar -->
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px 16px;border-bottom:1px solid var(--border-color);">
-        <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:36px;height:36px;border-radius:10px;background:${accentBg};display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <i class="fa-solid ${isKrim ? 'fa-shield-halved' : 'fa-heart-pulse'}" style="color:${accentColor};font-size:15px;"></i>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border-color);">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:12px;background:${accentBg};display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid ${isKrim ? 'rgba(217,93,57,0.15)' : 'rgba(75,162,172,0.15)'};">
+                <i class="fa-solid ${isKrim ? 'fa-shield-halved' : 'fa-heart-pulse'}" style="color:${accentColor};font-size:16px;"></i>
             </div>
             <div>
-                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:${accentColor};">${item.kategori}</div>
-                <div style="font-size:11px;color:var(--text-muted);">${item.sumber} &nbsp;·&nbsp; ${dateStr}</div>
+                <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:${accentColor};">${item.kategori}</div>
+                <div style="font-size:11px;color:var(--text-muted);font-weight:500;">${item.sumber} &nbsp;·&nbsp; ${dateStr}</div>
             </div>
         </div>
         <button onclick="document.getElementById('news-detail-modal').remove()"
-                style="border:none;background:var(--bg-panel);color:var(--text-muted);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;">
+                style="border:none;background:var(--bg-panel);color:var(--text-muted);width:32px;height:32px;border-radius:10px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all var(--transition-fast);"
+                onmouseover="this.style.background='var(--bg-hover)';this.style.color='var(--text-primary)';" onmouseout="this.style.background='var(--bg-panel)';this.style.color='var(--text-muted)';">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
 
     <!-- Title + location -->
-    <div style="padding:20px 22px 0;">
-        <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.45;">${item.judul}</h3>
-        <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:${accentBg};border-radius:6px;border-left:3px solid ${accentColor};margin-bottom:18px;">
+    <div style="padding:22px 24px 0;">
+        <h3 style="margin:0 0 14px;font-size:17px;font-weight:700;color:var(--text-primary);line-height:1.45;letter-spacing:-0.2px;">${item.judul}</h3>
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:${accentBg};border-radius:20px;border:1px solid ${isKrim ? 'rgba(217,93,57,0.15)' : 'rgba(75,162,172,0.15)'};margin-bottom:20px;">
             <i class="fa-solid fa-location-dot" style="color:${accentColor};font-size:11px;"></i>
-            <span style="font-size:12px;font-weight:700;color:var(--text-primary);">Kec. ${item.kecamatan_terdeteksi}</span>
-            ${crimeRank ? `<span style="font-size:10px;color:var(--text-muted);">· Rank #${crimeRank}/31</span>` : ''}
+            <span style="font-size:11.5px;font-weight:700;color:var(--text-primary);">Kecamatan ${item.kecamatan_terdeteksi}</span>
+            ${crimeRank ? `<span style="font-size:10.5px;color:var(--text-muted);font-weight:600;">&nbsp;·&nbsp; Rank #${crimeRank}/31</span>` : ''}
         </div>
     </div>
 
     <!-- Data context grid -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 22px 18px;">
-        <div style="background:var(--bg-panel);border-radius:10px;padding:12px 14px;border:1px solid var(--border-color);">
-            <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Indeks Kriminal</div>
-            <div style="font-size:22px;font-weight:800;color:${crimeColor};line-height:1;">${crimeIdx}</div>
-            <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">/100 skor risiko</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0 24px 20px;">
+        <!-- Card Kriminal -->
+        <div style="background:var(--bg-panel);border-radius:14px;padding:14px 16px;border:1px solid var(--border-color);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:all var(--transition-fast);"
+             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow-sm)';" onmouseout="this.style.transform='none';this.style.boxShadow='none';">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-size:9.5px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Indeks Kriminal</span>
+                <i class="fa-solid fa-shield-halved" style="color:${crimeColor};font-size:12px;"></i>
+            </div>
+            <div>
+                <div style="font-size:24px;font-weight:800;color:${crimeColor};line-height:1;margin-bottom:4px;">${crimeIdx}</div>
+                <div style="font-size:10px;color:var(--text-muted);font-weight:500;">/100 skor risiko</div>
+            </div>
         </div>
-        <div style="background:var(--bg-panel);border-radius:10px;padding:12px 14px;border:1px solid var(--border-color);">
-            <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Indeks Kesehatan</div>
-            <div style="font-size:22px;font-weight:800;color:var(--color-blue);line-height:1;">${healthIdx}</div>
-            <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">/100 skor risiko</div>
+
+        <!-- Card Kesehatan -->
+        <div style="background:var(--bg-panel);border-radius:14px;padding:14px 16px;border:1px solid var(--border-color);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:all var(--transition-fast);"
+             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow-sm)';" onmouseout="this.style.transform='none';this.style.boxShadow='none';">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-size:9.5px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Indeks Kesehatan</span>
+                <i class="fa-solid fa-heart-pulse" style="color:var(--color-blue);font-size:12px;"></i>
+            </div>
+            <div>
+                <div style="font-size:24px;font-weight:800;color:var(--color-blue);line-height:1;margin-bottom:4px;">${healthIdx}</div>
+                <div style="font-size:10px;color:var(--text-muted);font-weight:500;">/100 skor risiko</div>
+            </div>
         </div>
-        <div style="background:var(--bg-panel);border-radius:10px;padding:12px 14px;border:1px solid var(--border-color);">
-            <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Kasus Wabah</div>
-            <div style="font-size:22px;font-weight:800;color:var(--text-primary);line-height:1;">${hData?.total_kasus_wabah ?? '—'}</div>
-            <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">wabah terdata</div>
+
+        <!-- Card Wabah -->
+        <div style="background:var(--bg-panel);border-radius:14px;padding:14px 16px;border:1px solid var(--border-color);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:all var(--transition-fast);"
+             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow-sm)';" onmouseout="this.style.transform='none';this.style.boxShadow='none';">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-size:9.5px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Kasus Wabah</span>
+                <i class="fa-solid fa-virus" style="color:var(--text-muted);font-size:12px;"></i>
+            </div>
+            <div>
+                <div style="font-size:24px;font-weight:800;color:var(--text-primary);line-height:1;margin-bottom:4px;">${hData?.total_kasus_wabah ?? '—'}</div>
+                <div style="font-size:10px;color:var(--text-muted);font-weight:500;">wabah terdata</div>
+            </div>
         </div>
     </div>
 
-    <!-- Pipeline provenance -->
-    <div style="margin:0 22px 18px;padding:10px 14px;background:rgba(28,51,53,0.04);border-radius:8px;border:1px solid var(--border-color);">
-        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">
-            <i class="fa-solid fa-database" style="margin-right:4px;"></i>Provenance Pipeline
+    <!-- Pipeline provenance (Graphical Timeline) -->
+    <div style="margin:0 24px 20px;padding:16px;background:rgba(28,51,53,0.03);border-radius:14px;border:1px solid var(--border-color);">
+        <div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+            <i class="fa-solid fa-code-fork" style="color:var(--color-blue);"></i> Data Provenance Pipeline
         </div>
-        <div style="font-size:11px;color:var(--text-secondary);font-family:monospace;">${pipeline}</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:3px;">ID Berita: ${item.id_berita} &nbsp;·&nbsp; Diproses via Kafka + Spark MLlib</div>
+        
+        <!-- Graphical Flow -->
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:12px;">
+            <div style="flex:1;text-align:center;background:var(--bg-panel);border:1px solid var(--border-color);padding:8px 4px;border-radius:8px;font-size:10px;font-weight:700;color:var(--text-primary);">
+                <i class="fa-solid fa-paper-plane" style="color:var(--color-blue);margin-bottom:4px;display:block;font-size:12px;"></i>
+                Kafka Ingest
+            </div>
+            <div style="color:var(--text-muted);font-size:10px;"><i class="fa-solid fa-chevron-right"></i></div>
+            <div style="flex:1;text-align:center;background:var(--bg-panel);border:1px solid var(--border-color);padding:8px 4px;border-radius:8px;font-size:10px;font-weight:700;color:var(--text-primary);">
+                <i class="fa-solid fa-database" style="color:#CD7F32;margin-bottom:4px;display:block;font-size:12px;"></i>
+                Bronze Table
+            </div>
+            <div style="color:var(--text-muted);font-size:10px;"><i class="fa-solid fa-chevron-right"></i></div>
+            <div style="flex:1;text-align:center;background:var(--bg-panel);border:1px solid var(--border-color);padding:8px 4px;border-radius:8px;font-size:10px;font-weight:700;color:var(--text-primary);">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color:#C0C0C0;margin-bottom:4px;display:block;font-size:12px;"></i>
+                Silver Table
+            </div>
+            <div style="color:var(--text-muted);font-size:10px;"><i class="fa-solid fa-chevron-right"></i></div>
+            <div style="flex:1;text-align:center;background:var(--bg-panel);border:1px solid var(--border-color);padding:8px 4px;border-radius:8px;font-size:10px;font-weight:700;color:var(--text-primary);">
+                <i class="fa-solid fa-crown" style="color:#FFD700;margin-bottom:4px;display:block;font-size:12px;"></i>
+                Gold Table
+            </div>
+        </div>
+        
+        <div style="font-size:10px;color:var(--text-muted);font-weight:500;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;border-top:1px solid rgba(28,51,53,0.06);padding-top:8px;">
+            <span>ID Berita: <span style="font-family:monospace;font-weight:600;">${item.id_berita}</span></span>
+            <span>Pemrosesan: <span style="font-weight:600;">Kafka Stream + Spark MLlib</span></span>
+        </div>
     </div>
 
-    <!-- Actions -->
-    <div style="padding:0 22px 22px;display:flex;gap:8px;flex-wrap:wrap;">
+    <!-- Actions (Cohesive Premium Buttons) -->
+    <div style="padding:0 24px 24px;display:flex;gap:10px;flex-wrap:wrap;">
         <button onclick="document.getElementById('news-detail-modal').remove();switchView('kecamatan');selectKecamatan('${item.kecamatan_terdeteksi}');"
-                style="flex:1;min-width:130px;padding:10px 14px;background:var(--color-blue);color:white;border:none;border-radius:9px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;">
+                style="flex:1;min-width:130px;height:42px;padding:0 14px;background:var(--color-blue);color:white;border:none;border-radius:12px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;transition:all var(--transition-fast);box-shadow:0 4px 12px rgba(75,162,172,0.15);"
+                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 16px rgba(75,162,172,0.25)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 12px rgba(75,162,172,0.15)';">
             <i class="fa-solid fa-map-location-dot"></i> Lihat di Peta
         </button>
         <button onclick="document.getElementById('news-detail-modal').remove();switchView('prediksi');setTimeout(()=>{const s=document.getElementById('ai-kec-select');if(s){s.value='${item.kecamatan_terdeteksi}';sendAIMessage();}},300);"
-                style="flex:1;min-width:130px;padding:10px 14px;background:${accentBg};color:${accentColor};border:1px solid ${accentColor};border-radius:9px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;">
+                style="flex:1;min-width:130px;height:42px;padding:0 14px;background:linear-gradient(135deg, ${isKrim ? 'var(--color-red)' : 'var(--color-blue)'}, ${isKrim ? '#E74C3C' : '#3498DB'});color:white;border:none;border-radius:12px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;transition:all var(--transition-fast);box-shadow:0 4px 12px ${isKrim ? 'rgba(217,93,57,0.15)' : 'rgba(75,162,172,0.15)'};"
+                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 16px ${isKrim ? 'rgba(217,93,57,0.25)' : 'rgba(75,162,172,0.25)'}';" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 12px ${isKrim ? 'rgba(217,93,57,0.15)' : 'rgba(75,162,172,0.15)'}';">
             <i class="fa-solid fa-wand-magic-sparkles"></i> Analisis AI
         </button>
         ${directUrl ? `
         <a href="${directUrl}" target="_blank" rel="noopener noreferrer"
-           style="flex:1;min-width:130px;padding:10px 14px;background:var(--color-green);color:white;border:none;border-radius:9px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:var(--transition-fast);"
-           onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Baca Sumber Asli
+           style="flex:1;min-width:130px;height:42px;padding:0 14px;background:var(--color-green);color:white;border:none;border-radius:12px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:all var(--transition-fast);box-shadow:0 4px 12px rgba(43,156,128,0.15);"
+           onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 16px rgba(43,156,128,0.25)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 12px rgba(43,156,128,0.15)';">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Sumber Asli
         </a>
         ` : ''}
         <a href="${searchUrl}" target="_blank" rel="noopener noreferrer"
-           style="flex:1;min-width:130px;padding:10px 14px;background:transparent;color:var(--text-secondary);border:1px solid var(--border-color);border-radius:9px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;">
-            <i class="fa-brands fa-google" style="color:#4285f4;"></i> Google News
+           style="flex:1;min-width:130px;height:42px;padding:0 14px;background:transparent;color:var(--text-secondary);border:1px solid var(--border-color);border-radius:12px;cursor:pointer;font-family:var(--font-primary);font-size:12.5px;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:all var(--transition-fast);"
+           onmouseover="this.style.transform='translateY(-2px)';this.style.background='var(--bg-panel)';this.style.boxShadow='var(--shadow-sm)';" onmouseout="this.style.transform='none';this.style.background='transparent';this.style.boxShadow='none';">
+            <i class="fa-brands fa-google" style="color:#4285f4;font-size:13px;"></i> Google News
         </a>
     </div>
 </div>`;
