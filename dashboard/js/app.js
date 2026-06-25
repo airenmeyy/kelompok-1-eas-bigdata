@@ -749,6 +749,7 @@ async function initNewsMapbox() {
     if (newsMapboxInstance) return;
     
     newsMapStyleLoaded = false;
+    let hoveringNewsMarker = false;
     const isDark = document.body.classList.contains('dark-theme');
     const styleUrl = isDark ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/light-v11';
     
@@ -811,9 +812,12 @@ async function initNewsMapbox() {
             
             // Hover cursor on clusters
             newsMapboxInstance.on('mouseenter', 'clusters', () => {
+                hoveringNewsMarker = true;
+                if (typeof kecPopup !== 'undefined' && kecPopup) kecPopup.remove();
                 newsMapboxInstance.getCanvas().style.cursor = 'pointer';
             });
             newsMapboxInstance.on('mouseleave', 'clusters', () => {
+                hoveringNewsMarker = false;
                 newsMapboxInstance.getCanvas().style.cursor = '';
             });
             
@@ -837,6 +841,8 @@ async function initNewsMapbox() {
             
             // Hover cursor and show popup on single points
             newsMapboxInstance.on('mouseenter', 'unclustered-point', (e) => {
+                hoveringNewsMarker = true;
+                if (typeof kecPopup !== 'undefined' && kecPopup) kecPopup.remove();
                 newsMapboxInstance.getCanvas().style.cursor = 'pointer';
                 const coordinates = e.features[0].geometry.coordinates.slice();
                 const props = e.features[0].properties;
@@ -865,6 +871,7 @@ async function initNewsMapbox() {
             });
             
             newsMapboxInstance.on('mouseleave', 'unclustered-point', () => {
+                hoveringNewsMarker = false;
                 newsMapboxInstance.getCanvas().style.cursor = '';
                 popup.remove();
             });
@@ -887,6 +894,10 @@ async function initNewsMapbox() {
             });
             
             newsMapboxInstance.on('mousemove', 'kecamatan-fills', (e) => {
+                if (hoveringNewsMarker) {
+                    kecPopup.remove();
+                    return;
+                }
                 if (e.features.length > 0) {
                     newsMapboxInstance.getCanvas().style.cursor = 'pointer';
                     const props = e.features[0].properties;
