@@ -243,6 +243,14 @@ Buka browser dan akses:
 
 Setelah Docker berjalan, eksekusi pipeline secara berurutan:
 
+```mermaid
+graph LR
+    Step1["Step 1: Ingestion<br/>(00_ingestion_api.py)"] -->|Kafka Stream| Step2["Step 2: Bronze Layer<br/>(run_bronze_docker.sh)"]
+    Step2 -->|Raw Delta Table| Step3["Step 3: Silver Layer<br/>(run_silver_docker.sh)"]
+    Step3 -->|Clean Delta Table| Step4["Step 4: Gold Layer<br/>(run_gold_docker.sh)"]
+    Step4 -->|Analytical Joins| Step5["Step 5: Verifikasi<br/>(ambil_dokumentasi.sh)"]
+```
+
 ### Step 1: Ingestion — Tarik Berita dari Google News
 
 ```bash
@@ -504,6 +512,24 @@ kelompok-1-eas-bigdata/
 ---
 
 ## Formula & Metrik
+
+```mermaid
+graph TD
+    subgraph Kriminalitas ["Street Crime Index (Indeks Kriminalitas)"]
+        A["Kasus Baseline (Paper)"] & B["Kasus Berita (LDA Classified)"] --> C["Total Kasus Kriminal"]
+        C & D["Jumlah Penduduk"] --> E["Crime Rate (CR) per 100k"]
+        E --> F["Min-Max Normalization"] --> G["Indeks Kriminalitas (0-100)"]
+    end
+
+    subgraph Kesehatan ["Environmental Health Risk Index (Indeks Kesehatan)"]
+        H["Penyakit Baseline (CSV)"] & I["Penyakit Berita (LDA Classified)"] --> J["Total Kasus Penyakit"]
+        J & D --> K["Incidence Rate (IR)"]
+        L["Total Faskes (CSV)"] & D --> M["Health Facility Ratio (HFR)"]
+        K --> N["Norm(IR)"]
+        M --> O["100 - Norm(HFR)"]
+        N & O --> P["Weighted Mix (70% IR + 30% HFR)"] --> Q["Indeks Kesehatan (0-100)"]
+    end
+```
 
 ### Indeks Kriminalitas (Street Crime Index)
 
