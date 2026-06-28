@@ -23,3 +23,17 @@ spark-warehouse/
 
 # Legacy / backup files
 *_legacy_*.py
+
+# MS Excel / Rubrik files
+*.xlsx
+
+# Temporary images at root
+/Crime_rate_*.png
+/image.png
+/Cuplikan layar*.png
+
+# Scratch and OS metadata files
+/scratch/
+.DS_Store
+Thumbs.db
+
