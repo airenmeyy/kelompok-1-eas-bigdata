@@ -48,6 +48,7 @@
 - [Web UI Monitoring](#web-ui-monitoring)
 - [Pilar Big Data yang Diimplementasikan](#pilar-big-data-yang-diimplementasikan)
 - [Tim Pengembang](#tim-pengembang)
+- [Lisensi](#lisensi)
 
 ---
 
@@ -785,3 +786,9 @@ Tim pengembang mengusulkan projek KECAMATRAS untuk berlaga di ajang **Gemastik 2
 <p align="center">
   <em>Built using Apache Hadoop, Spark, Kafka, and Delta Lake</em>
 </p>
+
+---
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah **[MIT License](LICENSE)**. Hak Cipta (c) 2026 Tim Kelompok 1.
