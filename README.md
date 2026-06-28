@@ -279,6 +279,38 @@ chmod +x run_bronze_docker.sh
 | `tbl_static_crime_baseline` | Hardcode dari paper |
 | `tbl_raw_news` | Berita streaming dari Kafka |
 
+```mermaid
+graph TD
+    subgraph Sources ["Data Sources"]
+        Kafka["Apache Kafka Topic (kecamatras-stream)"]
+        CSV_Faskes["new-faskes_kecamatan_2023_2026.csv"]
+        CSV_Disease["new-penyakit_puskesmas_2022_2026-1.csv"]
+        Crime_Dict["Crime Baseline Dictionary (Hardcode)"]
+    end
+
+    subgraph Proc_Bronze ["Bronze Processing (01_bronze.py)"]
+        Read_Kafka["readStream (Kafka Format JSON)"]
+        Read_Batch["read.csv / createDataFrame (Batch)"]
+    end
+
+    subgraph Output_Bronze ["Bronze Layer HDFS Delta"]
+        Delta_Raw_News["tbl_raw_news<br/>(Delta Raw Streaming)"]
+        Delta_Raw_Faskes["tbl_raw_faskes_baseline<br/>(Delta Raw Batch)"]
+        Delta_Raw_Disease["tbl_raw_disease_baseline<br/>(Delta Raw Batch)"]
+        Delta_Static_Crime["tbl_static_crime_baseline<br/>(Delta Static Batch)"]
+    end
+
+    Kafka --> Read_Kafka
+    CSV_Faskes --> Read_Batch
+    CSV_Disease --> Read_Batch
+    Crime_Dict --> Read_Batch
+
+    Read_Kafka -->|writeStream| Delta_Raw_News
+    Read_Batch -->|write| Delta_Raw_Faskes
+    Read_Batch -->|write| Delta_Raw_Disease
+    Read_Batch -->|write| Delta_Static_Crime
+```
+
 ### Step 3: Silver Layer — Bersihkan & Standardisasi Data
 
 ```bash
@@ -300,6 +332,35 @@ chmod +x run_silver_docker.sh
 | `tbl_clean_crime_baseline` | Normalisasi nama kecamatan |
 | `tbl_clean_news` | Berita bersih + kecamatan terdeteksi |
 
+```mermaid
+graph TD
+    subgraph Input_Silver ["Bronze Layer (HDFS Delta)"]
+        B_News["tbl_raw_news"]
+        B_Faskes["tbl_raw_faskes_baseline"]
+        B_Disease["tbl_raw_disease_baseline"]
+        B_Crime["tbl_static_crime_baseline"]
+    end
+
+    subgraph Proc_Silver ["Silver Cleaning & Parsers (02_silver.py)"]
+        Clean_Text["Text Cleansing:<br/>Lowercasing, HTML Strip, Special Chars Clean"]
+        Geo_Parse["Geo-Parsing Regex:<br/>Map text to 31 Surabaya Kecamatan"]
+        Standard_Faskes["Standardise Faskes:<br/>Cast integer and formatting columns"]
+        Standard_Disease["Standardise Disease:<br/>Aggregation cases per Kecamatan"]
+    end
+
+    subgraph Output_Silver ["Silver Layer HDFS Delta"]
+        S_News["tbl_clean_news<br/>(Parsed News)"]
+        S_Faskes["tbl_clean_faskes<br/>(Aggregated Faskes)"]
+        S_Disease["tbl_clean_disease<br/>(Aggregated Disease)"]
+        S_Crime["tbl_clean_crime_baseline<br/>(Standardised Crime)"]
+    end
+
+    B_News --> Clean_Text --> Geo_Parse --> S_News
+    B_Faskes --> Standard_Faskes --> S_Faskes
+    B_Disease --> Standard_Disease --> S_Disease
+    B_Crime --> S_Crime
+```
+
 ### Step 4: Gold Layer — Hitung Indeks Final dengan ML
 
 ```bash
@@ -319,6 +380,39 @@ chmod +x run_gold_docker.sh
 |-------|-----------|
 | `tbl_index_kriminalitas` | Ranking kecamatan berdasarkan tingkat kerawanan kriminal (0-100) |
 | `tbl_index_kesehatan` | Ranking kecamatan berdasarkan risiko kesehatan lingkungan (0-100) |
+
+```mermaid
+graph TD
+    subgraph Input_Gold ["Silver Layer (HDFS Delta)"]
+        S_News["tbl_clean_news"]
+        S_Faskes["tbl_clean_faskes"]
+        S_Disease["tbl_clean_disease"]
+        S_Crime["tbl_clean_crime_baseline"]
+    end
+
+    subgraph Proc_Gold ["Gold Analytical Engine (03_gold.py)"]
+        subgraph NLP_ML ["Spark MLlib LDA Topic Modeling"]
+            Tokenize["Tokenizer & StopWordsRemover"]
+            TF_IDF["CountVectorizer + IDF (TF-IDF)"]
+            LDA["LDA Model (k=2 Clustering)"]
+            Topic_Map["Dynamic Topic Mapping:<br/>Kriminalitas vs Kesehatan"]
+        end
+        Joins["Analytical Joins:<br/>Merge News counts with baselines"]
+        Normalise["Min-Max Index Normalization:<br/>Street Crime Index & Health Risk Index"]
+    end
+
+    subgraph Output_Gold ["Gold Layer HDFS Delta"]
+        G_Crime["tbl_index_kriminalitas<br/>(Crime Index 0-100)"]
+        G_Health["tbl_index_kesehatan<br/>(Health Index 0-100)"]
+    end
+
+    S_News --> Tokenize --> TF_IDF --> LDA --> Topic_Map
+    Topic_Map --> Joins
+    S_Faskes & S_Disease & S_Crime --> Joins
+    Joins --> Normalise
+    Normalise -->|Write Delta| G_Crime
+    Normalise -->|Write Delta| G_Health
+```
 
 ### Step 5: Verifikasi — Lihat Hasil dari HDFS
 
