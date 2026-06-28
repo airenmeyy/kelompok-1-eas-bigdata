@@ -120,11 +120,11 @@ Proyek ini menggunakan arsitektur **Medallion (Data Lakehouse)** dengan kombinas
 ```mermaid
 graph TD
     %% Styling Definitions
-    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px;
-    classDef static fill:#f5f5f5,stroke:#616161,stroke-width:2px;
-    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px;
-    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px;
-    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000;
+    classDef static fill:#f5f5f5,stroke:#616161,stroke-width:2px,color:#000;
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
 
     %% Nodes
     RSS["Google News RSS<br/>(Berita Surabaya)"]
