@@ -187,6 +187,9 @@ async function initDashboard() {
         // Populate news filters
         populateKecamatanDropdown();
 
+        // Start background geocoding scheduler
+        startGeocodingQueue();
+
         // Initialize Map in the background
         initMap();
 
@@ -208,6 +211,10 @@ async function initDashboard() {
         renderCityStatsPanel();
         populateBelowMapPanels();
 
+        // Restore active view from localStorage or fallback to default
+        const savedView = localStorage.getItem('kecamatras_current_view') || 'dashboard';
+        switchView(savedView);
+
         // Start polling for real-time updates
         startRealtimePolling();
 
@@ -222,6 +229,7 @@ async function initDashboard() {
 // -----------------------------------------------------------------------------
 function switchView(viewId) {
     currentView = viewId;
+    localStorage.setItem('kecamatras_current_view', viewId);
 
     // Toggle View Sections
     document.querySelectorAll('.dashboard-view').forEach(view => {
@@ -735,6 +743,151 @@ function switchMapLayer(layer) {
 // -----------------------------------------------------------------------------
 let mapboxGeojsonData = null;
 
+function getGeocodeQuery(item) {
+    if (!item) return null;
+    const title = item.judul || "";
+    const desc = item.deskripsi_mentah || "";
+    const text = `${title} ${desc}`.toLowerCase();
+
+    // 1. Match street names: "jalan [nama]" or "jl. [nama]" or "jl [nama]"
+    const streetMatch = text.match(/(?:jalan|jl\.?)\s+([a-z0-9]+(?:\s+[a-z0-9]+){0,3})/i);
+    if (streetMatch) {
+        const street = streetMatch[0].trim();
+        const cleanedStreet = street.replace(/\b(surabaya|kecamatan|kelurahan|di|dan|yg|yang|pada|dengan)\b.*/i, "").trim();
+        if (cleanedStreet.length > 5) {
+            return `${cleanedStreet}, Surabaya`;
+        }
+    }
+
+    // 2. Match landmark keywords
+    const landmarkKeywords = ["pasar", "stasiun", "terminal", "rsud", "puskesmas", "pltsa", "kampung"];
+    for (const kw of landmarkKeywords) {
+        const idx = text.indexOf(kw);
+        if (idx !== -1) {
+            const segment = text.substring(idx).split(/\s+/).slice(0, 4).join(" ");
+            const cleanSegment = segment.replace(/[^a-z0-9\s]/gi, "").trim();
+            if (cleanSegment && cleanSegment.length > 4) {
+                return `${cleanSegment}, Surabaya`;
+            }
+        }
+    }
+
+    // 3. Fallback to Kelurahan or Kampung if mentioned
+    const kelurahanMatch = text.match(/(?:kelurahan|kel\.?)\s+([a-z0-9]+(?:\s+[a-z0-9]+){0,2})/i);
+    if (kelurahanMatch) {
+        return `${kelurahanMatch[0].trim()}, Surabaya`;
+    }
+
+    return null;
+}
+
+const newsCoordsCache = {};
+
+function getNewsCoords(item, index) {
+    if (!item) return [112.7521, -7.2575];
+    const key = `kecamatras_news_coords_${item.id_berita || item.link || item.judul}`;
+    
+    if (newsCoordsCache[key]) {
+        return newsCoordsCache[key];
+    }
+    
+    const cached = localStorage.getItem(key);
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length === 2) {
+                newsCoordsCache[key] = parsed;
+                return parsed;
+            }
+        } catch (e) {
+            console.error("Error parsing cached coordinates:", e);
+        }
+    }
+    
+    return getJitteredCoords(item.kecamatan_terdeteksi, index);
+}
+
+let geocodeQueue = [];
+let isGeocodingInProgress = false;
+
+function startGeocodingQueue() {
+    if (!dashboardData || !dashboardData.berita) return;
+    
+    geocodeQueue = [];
+    
+    dashboardData.berita.forEach(item => {
+        const key = `kecamatras_news_coords_${item.id_berita || item.link || item.judul}`;
+        if (!localStorage.getItem(key)) {
+            const query = getGeocodeQuery(item);
+            if (query) {
+                geocodeQueue.push({ item, query, key });
+            }
+        }
+    });
+    
+    if (geocodeQueue.length > 0 && !isGeocodingInProgress) {
+        console.log(`Starting background geocoder queue: ${geocodeQueue.length} items to process.`);
+        isGeocodingInProgress = true;
+        processNextGeocode();
+    }
+}
+
+async function processNextGeocode() {
+    if (geocodeQueue.length === 0) {
+        isGeocodingInProgress = false;
+        console.log("Background geocoder queue is empty. Finished.");
+        return;
+    }
+    
+    const task = geocodeQueue.shift();
+    const { item, query, key } = task;
+    
+    try {
+        console.log(`Geocoding query: "${query}" for news: "${item.judul.substring(0, 40)}..."`);
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`;
+        
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'KECAMATRAS-Surabaya-Dashboard/1.0 (contact: admin@kecamatras-its.id)'
+            }
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                
+                if (lat >= -7.45 && lat <= -7.15 && lon >= 112.55 && lon <= 112.90) {
+                    const coords = [lon, lat];
+                    localStorage.setItem(key, JSON.stringify(coords));
+                    newsCoordsCache[key] = coords;
+                    console.log(`Successfully geocoded coordinates: ${coords} for "${query}"`);
+                    
+                    updateNewsMapboxPoints();
+                } else {
+                    console.warn(`Geocoded coordinates for "${query}" are outside Surabaya: [${lat}, ${lon}]. Using default fallback.`);
+                    const fallback = getJitteredCoords(item.kecamatan_terdeteksi, Math.floor(Math.random() * 100));
+                    localStorage.setItem(key, JSON.stringify(fallback));
+                    newsCoordsCache[key] = fallback;
+                }
+            } else {
+                console.log(`No Nominatim results for query "${query}". Using default fallback.`);
+                const fallback = getJitteredCoords(item.kecamatan_terdeteksi, Math.floor(Math.random() * 100));
+                localStorage.setItem(key, JSON.stringify(fallback));
+                newsCoordsCache[key] = fallback;
+            }
+        } else {
+            console.error(`Nominatim API returned HTTP ${response.status}. Retrying later.`);
+            geocodeQueue.push(task);
+        }
+    } catch (err) {
+        console.error("Error geocoding news item:", err);
+    }
+    
+    setTimeout(processNextGeocode, 1500);
+}
+
 function getJitteredCoords(kecName, index) {
     const coords = KECAMATAN_COORDS[cleanKecamatanName(kecName)] || [112.7521, -7.2575];
     // Stable jitter based on index to prevent overlapping dots
@@ -963,23 +1116,34 @@ async function updateNewsMapboxPoints() {
     const searchInput = document.getElementById('news-search-input');
     const catSelect = document.getElementById('news-filter-category');
     const kecSelect = document.getElementById('news-filter-kecamatan');
+    const timeSelect = document.getElementById('news-filter-time');
     
     const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const catFilter = catSelect ? catSelect.value : 'All';
     const kecFilter = kecSelect ? kecSelect.value : 'All';
+    const timeFilter = timeSelect ? timeSelect.value : '365';
     
     if (!dashboardData || !dashboardData.berita) return;
     
+    const now = new Date();
     const filteredNews = dashboardData.berita.filter(item => {
         const title = item.judul.toLowerCase();
         const category = item.kategori;
         const kecamatan = item.kecamatan_terdeteksi || '';
         
+        let matchDate = true;
+        if (timeFilter !== 'All') {
+            const pubDate = new Date(item.tanggal_publikasi);
+            const daysLimit = parseInt(timeFilter);
+            const cutoffDate = new Date(now.getTime() - (daysLimit * 24 * 60 * 60 * 1000));
+            matchDate = pubDate >= cutoffDate;
+        }
+        
         const matchSearch = title.includes(searchVal);
         const matchCat = catFilter === 'All' || category === catFilter;
         const matchKec = kecFilter === 'All' || cleanKecamatanName(kecamatan) === cleanKecamatanName(kecFilter);
         
-        return matchSearch && matchCat && matchKec;
+        return matchDate && matchSearch && matchCat && matchKec;
     });
     
     // Fetch boundaries if not already loaded and not in progress
@@ -1075,7 +1239,7 @@ async function updateNewsMapboxPoints() {
     
     // Process point dots
     const features = filteredNews.map((item, index) => {
-        const coords = getJitteredCoords(item.kecamatan_terdeteksi, index);
+        const coords = getNewsCoords(item, index);
         return {
             type: 'Feature',
             geometry: {
@@ -1778,6 +1942,7 @@ function populateNewsPortal() {
         const card = document.createElement('div');
         card.className = 'news-card';
         card.style.cursor = 'pointer';
+        card.dataset.date = item.tanggal_publikasi;
         card.onclick = () => openNewsModal(item);
         card.innerHTML = `
             <div class="news-card-body">
@@ -1801,30 +1966,41 @@ function populateNewsPortal() {
         container.appendChild(card);
     });
     
-    // Update Mapbox news points on initial load
-    updateNewsMapboxPoints();
+    // Apply initial filters (this will also call updateNewsMapboxPoints())
+    filterNewsGrid();
 }
 
 function filterNewsGrid() {
     const searchVal = document.getElementById('news-search-input').value.toLowerCase().trim();
     const catFilter = document.getElementById('news-filter-category').value;
     const kecFilter = document.getElementById('news-filter-kecamatan').value;
+    const timeFilter = document.getElementById('news-filter-time').value;
     
     const cards = document.querySelectorAll('#news-grid-container .news-card');
     let newsCount = 0;
+    const now = new Date();
     
     cards.forEach(card => {
         const title = card.querySelector('.news-card-title').textContent.toLowerCase();
         const category = card.querySelector('.cat-badge').textContent.trim();
         const kecNode = card.querySelector('.news-card-kecamatan').textContent.trim();
         const kecamatan = kecNode.replace("Kecamatan", "").trim();
+        const dateAttr = card.dataset.date;
+
+        let matchDate = true;
+        if (timeFilter !== 'All' && dateAttr) {
+            const pubDate = new Date(dateAttr);
+            const daysLimit = parseInt(timeFilter);
+            const cutoffDate = new Date(now.getTime() - (daysLimit * 24 * 60 * 60 * 1000));
+            matchDate = pubDate >= cutoffDate;
+        }
 
         // Matching conditions
         const matchSearch = title.includes(searchVal);
         const matchCat = catFilter === 'All' || category === catFilter;
         const matchKec = kecFilter === 'All' || cleanKecamatanName(kecamatan) === cleanKecamatanName(kecFilter);
         
-        if (matchSearch && matchCat && matchKec) {
+        if (matchDate && matchSearch && matchCat && matchKec) {
             card.style.display = 'flex';
             newsCount++;
         } else {
@@ -1944,6 +2120,9 @@ function startRealtimePolling() {
                 
                 // Update state
                 dashboardData = newData;
+                
+                // Trigger geocoding queue for any new news items
+                startGeocodingQueue();
                 
                 // Refresh UI components
                 updateTimestamp();

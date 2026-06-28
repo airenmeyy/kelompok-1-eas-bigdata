@@ -656,6 +656,12 @@
                         <input type="text" id="news-search-input" placeholder="Cari judul berita..." onkeyup="filterNewsGrid()">
                     </div>
                     <div class="news-filters">
+                        <select id="news-filter-time" onchange="filterNewsGrid()">
+                            <option value="365" selected>1 Tahun Terakhir</option>
+                            <option value="180">6 Bulan Terakhir</option>
+                            <option value="30">1 Bulan Terakhir</option>
+                            <option value="All">Semua Waktu</option>
+                        </select>
                         <select id="news-filter-category" onchange="filterNewsGrid()">
                             <option value="All">Semua Kategori</option>
                             <option value="Kriminalitas">Kriminalitas</option>
