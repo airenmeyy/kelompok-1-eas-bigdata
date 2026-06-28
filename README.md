@@ -117,35 +117,38 @@ Berikut dokumentasi antarmuka visual KECAMATRAS Dashboard yang memetakan indeks 
 
 Proyek ini menggunakan arsitektur **Medallion (Data Lakehouse)** dengan kombinasi *Event Streaming* dan *Batch Processing*:
 
-```text
-                    ┌─────────────────────┐
-                    │  Google News RSS    │
-                    │  (Berita Surabaya)  │
-                    └─────────┬───────────┘
-                              │ feedparser + kafka-python
-                              ▼
-                    ┌─────────────────────┐
-                    │   Apache Kafka      │
-                    │   (Event Streaming) │
-                    └─────────┬───────────┘
-                              │ Spark Structured Streaming
-                              ▼
-┌─────────────┐    ┌──────────────────────┐
-│  CSV Files  │───▶│     BRONZE LAYER     │  ← Data mentah, tanpa modifikasi
-│  (Statis)   │    │   (HDFS Delta Lake)  │
-└─────────────┘    └─────────┬────────────┘
-                              │ PySpark (Text Cleaning, Geo-Parsing)
-                              ▼
-                    ┌──────────────────────┐
-                    │     SILVER LAYER     │  ← Data bersih, terstandardisasi
-                    │   (HDFS Delta Lake)  │
-                    └─────────┬────────────┘
-                              │ Spark MLlib (LDA) + Analytical Joins
-                              ▼
-                    ┌──────────────────────┐
-                    │      GOLD LAYER      │  ← Indeks final (0-100)
-                    │   (HDFS Delta Lake)  │
-                    └──────────────────────┘
+```mermaid
+graph TD
+    %% Styling Definitions
+    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px;
+    classDef static fill:#f5f5f5,stroke:#616161,stroke-width:2px;
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px;
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px;
+    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+
+    %% Nodes
+    RSS["Google News RSS<br/>(Berita Surabaya)"]
+    Kafka["Apache Kafka<br/>(Event Streaming)"]
+    CSV["CSV Files<br/>(Statis)"]
+    
+    Bronze["BRONZE LAYER<br/>(HDFS Delta Lake)<br/><i>*Data mentah, tanpa modifikasi</i>"]
+    Silver["SILVER LAYER<br/>(HDFS Delta Lake)<br/><i>*Data bersih, terstandardisasi</i>"]
+    Gold["GOLD LAYER<br/>(HDFS Delta Lake)<br/><i>*Indeks final (0-100)</i>"]
+
+    %% Connections
+    RSS -->|feedparser + kafka-python| Kafka
+    Kafka -->|Spark Structured Streaming| Bronze
+    CSV --> Bronze
+    Bronze -->|PySpark: Text Cleansing & Geo-Parsing| Silver
+    Silver -->|Spark MLlib: LDA + Analytical Joins| Gold
+
+    %% Apply Styles
+    style RSS class:stream
+    style Kafka class:stream
+    style CSV class:static
+    style Bronze class:bronze
+    style Silver class:silver
+    style Gold class:gold
 ```
 
 **Diagram Arsitektur Enterprise-Grade (Infrastruktur Aktual):**
