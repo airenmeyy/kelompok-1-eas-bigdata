@@ -307,10 +307,23 @@ Setelah Docker berjalan, eksekusi pipeline secara berurutan:
 
 ```mermaid
 graph LR
+    %% Styling Definitions
+    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000;
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+    classDef verification fill:#b2dfdb,stroke:#00695c,stroke-width:2px,color:#000;
+
     Step1["Step 1: Ingestion<br/>(00_ingestion_api.py)"] -->|Kafka Stream| Step2["Step 2: Bronze Layer<br/>(run_bronze_docker.sh)"]
     Step2 -->|Raw Delta Table| Step3["Step 3: Silver Layer<br/>(run_silver_docker.sh)"]
     Step3 -->|Clean Delta Table| Step4["Step 4: Gold Layer<br/>(run_gold_docker.sh)"]
     Step4 -->|Analytical Joins| Step5["Step 5: Verifikasi<br/>(ambil_dokumentasi.sh)"]
+
+    class Step1 stream;
+    class Step2 bronze;
+    class Step3 silver;
+    class Step4 gold;
+    class Step5 verification;
 ```
 
 ### Step 1: Ingestion — Tarik Berita dari Google News
@@ -343,6 +356,12 @@ chmod +x run_bronze_docker.sh
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000;
+    classDef static fill:#f5f5f5,stroke:#616161,stroke-width:2px,color:#000;
+    classDef process fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+
     subgraph Sources ["Data Sources"]
         Kafka["Apache Kafka Topic (kecamatras-stream)"]
         CSV_Faskes["new-faskes_kecamatan_2023_2026.csv"]
@@ -371,6 +390,11 @@ graph TD
     Read_Batch -->|write| Delta_Raw_Faskes
     Read_Batch -->|write| Delta_Raw_Disease
     Read_Batch -->|write| Delta_Static_Crime
+
+    class Kafka stream;
+    class CSV_Faskes,CSV_Disease,Crime_Dict static;
+    class Read_Kafka,Read_Batch process;
+    class Delta_Raw_News,Delta_Raw_Faskes,Delta_Raw_Disease,Delta_Static_Crime bronze;
 ```
 
 ### Step 3: Silver Layer — Bersihkan & Standardisasi Data
@@ -396,6 +420,11 @@ chmod +x run_silver_docker.sh
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+    classDef process fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+
     subgraph Input_Silver ["Bronze Layer (HDFS Delta)"]
         B_News["tbl_raw_news"]
         B_Faskes["tbl_raw_faskes_baseline"]
@@ -421,6 +450,10 @@ graph TD
     B_Faskes --> Standard_Faskes --> S_Faskes
     B_Disease --> Standard_Disease --> S_Disease
     B_Crime --> S_Crime
+
+    class B_News,B_Faskes,B_Disease,B_Crime bronze;
+    class Clean_Text,Geo_Parse,Standard_Faskes,Standard_Disease process;
+    class S_News,S_Faskes,S_Disease,S_Crime silver;
 ```
 
 ### Step 4: Gold Layer — Hitung Indeks Final dengan ML
@@ -445,6 +478,11 @@ chmod +x run_gold_docker.sh
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef process fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+
     subgraph Input_Gold ["Silver Layer (HDFS Delta)"]
         S_News["tbl_clean_news"]
         S_Faskes["tbl_clean_faskes"]
@@ -474,6 +512,10 @@ graph TD
     Joins --> Normalise
     Normalise -->|Write Delta| G_Crime
     Normalise -->|Write Delta| G_Health
+
+    class S_News,S_Faskes,S_Disease,S_Crime silver;
+    class Tokenize,TF_IDF,LDA,Topic_Map,Joins,Normalise process;
+    class G_Crime,G_Health gold;
 ```
 
 #### Evaluasi Model Machine Learning (NLP Topic Modeling)
@@ -655,6 +697,11 @@ kelompok-1-eas-bigdata/
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef input fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef calc fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef output fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+
     subgraph Kriminalitas ["Street Crime Index (Indeks Kriminalitas)"]
         A["Kasus Baseline (Paper)"] & B["Kasus Berita (LDA Classified)"] --> C["Total Kasus Kriminal"]
         C & D["Jumlah Penduduk"] --> E["Crime Rate (CR) per 100k"]
@@ -669,6 +716,10 @@ graph TD
         M --> O["100 - Norm(HFR)"]
         N & O --> P["Weighted Mix (70% IR + 30% HFR)"] --> Q["Indeks Kesehatan (0-100)"]
     end
+
+    class A,B,H,I,L,D input;
+    class C,E,F,J,K,M,N,O,P calc;
+    class G,Q output;
 ```
 
 ### Indeks Kriminalitas (Street Crime Index)
