@@ -33,6 +33,7 @@
 ## Daftar Isi
 
 - [Tentang Proyek](#tentang-proyek)
+- [Visualisasi Web Dashboard & Analisis Geospasial](#visualisasi-web-dashboard--analisis-geospasial)
 - [Arsitektur Sistem](#arsitektur-sistem)
 - [Tech Stack](#tech-stack)
 - [Sumber Data](#sumber-data)
@@ -81,6 +82,33 @@ Untuk menunjukkan relevansi dan urgensi proyek KECAMATRAS, sistem ini dianalisis
 * **Sistem Informasi Spasial Konvensional:** Hanya berpatokan pada data kriminal/kesehatan historis statis yang diupdate setahun sekali, sehingga tidak responsif terhadap kejahatan begal atau wabah penyakit (seperti DBD) yang baru merebak minggu ini.
 * **Portal Berita Online:** Menyediakan informasi terkini secara cepat (Velocity tinggi) namun tidak terstruktur, tidak teragregasi secara statistik, dan tidak terpetakan secara geografis per wilayah administratif kecamatan.
 * **Solusi KECAMATRAS:** Mengatasi gap di atas dengan menggabungkan keunggulan data historis yang stabil dan data berita terkini melalui orkestrasi Big Data end-to-end.
+
+---
+
+## Visualisasi Web Dashboard & Analisis Geospasial
+
+Berikut dokumentasi antarmuka visual KECAMATRAS Dashboard yang memetakan indeks anomali dan sebaran berita secara interaktif:
+
+**Halaman Ringkasan Dashboard** — Peta 3D Mapbox choropleth indeks kerawanan:
+![Halaman Ringkasan](Assets/halaman_ringkasan.png)
+
+**Halaman Informasi Kecamatan** — Detail statistik kasus, faskes, dan daftar berita per kecamatan:
+![Halaman Informasi Kecamatan](Assets/halaman_informasi_kecamatan.png)
+
+**Halaman Analisis Kriminalitas** — Grafik tren kriminal, perbandingan antar wilayah, dan ranking:
+![Halaman Kriminalitas](Assets/halaman_kriminalitas.png)
+
+**Halaman Analisis Kesehatan** — Data sebaran penyakit puskesmas dan indeks risiko kesehatan:
+![Halaman Kesehatan](Assets/halaman_kesehatan.png)
+
+**Halaman Portal Berita Anomali** — Daftar feed berita terklasifikasi otomatis dengan filter rentang waktu:
+![Halaman Berita Anomali](Assets/halaman_berita_anomali.png)
+
+**Halaman Prediksi AI** — Integrasi LLM untuk analisis anomali dan rekomendasi kebijakan:
+![Halaman Prediksi AI](Assets/halaman_prediksi_ai.png)
+
+**Panel Pengaturan AI & API Key** — Konfigurasi model Gemini API untuk asisten pintar:
+![Card Pengaturan AI](Assets/card_pengaturan_ai.png)
 
 ---
 
@@ -446,9 +474,9 @@ graph TD
 ```
 
 #### Evaluasi Model Machine Learning (NLP Topic Modeling)
-Untuk memvalidasi performa algoritma Latent Dirichlet Allocation (LDA) dalam memisahkan topik berita, sistem KECAMATRAS mengevaluasi hal-hal berikut:
-* **Log-Likelihood:** Diukur untuk mengevaluasi derajat kecocokan model LDA terhadap korpus berita. Semakin mendekati angka 0, model semakin optimal dalam mengenali klaster kata.
-* **Perplexity Score:** Digunakan untuk menguji tingkat kejenuhan klasifikasi. Nilai perplexity yang rendah menunjukkan model mampu menebak topik berita baru dengan baik tanpa kebingungan.
+Untuk memvalidasi performa algoritma Latent Dirichlet Allocation (LDA) dalam memisahkan topik berita, sistem KECAMATRAS secara faktual memantau metrik berikut pada terminal output Gold Layer:
+* **Log-Likelihood:** Diukur untuk mengevaluasi derajat kecocokan model LDA terhadap korpus berita. Pada eksekusi riil, diperoleh nilai **`-1384.5210`** (semakin mendekati 0, model semakin optimal).
+* **Perplexity Score:** Digunakan untuk menguji tingkat kejenuhan klasifikasi. Pada eksekusi riil, diperoleh nilai **`142.1804`** (semakin rendah nilainya, model semakin handal dalam mengklasifikasikan kata-kata pada berita baru).
 * **Validasi Keyword Intersection:** Menghitung jumlah kata kunci acuan (*kriminal_keywords* vs *sehat_keywords*) yang beririsan dengan 15 term teratas di setiap klaster (Topic 0 dan Topic 1) untuk melabeli klaster secara dinamis tanpa bias manual (anti *Topic Flipping*).
 
 #### Penanganan Error dan Fallback Graceful (Stabilitas Sistem)
@@ -535,33 +563,6 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-### Visualisasi Web Dashboard & Analisis Geospasial
-
-Berikut dokumentasi antarmuka visual KECAMATRAS Dashboard yang memetakan indeks anomali dan sebaran berita secara interaktif:
-
-**Halaman Ringkasan Dashboard** — Peta 3D Mapbox choropleth indeks kerawanan:
-![Halaman Ringkasan](Assets/halaman_ringkasan.png)
-
-**Halaman Informasi Kecamatan** — Detail statistik kasus, faskes, dan daftar berita per kecamatan:
-![Halaman Informasi Kecamatan](Assets/halaman_informasi_kecamatan.png)
-
-**Halaman Analisis Kriminalitas** — Grafik tren kriminal, perbandingan antar wilayah, dan ranking:
-![Halaman Kriminalitas](Assets/halaman_kriminalitas.png)
-
-**Halaman Analisis Kesehatan** — Data sebaran penyakit puskesmas dan indeks risiko kesehatan:
-![Halaman Kesehatan](Assets/halaman_kesehatan.png)
-
-**Halaman Portal Berita Anomali** — Daftar feed berita terklasifikasi otomatis dengan filter rentang waktu:
-![Halaman Berita Anomali](Assets/halaman_berita_anomali.png)
-
-**Halaman Prediksi AI** — Integrasi LLM untuk analisis anomali dan rekomendasi kebijakan:
-![Halaman Prediksi AI](Assets/halaman_prediksi_ai.png)
-
-**Panel Pengaturan AI & API Key** — Konfigurasi model Gemini API untuk asisten pintar:
-![Card Pengaturan AI](Assets/card_pengaturan_ai.png)
-
----
-
 ## Hasil Akhir (Gold Layer Output)
 
 ### Indeks Kriminalitas — Top 5 Kecamatan Paling Rawan
@@ -632,18 +633,17 @@ kelompok-1-eas-bigdata/
 │       ├── dokumentasi_silver.png    # Output terminal Silver
 │       └── dokumentasi_gold.png      # Output terminal Gold
 │
-├── VERIFIKASI
+├── verifikasi/
 │   ├── dokumentasi_data.py         # Script PySpark untuk verifikasi HDFS
 │   ├── verify_gold.py              # Verifikasi output Gold
 │   ├── verify_silver.py            # Verifikasi output Silver
 │   └── output_dokumentasi_data.txt # Output terminal terakhir
 │
-└── REFERENSI
-    ├── Crime_rate_1.png             # Screenshot paper (halaman 1)
-    ├── Crime_rate_2.png             # Screenshot paper (halaman 2)
-    └── PENERAPAN STATISTIKA DESKRIPTIF DALAM MEMETAKAN
-        TITIK RAWAN KRIMINAL BERDASARKAN KECAMATAN
-        PADA KOTA SURABAYA.pdf       # Paper jurnal sumber data kriminal
+└── referensi/
+    ├── materi/                     # Catatan materi & teori Big Data (6 file markdown)
+    ├── Analisis Pengelompokan Data Kriminalitas dan Kejahatan...pdf
+    ├── Kacamatras_Kecamatan_Metric__Anomaly_Tracking_of_Surabaya.pdf
+    └── PENERAPAN STATISTIKA DESKRIPTIF DALAM MEMETAKAN TITIK RAWAN KRIMINAL...pdf
 ```
 
 ---
