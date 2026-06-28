@@ -86,7 +86,7 @@ def main():
             df_news = spark.read.format("delta").load(TBL_CLEAN_NEWS)
             # Filter berita yang kecamatan_terdeteksi-nya valid (bukan unknown), batasi 50 berita terbaru
             df_news_filtered = df_news.filter(col("kecamatan_terdeteksi") != "unknown") \
-                                      .select("id_berita", "judul", "link", "tanggal_publikasi", "sumber", "kategori", "kecamatan_terdeteksi") \
+                                      .select("id_berita", "judul", "link", "tanggal_publikasi", "sumber", "kategori", "kecamatan_terdeteksi", "deskripsi_mentah") \
                                       .orderBy(desc("tanggal_publikasi")) \
                                       .limit(50)
             for row in df_news_filtered.collect():

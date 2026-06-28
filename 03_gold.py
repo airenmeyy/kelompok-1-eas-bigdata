@@ -312,7 +312,8 @@ class GoldLayerProcessor:
                         "tanggal_publikasi": row["tanggal_publikasi"].isoformat() if row["tanggal_publikasi"] and hasattr(row["tanggal_publikasi"], "isoformat") else (str(row["tanggal_publikasi"]) if row["tanggal_publikasi"] else None),
                         "sumber": row["sumber"],
                         "kategori": row["kategori"],
-                        "kecamatan_terdeteksi": row["kecamatan_terdeteksi"]
+                        "kecamatan_terdeteksi": row["kecamatan_terdeteksi"],
+                        "deskripsi_mentah": row["deskripsi_mentah"]
                     }
                     for row in df_news_filtered.collect()
                 ]
