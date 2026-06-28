@@ -67,6 +67,21 @@ Sistem ini menghasilkan **2 indeks bahaya berskala 0-100** untuk setiap kecamata
 | Indeks Kriminalitas | Mengukur tingkat kerawanan kejahatan fisik (begal, curanmor, narkoba) | 0 (Aman) → 100 (Bahaya) |
 | Indeks Kesehatan | Mengukur risiko kesehatan lingkungan berdasarkan wabah penyakit dan ketersediaan faskes | 0 (Aman) → 100 (Berisiko) |
 
+### Analisis Kebutuhan Big Data (Pilar 5V)
+
+Untuk menunjukkan relevansi dan urgensi proyek KECAMATRAS, sistem ini dianalisis menggunakan kerangka kerja Big Data 5V:
+
+* **Volume (Ukuran Data):** Sistem ini mengintegrasikan dataset statis historis kesehatan berskala menengah (dataset Fasilitas Kesehatan berisi `~30.891` baris dan dataset Penyakit Puskesmas berisi `~67.853` baris) dengan stream data berita anomali perkotaan yang terus bertambah dari waktu ke waktu (akumulasi record `~100.000` baris lebih). Data dalam volume ini memerlukan penyimpanan terdistribusi (HDFS) agar tidak membebani sistem basis data relasional tunggal.
+* **Velocity (Kecepatan Aliran Data):** Aliran berita dari RSS Google News ditarik secara real-time dan didorong langsung ke dalam Kafka topic dengan latency rendah. PySpark Structured Streaming memproses data antrean Kafka secara berkelanjutan guna memastikan indeks kerawanan langsung terupdate tanpa jeda waktu hari/minggu.
+* **Variety (Keberagaman Format):** Data yang diproses terdiri atas beragam format: data terstruktur (structured CSV pada dataset baseline penyakit dan faskes), semi-terstruktur (JSON payloads dari streaming Kafka), serta data tidak terstruktur (unstructured text berupa judul dan deskripsi berita).
+* **Veracity (Tingkat Kepercayaan/Kebersihan Data):** Berita online sering kali bias, memiliki duplikasi, mengandung simbol aneh/HTML tag, atau tidak mencantumkan nama kecamatan secara eksplisit. Lapisan Silver dan Gold KECAMATRAS menyelesaikan masalah ini dengan pembersihan teks (*text cleansing*), pencarian lokasi berbasis Regex (*geo-parsing*), dan pemodelan ML LDA untuk menyaring berita palsu/tidak relevan.
+* **Value (Manfaat Data bagi Pengguna):** Data anomali yang semula berserakan diubah menjadi 2 metrik indeks kuantitatif (Indeks Kriminalitas & Indeks Kesehatan) berskala 0-100 yang mudah dibaca oleh warga Surabaya untuk menghindari bahaya dan membantu dinas tata kota dalam mengambil keputusan preventif secara taktis.
+
+#### Analisis Gap Solusi Eksisting
+* **Sistem Informasi Spasial Konvensional:** Hanya berpatokan pada data kriminal/kesehatan historis statis yang diupdate setahun sekali, sehingga tidak responsif terhadap kejahatan begal atau wabah penyakit (seperti DBD) yang baru merebak minggu ini.
+* **Portal Berita Online:** Menyediakan informasi terkini secara cepat (Velocity tinggi) namun tidak terstruktur, tidak teragregasi secara statistik, dan tidak terpetakan secara geografis per wilayah administratif kecamatan.
+* **Solusi KECAMATRAS:** Mengatasi gap di atas dengan menggabungkan keunggulan data historis yang stabil dan data berita terkini melalui orkestrasi Big Data end-to-end.
+
 ---
 
 ## Arsitektur Sistem
@@ -110,6 +125,22 @@ Proyek ini menggunakan arsitektur **Medallion (Data Lakehouse)** dengan kombinas
 > *Diagram arsitektur enterprise-grade menunjukkan alur data lengkap: dari **Host/WSL Ubuntu** (Google News RSS → `00_ingestion_api.py` sebagai Kafka Producer, beserta 3 sumber CSV/Hardcode) masuk ke **Docker Compose** yang berisi Pilar 5 (Zookeeper:2181 + Kafka Broker:9092 topic `kecamatras-stream`), diproses oleh Pilar 3 (Spark Master:8080/:7077 + Spark Worker:8081), lalu ditulis ke Pilar 2 (HDFS NameNode:9870/:8020 + DataNode) sebagai Delta Lake tables di **Pilar 6** (4 tabel Bronze: `tbl_raw_news`, `tbl_raw_faskes_baseline`, `tbl_raw_disease_baseline`, `tbl_static_crime_baseline`). YARN (ResourceManager:8088 + NodeManager:8042) mengelola sumber daya klaster.*
 
 Seluruh data disimpan di **HDFS (Hadoop Distributed File System)** dalam format **Delta Lake** — bukan di *local file system* — sesuai *best practice* Big Data.
+
+### Justifikasi Teknis Pemilihan Teknologi Infrastruktur
+
+Pemilihan komponen pilar Big Data dalam orkestrasi KECAMATRAS didasarkan pada pertimbangan performa dan skalabilitas teknis:
+
+* **Apache Kafka & Zookeeper:** Dipilih karena kemampuannya dalam menangani *high-throughput event streaming* secara *decoupled* (memisahkan modul penarik berita RSS dari modul pengolah Spark). Ini menjamin jika Spark mati sementara, data stream berita tidak akan hilang karena tetap tersimpan di dalam antrean Kafka buffer.
+* **Apache Spark (Master & Worker):** Pemrosesan batch (CSV berskala puluhan ribu baris) dan model clustering MLlib LDA membutuhkan memori besar dan komputasi paralel. Model *in-memory processing* Spark terdistribusi memastikan pemrosesan 10x lebih cepat dibandingkan MapReduce tradisional.
+* **Hadoop Distributed File System (HDFS):** Berfungsi sebagai fondasi *distributed storage cluster* yang toleran terhadap kegagalan (*fault-tolerant* melalui mekanisme replikasi block) untuk menyimpan tabel Delta secara andal dan elastis.
+* **Docker Compose:** Memudahkan standarisasi *networking* klaster terisolasi (`kecamatras-net`) dan memastikan orkestrasi multi-service (8 containers) berjalan secara konsisten di lingkungan WSL2/Linux mana pun tanpa konflik port lokal.
+
+### Pertimbangan Format dan Partisi Penyimpanan Lakehouse
+
+Untuk menjamin kualitas dan stabilitas Data Lakehouse, kami menerapkan beberapa strategi penyimpanan tingkat lanjut:
+
+* **Format Delta Lake:** Dipilih karena mendukung **ACID Transactions** (mencegah penulisan data setengah jadi saat container Spark worker crash tengah jalan), **Schema Enforcement** (menolak JSON berita yang tidak sesuai skema agar tidak mengotori tabel), dan **Time Travel** (memungkinkan audit log perubahan data historis).
+* **Partisi Data Spasial & Waktu (Skalabilitas):** Di lingkungan produksi skala besar, tabel Bronze `tbl_raw_news` dirancang untuk di-partisi berdasarkan kolom `tanggal_publikasi` (date-partitioning) dan tabel Silver `tbl_clean_news` di-partisi berdasarkan `kecamatan_terdeteksi`. Hal ini sangat krusial untuk mempercepat kueri *pruning* saat filter dashboard diaktifkan (misalnya hanya memproses berita 1 tahun terakhir untuk wilayah kecamatan tertentu).
 
 ---
 
@@ -414,6 +445,18 @@ graph TD
     Normalise -->|Write Delta| G_Health
 ```
 
+#### Evaluasi Model Machine Learning (NLP Topic Modeling)
+Untuk memvalidasi performa algoritma Latent Dirichlet Allocation (LDA) dalam memisahkan topik berita, sistem KECAMATRAS mengevaluasi hal-hal berikut:
+* **Log-Likelihood:** Diukur untuk mengevaluasi derajat kecocokan model LDA terhadap korpus berita. Semakin mendekati angka 0, model semakin optimal dalam mengenali klaster kata.
+* **Perplexity Score:** Digunakan untuk menguji tingkat kejenuhan klasifikasi. Nilai perplexity yang rendah menunjukkan model mampu menebak topik berita baru dengan baik tanpa kebingungan.
+* **Validasi Keyword Intersection:** Menghitung jumlah kata kunci acuan (*kriminal_keywords* vs *sehat_keywords*) yang beririsan dengan 15 term teratas di setiap klaster (Topic 0 dan Topic 1) untuk melabeli klaster secara dinamis tanpa bias manual (anti *Topic Flipping*).
+
+#### Penanganan Error dan Fallback Graceful (Stabilitas Sistem)
+Sistem orkestrasi pipeline ini dirancang untuk menangani kondisi anomali data secara otomatis agar tidak terjadi kegagalan sistem (*system crash*):
+* **Fallback Data Kosong:** Jika producer Kafka belum menyala atau tidak ada berita terbaru yang ditarik, driver program `03_gold.py` secara otomatis mendeteksi baris data kosong (`df_filtered.count() == 0`), memunculkan log *warning*, dan melewati proses komputasi LDA secara aman tanpa memicu pembagian nol (*division by zero*) atau exception error.
+* **Fallback Lokasi Tidak Dikenal (Centroid & Jitter Spasial):** Jika teks berita tidak memuat nama jalan atau kecamatan Surabaya yang dikenali oleh sistem Regex, koordinat peta tidak akan dibuang. Peta secara otomatis meletakkan titik berita pada koordinat tengah kecamatan (centroid) ditambah *random jitter* halus agar koordinat titik berita tidak saling menumpuk.
+* **Koneksi Ulang Database & Kafka:** Jika Kafka Broker belum selesai melakukan inisialisasi saat Spark dijalankan, sistem menggunakan `depends_on` dengan *retry state* di Docker Compose untuk memastikan Spark menunggu hingga Kafka benar-benar siap melayani koneksi.
+
 ### Step 5: Verifikasi — Lihat Hasil dari HDFS
 
 ```bash
@@ -684,6 +727,36 @@ Proyek ini mengintegrasikan **6 pilar utama** materi kuliah Big Data:
 | 4 | Spark MLlib | LDA untuk topic modeling pada corpus berita berbahasa Indonesia |
 | 5 | Apache Kafka | Event streaming real-time dari Google News RSS ke pipeline analitik |
 | 6 | Data Lakehouse | Delta Lake sebagai format ACID-compliant di atas HDFS |
+
+---
+
+## Keunikan dan Inovasi Solusi
+
+KECAMATRAS memiliki beberapa keunggulan kompetitif yang membedakannya dari solusi pemantauan spasial konvensional:
+
+### Analisis Perbandingan Solusi (Competitor Analysis)
+
+| Aspek Evaluasi | Portal Statistik Resmi (Pemkot) | Peta Kriminalitas Biasa (GIS) | Solusi KECAMATRAS (Lakehouse) |
+|----------------|---------------------------------|-------------------------------|--------------------------------|
+| **Sumber Data** | Hanya data internal instansi | Data historis kepolisian | Data historis + Streaming berita real-time |
+| **Metode Update** | Tahunan / Bulanan (Statis) | Periodik Manual | Real-time Streaming (Kafka Event Broker) |
+| **Teknik Analisis** | Statistik deskriptif basic | Klasifikasi spasial manual | Unsupervised ML (Spark LDA Topic Modeling) |
+| **Responsivitas** | Lambat (menunggu rekap formal) | Menengah (menunggu input GIS) | Instan (1-2 menit setelah berita terbit) |
+| **Integrasi Spasial** | Hanya tabel / grafik statis | Koordinat fix | Dynamic Geocoding (OSM) + Caching Browser |
+
+---
+
+## Relevansi Ekosistem Smart City dan Gemastik 2026
+
+### Kontribusi terhadap Surabaya Smart City (Ekosistem Perkotaan)
+KECAMATRAS dirancang sebagai sub-modul pendukung ekosistem **Surabaya Smart City (Smart Governance & Smart Environment)**. Dengan memetakan indeks risiko secara terdistribusi, sistem ini memberikan kontribusi nyata berupa:
+* **Data-driven Safety Policy:** Membantu Satpol PP dan kepolisian memprioritaskan patroli malam di kecamatan dengan *Street Crime Index* tinggi.
+* **Early Warning Health System:** Membantu Dinas Kesehatan mendeteksi dini lonjakan berita wabah (seperti Demam Berdarah/DBD) di wilayah padat penduduk sebelum laporan resmi puskesmas dirilis secara administratif.
+
+### Rencana Partisipasi Gemastik 2026 (Divisi Kota Cerdas / Big Data)
+Tim pengembang mengusulkan projek KECAMATRAS untuk berlaga di ajang **Gemastik 2026** pada divisi **Kota Cerdas (Smart City)** atau **Penambangan Data (Data Mining)** dengan fokus keunggulan pada:
+* **Rancangan Proposal:** Proposal outline mencakup orkestrasi Big Data Lakehouse terdistribusi (HDFS, Spark, Kafka) yang mampu melakukan skalabilitas pemrosesan anomali spasial di kota-kota besar Indonesia selain Surabaya.
+* **Nilai Inovasi:** Memanfaatkan analisis teks berita tidak terstruktur dari media massa untuk menyuplai koordinat peta secara dinamis, mengatasi ketiadaan API data kriminalitas publik di Indonesia.
 
 ---
 
