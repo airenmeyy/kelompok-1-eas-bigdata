@@ -73,35 +73,46 @@ Sistem ini menghasilkan **2 indeks bahaya berskala 0-100** untuk setiap kecamata
 
 Proyek ini menggunakan arsitektur **Medallion (Data Lakehouse)** dengan kombinasi *Event Streaming* dan *Batch Processing*:
 
-```text
-                    ┌─────────────────────┐
-                    │  Google News RSS    │
-                    │  (Berita Surabaya)  │
-                    └─────────┬───────────┘
-                              │ feedparser + kafka-python
-                              ▼
-                    ┌─────────────────────┐
-                    │   Apache Kafka      │
-                    │   (Event Streaming) │
-                    └─────────┬───────────┘
-                              │ Spark Structured Streaming
-                              ▼
-┌─────────────┐    ┌──────────────────────┐
-│  CSV Files  │───▶│     BRONZE LAYER     │  ← Data mentah, tanpa modifikasi
-│  (Statis)   │    │   (HDFS Delta Lake)  │
-└─────────────┘    └─────────┬────────────┘
-                              │ PySpark (Text Cleaning, Geo-Parsing)
-                              ▼
-                    ┌──────────────────────┐
-                    │     SILVER LAYER     │  ← Data bersih, terstandardisasi
-                    │   (HDFS Delta Lake)  │
-                    └─────────┬────────────┘
-                              │ Spark MLlib (LDA) + Analytical Joins
-                              ▼
-                    ┌──────────────────────┐
-                    │      GOLD LAYER      │  ← Indeks final (0-100)
-                    │   (HDFS Delta Lake)  │
-                    └──────────────────────┘
+```mermaid
+graph TD
+    subgraph Ingestion ["Ingestion & Streaming Layer"]
+        RSS["Google News RSS Feed"]
+        Producer["Ingestion Script (00_ingestion_api.py)"]
+        CSV_Health["CSV Data Penyakit & Faskes"]
+        Crime_Baseline["Data Kriminalitas Baseline (Paper)"]
+    end
+
+    subgraph Stream_Queue ["Message Queue"]
+        Kafka["Apache Kafka Broker (:9092)<br/>Topic: kecamatras-stream"]
+    end
+
+    subgraph Processing ["Distributed Processing Engine (Apache Spark)"]
+        Spark_Master["Spark Master Node"]
+        Spark_Worker["Spark Worker Node"]
+    end
+
+    subgraph Storage ["Distributed Storage (Hadoop HDFS)"]
+        Bronze["🥉 Bronze Layer (Raw Delta Tables)"]
+        Silver["🥈 Silver Layer (Cleaned & Geo-Parsed)"]
+        Gold["🥇 Gold Layer (Classified & Normalized)"]
+    end
+
+    subgraph Presentation ["Presentation Layer"]
+        Exporter["Export Script (export_to_json.py)"]
+        Dashboard["Web Dashboard (Mapbox GL 3D)"]
+    end
+
+    RSS --> Producer
+    Producer -->|Streaming JSON| Kafka
+    Kafka -->|Spark readStream| Spark_Master
+    CSV_Health -->|Spark read.csv| Spark_Master
+    Crime_Baseline -->|Spark createDataFrame| Spark_Master
+    Spark_Master --> Spark_Worker
+    Spark_Worker -->|Write Delta| Bronze
+    Bronze -->|ETL / Cleaning| Silver
+    Silver -->|MLlib LDA + Normalisasi| Gold
+    Gold --> Exporter
+    Exporter -->|JSON File| Dashboard
 ```
 
 **Diagram Arsitektur Enterprise-Grade (Infrastruktur Aktual):**
@@ -334,7 +345,7 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-### Bronze Layer — Data Mentah (Raw Data)
+### 🥉 Bronze Layer — Data Mentah (Raw Data)
 
 **Direktori Bronze di HDFS:**
 
@@ -348,7 +359,7 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-### Silver Layer — Data Bersih (Cleaned & Parsed)
+### 🥈 Silver Layer — Data Bersih (Cleaned & Parsed)
 
 **Direktori Silver di HDFS:**
 
@@ -367,7 +378,7 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-### Gold Layer — Indeks Final (Business Index)
+### 🥇 Gold Layer — Indeks Final (Business Index)
 
 **Direktori Gold di HDFS:**
 
@@ -417,7 +428,7 @@ Berikut dokumentasi antarmuka visual KECAMATRAS Dashboard yang memetakan indeks 
 
 ---
 
-## 🏆 Hasil Akhir (Gold Layer Output)
+## Hasil Akhir (Gold Layer Output)
 
 ### Indeks Kriminalitas — Top 5 Kecamatan Paling Rawan
 
@@ -571,7 +582,7 @@ Proyek ini mengintegrasikan **6 pilar utama** materi kuliah Big Data:
 
 <table align="center">
   <tr>
-    <td align="center"><strong>Tim Anti Gravity</strong></td>
+    <td align="center"><strong>Kelompok 1</strong></td>
   </tr>
   <tr>
     <td align="center">Departemen Teknologi Informasi — Institut Teknologi Sepuluh Nopember (ITS) Surabaya</td>
