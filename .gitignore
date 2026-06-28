@@ -36,4 +36,24 @@ spark-warehouse/
 /scratch/
 .DS_Store
 Thumbs.db
+ehthumbs.db
+
+# IDE and Editor configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Log and temporary files
+*.log
+*.tmp
+temp/
+tmp/
+
+# Agent runtime caches
+.agents/
+.gemini/
 

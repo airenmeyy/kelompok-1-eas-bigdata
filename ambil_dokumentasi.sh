@@ -15,5 +15,5 @@ docker run --rm \
   bash -c "
     apt-get update > /dev/null 2>&1 && apt-get install -y default-jre > /dev/null 2>&1
     pip install --no-cache-dir pyspark==3.5.1 delta-spark==3.0.0 setuptools > /dev/null 2>&1
-    python dokumentasi_data.py
+    python verifikasi/dokumentasi_data.py
   "
