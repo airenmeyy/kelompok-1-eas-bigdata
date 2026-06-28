@@ -79,6 +79,12 @@
                         <span>Prediksi AI</span>
                     </a>
                 </li>
+                <li class="sidebar-menu-item" id="menu-history">
+                    <a onclick="switchView('history')">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Riwayat Pipeline</span>
+                    </a>
+                </li>
             </ul>
             
             <div class="sidebar-status">
@@ -786,6 +792,26 @@
                     </div>
                     <div class="panel-body" id="ai-recommendations" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;min-height:120px;">
                         <div class="loading-state" style="grid-column:1/-1;"><p style="color:var(--text-muted);">Klik "Analisis" untuk rekomendasi AI berbasis data Gold Layer.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. VIEW: HISTORY (Riwayat Pipeline) -->
+            <section id="view-history" class="dashboard-view">
+                <div class="view-title-bar">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Sinkronisasi Pipeline</h2>
+                    <p>Log eksekusi dari server ingestion dan processing</p>
+                </div>
+                
+                <div class="grid-panel" style="flex:1;">
+                    <div class="panel-header">
+                        <h2>Detail Log Transaksi (In-Memory)</h2>
+                        <span style="font-size:11px;color:var(--text-muted);background:rgba(0,0,0,0.1);padding:4px 8px;border-radius:12px;">Maksimal 100 log terakhir</span>
+                    </div>
+                    <div class="panel-body">
+                        <div id="sync-history-table" style="display:flex;flex-direction:column;">
+                            <!-- Log akan disuntikkan ke sini melalui renderSyncHistory() -->
+                        </div>
                     </div>
                 </div>
             </section>

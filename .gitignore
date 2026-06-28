@@ -23,3 +23,6 @@ spark-warehouse/
 
 # Legacy / backup files
 *_legacy_*.py
+
+# Node.js
+node_modules/

@@ -1,0 +1,23 @@
+{
+  "name": "kelompok-1-eas-bigdata",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <img src=\"Assets/Lambang ITS PNG v1.png\" alt=\"Logo Institut Teknologi Sepuluh Nopember\" width=\"150\">\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airenmeyy/kelompok-1-eas-bigdata.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/airenmeyy/kelompok-1-eas-bigdata/issues"
+  },
+  "homepage": "https://github.com/airenmeyy/kelompok-1-eas-bigdata#readme",
+  "dependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

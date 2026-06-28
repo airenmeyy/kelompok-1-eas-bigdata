@@ -169,7 +169,20 @@ async function initDashboard() {
         if (!response.ok) {
             throw new Error('Data JSON dashboard belum tersedia. Pastikan exporter telah dijalankan.');
         }
-        dashboardData = await response.json();
+        const rawData = await response.json();
+        
+        // Filter duplikasi berita berdasarkan judul pada inisialisasi awal
+        if (rawData.berita && rawData.berita.length > 0) {
+            let uniqueTitles = new Set();
+            rawData.berita = rawData.berita.filter(item => {
+                let title = item.judul ? item.judul.trim().toLowerCase() : "";
+                if (uniqueTitles.has(title)) return false;
+                uniqueTitles.add(title);
+                return true;
+            });
+        }
+        
+        dashboardData = rawData;
 
         // Assign stable image and rank indices to berita items once
         const crimeImgPool = CRIME_IMAGES;
@@ -272,6 +285,8 @@ function switchView(viewId) {
                 }
             }, 100);
         }
+    } else if (viewId === 'history') {
+        renderSyncHistory();
     } else if (viewId === 'prediksi') {
         // AI view ready
     }
@@ -319,17 +334,22 @@ function populateGeneralKPIs() {
     // Highest Health Risk Index (indeks_kesehatan tinggi = risiko penyakit tinggi)
     if (dashboardData.kesehatan && dashboardData.kesehatan.length > 0) {
         const topHealth = dashboardData.kesehatan[0];
-        document.getElementById('health-max-val').textContent = parseFloat(topHealth.indeks_kesehatan).toFixed(1);
-        document.getElementById('health-max-name').textContent = topHealth.kecamatan;
+        const elVal = document.getElementById('health-max-val');
+        const elName = document.getElementById('health-max-name');
+        if (elVal) elVal.textContent = parseFloat(topHealth.indeks_kesehatan).toFixed(1);
+        if (elName) elName.textContent = topHealth.kecamatan;
     }
     
     // Total News — clickable to go to berita view
     const totalNews = dashboardData.berita ? dashboardData.berita.length : 0;
-    document.getElementById('news-total-val').textContent = totalNews;
+    const newsTotalVal = document.getElementById('news-total-val');
+    if (newsTotalVal) newsTotalVal.textContent = totalNews;
     const kpiNews = document.getElementById('kpi-total-news');
-    kpiNews.style.cursor = 'pointer';
-    kpiNews.title = 'Klik untuk ke halaman Berita Anomali';
-    kpiNews.onclick = () => switchView('berita');
+    if (kpiNews) {
+        kpiNews.style.cursor = 'pointer';
+        kpiNews.title = 'Klik untuk ke halaman Berita Anomali';
+        kpiNews.onclick = () => switchView('berita');
+    }
 }
 
 // Modal: Daftar 31 Kecamatan Surabaya
@@ -378,7 +398,7 @@ function showKecamatanListModal() {
             <div style="display:flex;gap:6px;align-items:center;">
                 <span style="font-size:10px;font-weight:700;color:${riskColor};">${ci.toFixed(0)}</span>
                 <span style="font-size:9px;color:var(--text-muted);">|</span>
-                <span style="font-size:10px;font-weight:700;color:var(--color-blue);">${hi.toFixed(0)}</span>
+                <span style="font-size:10px;font-weight:700;color:${riskColor};">${hi.toFixed(0)}</span>
             </div>
             <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-muted);"></i>
         </div>`;
@@ -1403,6 +1423,9 @@ function showFallbackGrid() {
 // -----------------------------------------------------------------------------
 function selectKecamatan(kecName) {
     activeKecamatan = kecName;
+    const currentNameEl = document.getElementById('current-kecamatan-name');
+    if (currentNameEl) currentNameEl.textContent = kecName;
+
     // Refresh Leaflet choropleth to highlight selected kecamatan
     if (geojsonLayer) geojsonLayer.eachLayer(l => l.setStyle(styleFeature(l.feature)));
 
@@ -1933,10 +1956,20 @@ function populateNewsPortal() {
         // Use pre-assigned cover image (consistent with modal)
         const coverImg = item._coverImg || (isKrim ? CRIME_IMAGES[index % CRIME_IMAGES.length] : HEALTH_IMAGES[index % HEALTH_IMAGES.length]);
             
-        // Generate snippet summary description
-        const descSnippet = isKrim 
-            ? `Deteksi insiden ${item.kategori.toLowerCase()} di Kecamatan ${item.kecamatan_terdeteksi}. Kejadian terekam melalui streaming Kafka producer dan di-analisis oleh Spark medallion layers.`
-            : `Laporan aktivitas ${item.kategori.toLowerCase()} di Kecamatan ${item.kecamatan_terdeteksi}. Parameter dihitung dan disimpan di Delta Lakehouse Gold Table.`;
+        // Generate snippet summary description from actual RSS content
+        let actualDesc = item.deskripsi_mentah || "";
+        // Clean HTML tags if any exist in the raw description
+        actualDesc = actualDesc.replace(/<[^>]*>?/gm, '').trim();
+        
+        let descSnippet = "";
+        const titleLower = item.judul ? item.judul.trim().toLowerCase() : "";
+        if (actualDesc.length > 10 && actualDesc.toLowerCase() !== titleLower) {
+            descSnippet = actualDesc;
+        } else {
+            descSnippet = isKrim 
+                ? `Deteksi insiden ${item.kategori.toLowerCase()} terpantau di wilayah Kecamatan ${item.kecamatan_terdeteksi}. Berita selengkapnya dapat dilihat pada tautan sumber.`
+                : `Laporan terkait aktivitas ${item.kategori.toLowerCase()} terdeteksi di Kecamatan ${item.kecamatan_terdeteksi}. Berita selengkapnya dapat dilihat pada tautan sumber.`;
+        }
 
         // Use div + onclick to show modal instead of broken external link
         const card = document.createElement('div');
@@ -2083,107 +2116,331 @@ function decodeGoogleNewsUrl(url) {
 // -----------------------------------------------------------------------------
 // Real-time Polling & Notification Engine
 // -----------------------------------------------------------------------------
-let seenNewsIds = new Set();
-
-function startRealtimePolling() {
-    // Populate initial seen news
-    if (dashboardData && dashboardData.berita) {
-        dashboardData.berita.forEach(item => {
-            seenNewsIds.add(item.link || item.judul);
-        });
-    }
+function generateTop5Panel(title, list, rankType, iconClass) {
+    if (!list || list.length === 0) return '';
     
-    // Poll every 10 seconds
-    setInterval(async () => {
-        try {
-            const response = await fetch(`data/kecamatras_data.json?v=${new Date().getTime()}`);
-            if (!response.ok) return;
-            const newData = await response.json();
+    // Sort just in case
+    const sorted = [...list].sort((a,b) => b[rankType] - a[rankType]).slice(0, 5);
+    
+    let html = `<div style="background:var(--bg-panel);border:1px solid var(--border-color);border-radius:12px;padding:16px;">`;
+    html += `<h3 style="margin:0 0 16px 0;font-size:14px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:8px;">
+                <i class="${iconClass}" style="color:${rankType==='indeks_kriminalitas'?'var(--color-red)':'var(--color-green)'};"></i> ${title}
+             </h3>`;
+             
+    html += `<div style="display:flex;flex-direction:column;gap:10px;">`;
+    
+    sorted.forEach((item, i) => {
+        const score = item[rankType];
+        const val = parseFloat(score).toFixed(1);
+        const name = item.kecamatan;
+        const color = getColorByScore(score);
+        
+        html += `
+            <div style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px;border-radius:6px;transition:var(--transition-fast);"
+                 onmouseover="this.style.background='var(--bg-hover)'"
+                 onmouseout="this.style.background='transparent'"
+                 onclick="switchView('kecamatan'); selectKecamatan('${name}')">
+                <div style="width:22px;height:22px;background:var(--bg-primary);border:1px solid var(--border-color);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-muted);">${i+1}</div>
+                <div style="flex:1;font-size:13px;font-weight:600;color:var(--text-primary);">${name}</div>
+                <div style="font-size:12px;font-weight:700;color:${color};background:rgba(0,0,0,0.1);padding:2px 6px;border-radius:4px;">${val}</div>
+            </div>
+        `;
+    });
+    
+    html += `</div></div>`;
+    return html;
+}
+
+// -----------------------------------------------------------------------------
+// Auto-Update JSON Data Polling & Manual Trigger
+// -----------------------------------------------------------------------------
+let seenNewsIds = new Set();
+let syncHistory = JSON.parse(localStorage.getItem('kecamatras_sync_history')) || [];
+
+let isPipelineRunning = false;
+let pipelineStartTime = null;
+let firstLoad = true;
+
+async function fetchJSONAndUpdateUI() {
+    try {
+        const response = await fetch(`data/kecamatras_data.json?v=${new Date().getTime()}`);
+        if (!response.ok) return;
+        
+        const newData = await response.json();
+        
+        // Compare timestamps
+        if (!dashboardData || newData.last_updated !== dashboardData.last_updated) {
+            console.log("New data detected! Updating UI...");
             
-            // Check if there is newer data
-            if (newData.last_updated !== dashboardData.last_updated) {
-                console.log("New real-time data detected! Updating UI...");
-                
-                let hasNewNews = false;
-                let newNewsCount = 0;
-                
-                if (newData.berita) {
-                    newData.berita.forEach(item => {
-                        const id = item.link || item.judul;
-                        if (!seenNewsIds.has(id)) {
-                            seenNewsIds.add(id);
-                            hasNewNews = true;
-                            newNewsCount++;
-                        }
-                    });
+            let newKesehatan = 0;
+            let newKriminal = 0;
+            let dupKesehatan = 0;
+            let dupKriminal = 0;
+            let newNewsCount = 0;
+            let dupNewsCount = 0;
+            
+            if (newData.berita) {
+                // Deduplicate news based on title first
+                let uniqueTitles = new Set();
+                let uniqueNewData = [];
+                newData.berita.forEach(item => {
+                    let title = item.judul ? item.judul.trim().toLowerCase() : "";
+                    if (!uniqueTitles.has(title)) {
+                        uniqueTitles.add(title);
+                        uniqueNewData.push(item);
+                    }
+                });
+
+                uniqueNewData.forEach(item => {
+                    const id = item.link || item.judul;
+                    const isKesehatan = item.kategori === 'Kesehatan';
+                    if (!seenNewsIds.has(id)) {
+                        seenNewsIds.add(id);
+                        newNewsCount++;
+                        if (isKesehatan) newKesehatan++; else newKriminal++;
+                        dashboardData.berita.unshift(item); // Prepend new data
+                    } else {
+                        dupNewsCount++;
+                        if (isKesehatan) dupKesehatan++; else dupKriminal++;
+                    }
+                });
+            }
+            
+            // Selalu catat ke history jika ada perubahan data JSON baru
+            let endTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            let startTime = pipelineStartTime ? pipelineStartTime : endTime; // Fallback jika tidak tercatat
+            
+            syncHistory.unshift({
+                time: `${startTime} - ${endTime}`,
+                status: 'Success',
+                newCount: newNewsCount,
+                dupCount: dupNewsCount,
+                newKes: newKesehatan,
+                newKrim: newKriminal,
+                dupKes: dupKesehatan,
+                dupKrim: dupKriminal
+            });
+            
+            if (syncHistory.length > 500) syncHistory.pop();
+            localStorage.setItem('kecamatras_sync_history', JSON.stringify(syncHistory));
+            if (currentView === 'history') renderSyncHistory();
+                if (newNewsCount > 0 && dupNewsCount > 0) {
+                    if (typeof playNotificationSound === 'function') playNotificationSound();
+                    if (typeof showNotificationToast === 'function') showNotificationToast(`${newNewsCount} Berita Baru & ${dupNewsCount} Duplikat.`);
+                } else if (newNewsCount > 0) {
+                    if (typeof playNotificationSound === 'function') playNotificationSound();
+                    if (typeof showNotificationToast === 'function') showNotificationToast(`${newNewsCount} Berita Anomali Baru Terdeteksi!`);
+                } else if (dupNewsCount > 0) {
+                    if (typeof playDuplicateSound === 'function') playDuplicateSound();
+                    if (typeof showNotificationToast === 'function') showNotificationToast(`${dupNewsCount} Berita Duplikat Diabaikan.`);
+                } else {
                 }
-                
-                // Update state
-                dashboardData = newData;
-                
-                // Trigger geocoding queue for any new news items
-                startGeocodingQueue();
-                
-                // Refresh UI components
-                updateTimestamp();
-                populateGeneralKPIs();
+            firstLoad = false;
+            
+            // Filter duplikasi berita berdasarkan judul
+            if (newData.berita && newData.berita.length > 0) {
+                let uniqueTitles = new Set();
+                newData.berita = newData.berita.filter(item => {
+                    let title = item.judul ? item.judul.trim().toLowerCase() : "";
+                    if (uniqueTitles.has(title)) return false;
+                    uniqueTitles.add(title);
+                    return true;
+                });
+            }
+
+            dashboardData = newData;
+            
+            // Assign images based on current UI logic
+            const crimeImgPool = CRIME_IMAGES;
+            const healthImgPool = HEALTH_IMAGES;
+            dashboardData.berita.forEach((item, i) => {
+                item._coverImg = item.kategori === 'Kriminalitas'
+                    ? crimeImgPool[i % crimeImgPool.length]
+                    : healthImgPool[i % healthImgPool.length];
+            });
+            
+            // Update all UI elements silently
+            updateTimestamp();
+            populateGeneralKPIs();
+            if (currentView === 'dashboard') {
                 updateMainChart();
                 populateOverviewNews();
+            } else if (currentView === 'kriminalitas') {
                 populateCrimeDashboard();
+                populateEnhancedCrimeDashboard();
+            } else if (currentView === 'kesehatan') {
                 populateHealthDashboard();
+                populateEnhancedHealthDashboard();
+            } else if (currentView === 'berita') {
                 populateNewsPortal();
                 populateBeritaStats();
-                populateEnhancedCrimeDashboard();
-                populateEnhancedHealthDashboard();
-                
-                if (activeKecamatan) {
-                    selectKecamatan(activeKecamatan);
-                }
-                
-                if (hasNewNews) {
-                    playNotificationSound();
-                    showNotificationToast(`${newNewsCount} Berita Anomali Baru Terdeteksi!`);
-                }
             }
-        } catch (e) {
-            console.warn("Polling failed:", e);
+            
+            // Update maps
+            if (geojsonLayer && mapInstance) {
+                geojsonLayer.eachLayer(l => {
+                    l.setStyle(styleFeature(l.feature));
+                });
+            }
+            if (currentMapEngine === 'mapbox') {
+                updateMapboxLayers();
+            }
         }
-    }, 10000); // 10 seconds
-}
-
-function playNotificationSound() {
-    try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const now = audioCtx.currentTime;
-        
-        // Tone 1: C5 (523.25 Hz)
-        const osc1 = audioCtx.createOscillator();
-        const gain1 = audioCtx.createGain();
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(523.25, now);
-        gain1.gain.setValueAtTime(0.08, now);
-        gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
-        osc1.connect(gain1);
-        gain1.connect(audioCtx.destination);
-        osc1.start(now);
-        osc1.stop(now + 0.3);
-        
-        // Tone 2: E5 (659.25 Hz)
-        const osc2 = audioCtx.createOscillator();
-        const gain2 = audioCtx.createGain();
-        osc2.type = 'sine';
-        osc2.frequency.setValueAtTime(659.25, now + 0.08);
-        gain2.gain.setValueAtTime(0.08, now + 0.08);
-        gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.4);
-        osc2.connect(gain2);
-        gain2.connect(audioCtx.destination);
-        osc2.start(now + 0.08);
-        osc2.stop(now + 0.4);
-        
-    } catch (e) {
-        console.warn("Could not play synthesized audio notification:", e);
+    } catch (err) {
+        console.error("Fetch JSON error:", err);
     }
 }
+
+function startRealtimePolling() {
+    console.log("Realtime polling started (Smart trigger based on Pipeline status)");
+    
+    // Inisialisasi awal
+    if (dashboardData && dashboardData.berita) {
+        dashboardData.berita.forEach(item => seenNewsIds.add(item.link || item.judul));
+    }
+
+    // Poll status server setiap 3 detik agar responsif
+    setInterval(async () => {
+        try {
+            const statRes = await fetch('/api/status');
+            if (statRes.ok) {
+                const status = await statRes.json();
+                updateSyncBadge(status.running);
+                
+                // Update UI Loading saat pipeline berjalan
+                if (status.running && currentView === 'history') {
+                    renderSyncHistory(status.phase || 'Memproses...');
+                }
+                
+                // Deteksi jika pipeline BARU SAJA dimulai
+                if (!isPipelineRunning && status.running) {
+                    pipelineStartTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                }
+                
+                // Deteksi jika pipeline BARU SAJA selesai (berubah dari true ke false)
+                if (isPipelineRunning && !status.running) {
+                    console.log("Pipeline just finished! Fetching new JSON immediately.");
+                    fetchJSONAndUpdateUI();
+                }
+                
+                isPipelineRunning = status.running;
+            }
+        } catch (e) {
+            // Ignore API errors if server isn't running
+        }
+    }, 3000);
+    
+    // Fallback: paksa sinkronisasi json setiap 120 detik
+    setInterval(fetchJSONAndUpdateUI, 120000);
+}
+
+function renderSyncHistory(loadingPhase = null) {
+    const container = document.getElementById('sync-history-table');
+    if (!container) return;
+
+    if (syncHistory.length === 0 && !loadingPhase) {
+        container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px 0;">Belum ada riwayat sinkronisasi.</p>';
+        return;
+    }
+
+    let html = '';
+    
+    // Tampilkan entri loading jika pipeline sedang berjalan
+    if (loadingPhase) {
+        html += `
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:8px;background:rgba(230,126,34,0.05);border:1px dashed var(--color-orange);margin-bottom:12px;">
+                <div style="margin-top:2px;"><i class="fa-solid fa-spinner fa-spin" style="color:var(--color-orange);font-size:14px;"></i></div>
+                <div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:2px;">
+                        Pipeline Sedang Berjalan...
+                    </div>
+                    <div style="font-size:12px;color:var(--text-secondary);font-weight:600;">
+                        🔄 ${loadingPhase}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    syncHistory.forEach(item => {
+        const isError = item.status === 'Error';
+        const color = isError ? 'var(--color-red)' : 'var(--color-green)';
+        const icon = isError ? 'fa-circle-xmark' : 'fa-circle-check';
+        
+        let subText = isError ? 'Gagal terhubung ke server' : 
+            `Baru: Kesehatan ${item.newKes || 0}, Kriminalitas ${item.newKrim || 0} | Duplikat: Kesehatan ${item.dupKes || 0}, Kriminalitas ${item.dupKrim || 0}`;
+            
+        let highlight = (item.newCount > 0 && !isError) ? 'background:rgba(43,156,128,0.1); border-left:3px solid var(--color-green);' : 'border-left:3px solid transparent; background:var(--bg-panel);';
+
+        html += `
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:8px;${highlight}border:1px solid var(--border-color);margin-bottom:8px;">
+                <div style="margin-top:2px;"><i class="fa-solid ${icon}" style="color:${color};font-size:14px;"></i></div>
+                <div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:2px;">
+                        [${item.time}] ${item.status}
+                    </div>
+                    <div style="font-size:12px;color:var(--text-secondary);">
+                        ${subText}
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+function updateSyncBadge(isRunning) {
+    const badge = document.getElementById('ai-online-badge');
+    if (badge) {
+        if (isRunning) {
+            badge.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing`;
+            badge.style.color = "var(--color-orange)";
+            badge.style.borderColor = "var(--color-orange)";
+            badge.style.background = "rgba(230,126,34,0.1)";
+        } else {
+            badge.innerHTML = `<span class="pulse-dot" style="background:var(--color-green);"></span> Siap`;
+            badge.style.color = "var(--color-green)";
+            badge.style.borderColor = "rgba(43,156,128,0.25)";
+            badge.style.background = "rgba(43,156,128,0.12)";
+        }
+    }
+}
+
+async function triggerManualUpdate() {
+    const btn = document.getElementById('btn-manual-update');
+    const statusText = document.getElementById('manual-update-status');
+    if (!btn || !statusText) return;
+
+    try {
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Mengirim Request...`;
+        btn.disabled = true;
+        btn.style.opacity = 0.7;
+
+        const res = await fetch('/api/update', { method: 'POST' });
+        const json = await res.json();
+
+        if (res.ok) {
+            statusText.style.display = 'block';
+            statusText.style.color = 'var(--color-green)';
+            statusText.textContent = '✔️ Pipeline berhasil dipicu. Data akan update otomatis dalam ~2 menit.';
+            updateSyncBadge(true);
+        } else {
+            statusText.style.display = 'block';
+            statusText.style.color = 'var(--color-orange)';
+            statusText.textContent = `⚠️ ${json.message || 'Pipeline sudah berjalan.'}`;
+        }
+    } catch (e) {
+        statusText.style.display = 'block';
+        statusText.style.color = 'var(--color-red)';
+        statusText.textContent = '❌ Gagal terhubung ke server backend KECAMATRAS.';
+    } finally {
+        btn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> Jalankan Pipeline Sekarang`;
+        btn.disabled = false;
+        btn.style.opacity = 1;
+    }
+}
+
+
 
 function showNotificationToast(message) {
     let container = document.getElementById('toast-container');
@@ -3215,6 +3472,19 @@ function openSettingsModal() {
                     </button>
                 </div>
             </div>
+                
+                <!-- Manual Update Pipeline -->
+                <div style="padding-top:14px;border-top:1px solid var(--border-color);margin-top:10px;">
+                    <label style="font-size:12px;font-weight:700;color:var(--text-primary);display:block;margin-bottom:6px;">
+                        <i class="fa-solid fa-server" style="color:var(--text-muted);margin-right:4px;"></i> Server Pipeline
+                    </label>
+                    <p style="font-size:11px;color:var(--text-muted);margin:0 0 10px 0;">Pipeline berjalan otomatis setiap 15 menit. Anda bisa menjalankannya paksa secara manual.</p>
+                    <button id="btn-manual-update" onclick="triggerManualUpdate()" style="width:100%;padding:10px 14px;background:var(--color-blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:var(--font-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:var(--transition-fast);">
+                        <i class="fa-solid fa-rotate-right"></i> Jalankan Pipeline Secara Manual
+                    </button>
+                    <p id="manual-update-status" style="font-size:11px;font-weight:600;text-align:center;margin:8px 0 0;display:none;"></p>
+                </div>
+            </div>
         </div>
     `;
     document.body.appendChild(overlay);
@@ -3674,4 +3944,60 @@ function renderCityStatsPanel() {
         ${statRow('Kecamatan paling aman', minCrime?.kecamatan || '-', 'var(--color-green)')}
         ${statRow('Tren BPS 2019→2022', `${trendUp ? '+' : ''}${bpsTrend}%`, trendUp ? 'var(--color-red)' : 'var(--color-green)')}
     `;
+}
+
+// -----------------------------------------------------------------------------
+// Notification System (Toasts & Sounds)
+// -----------------------------------------------------------------------------
+function playNotificationSound() {
+    try {
+        const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3');
+        audio.volume = 0.5;
+        audio.play().catch(e => console.log('Audio autoplay prevented:', e));
+    } catch(e) {}
+}
+
+function playDuplicateSound() {
+    try {
+        const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/pop-39222.mp3');
+        audio.volume = 0.3;
+        audio.play().catch(e => console.log('Audio autoplay prevented:', e));
+    } catch(e) {}
+}
+
+function showNotificationToast(message) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: var(--bg-panel);
+        border-left: 4px solid var(--color-blue);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        padding: 16px 20px;
+        border-radius: 8px;
+        color: var(--text-primary);
+        font-family: var(--font-primary);
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 10000;
+        animation: slideInRight 0.3s ease forwards;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    `;
+    
+    toast.innerHTML = `
+        <div style="width:32px;height:32px;background:rgba(75,162,172,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-blue);">
+            <i class="fa-solid fa-bell"></i>
+        </div>
+        <div>${message}</div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'fadeOutDown 0.3s ease forwards';
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
 }

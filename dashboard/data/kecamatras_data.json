@@ -1,198 +1,198 @@
 {
-  "last_updated": "2026-06-24T14:58:36.801841",
+  "last_updated": "2026-06-28T10:13:48.353838",
   "kriminalitas": [
     {
-      "kecamatan": "Tandes",
-      "total_kasus_kriminal": 175,
-      "crime_rate": 190.66503965832825,
+      "kecamatan": "Semampir",
+      "total_kasus_kriminal": 173,
+      "crime_rate": 361.62963272643657,
       "indeks_kriminalitas": 100.0
+    },
+    {
+      "kecamatan": "Tandes",
+      "total_kasus_kriminal": 213,
+      "crime_rate": 232.06659112699379,
+      "indeks_kriminalitas": 63.71771962502757
     },
     {
       "kecamatan": "Kenjeran",
       "total_kasus_kriminal": 104,
       "crime_rate": 178.6450460354542,
-      "indeks_kriminalitas": 93.69575374467502
+      "indeks_kriminalitas": 48.75777847863349
     },
     {
       "kecamatan": "Asemrowo",
       "total_kasus_kriminal": 84,
       "crime_rate": 171.98665055998035,
-      "indeks_kriminalitas": 90.2035584856985
-    },
-    {
-      "kecamatan": "Semampir",
-      "total_kasus_kriminal": 82,
-      "crime_rate": 171.40826522293526,
-      "indeks_kriminalitas": 89.90020694412509
+      "indeks_kriminalitas": 46.89318986982741
     },
     {
       "kecamatan": "Jambangan",
       "total_kasus_kriminal": 89,
       "crime_rate": 164.1702943997639,
-      "indeks_kriminalitas": 86.10403600678816
+      "indeks_kriminalitas": 44.70433090036619
+    },
+    {
+      "kecamatan": "Mulyorejo",
+      "total_kasus_kriminal": 138,
+      "crime_rate": 156.4377536445462,
+      "indeks_kriminalitas": 42.53894323866657
     },
     {
       "kecamatan": "Tenggilis Mejoyo",
       "total_kasus_kriminal": 89,
       "crime_rate": 151.02151632389874,
-      "indeks_kriminalitas": 79.2077648815584
+      "indeks_kriminalitas": 41.02220329015052
     },
     {
       "kecamatan": "Tegalsari",
-      "total_kasus_kriminal": 146,
-      "crime_rate": 149.72669750079478,
-      "indeks_kriminalitas": 78.52865830521685
+      "total_kasus_kriminal": 144,
+      "crime_rate": 147.67564685009896,
+      "indeks_kriminalitas": 40.08524030404085
     },
     {
       "kecamatan": "Gunung Anyar",
       "total_kasus_kriminal": 92,
       "crime_rate": 147.57306470758076,
-      "indeks_kriminalitas": 77.39912097783194
+      "indeks_kriminalitas": 40.05651363931946
     },
     {
       "kecamatan": "Dukuh Pakis",
-      "total_kasus_kriminal": 77,
-      "crime_rate": 129.74976830398518,
-      "indeks_kriminalitas": 68.05115848007415
+      "total_kasus_kriminal": 75,
+      "crime_rate": 126.3796444519336,
+      "indeks_kriminalitas": 34.12159881849206
     },
     {
       "kecamatan": "Benowo",
       "total_kasus_kriminal": 92,
       "crime_rate": 122.77634686987042,
-      "indeks_kriminalitas": 64.39373840630964
+      "indeks_kriminalitas": 33.11254676527569
     },
     {
       "kecamatan": "Genteng",
       "total_kasus_kriminal": 70,
       "crime_rate": 120.24185790847878,
-      "indeks_kriminalitas": 63.06444963583895
+      "indeks_kriminalitas": 32.40279930975686
     },
     {
       "kecamatan": "Gayungan",
       "total_kasus_kriminal": 50,
       "crime_rate": 114.035487843817,
-      "indeks_kriminalitas": 59.80933266432513
-    },
-    {
-      "kecamatan": "Mulyorejo",
-      "total_kasus_kriminal": 100,
-      "crime_rate": 113.36069104677263,
-      "indeks_kriminalitas": 59.45541524021131
+      "indeks_kriminalitas": 30.664793964891114
     },
     {
       "kecamatan": "Karang Pilang",
       "total_kasus_kriminal": 77,
       "crime_rate": 101.98270267406592,
-      "indeks_kriminalitas": 53.487887898494094
+      "indeks_kriminalitas": 27.289583523473848
     },
     {
       "kecamatan": "Pabean Cantian",
       "total_kasus_kriminal": 71,
       "crime_rate": 96.0354925538678,
-      "indeks_kriminalitas": 50.36869513465258
+      "indeks_kriminalitas": 25.624152221721904
     },
     {
       "kecamatan": "Pakal",
       "total_kasus_kriminal": 61,
       "crime_rate": 94.55165465395645,
-      "indeks_kriminalitas": 49.59045183290708
+      "indeks_kriminalitas": 25.20862459863602
     },
     {
       "kecamatan": "Sawahan",
-      "total_kasus_kriminal": 167,
-      "crime_rate": 84.12420157569163,
-      "indeks_kriminalitas": 44.12146124241875
+      "total_kasus_kriminal": 168,
+      "crime_rate": 84.62793930967781,
+      "indeks_kriminalitas": 22.42962977080788
     },
     {
       "kecamatan": "Sukomanunggal",
       "total_kasus_kriminal": 82,
       "crime_rate": 78.72050381122439,
-      "indeks_kriminalitas": 41.28732983891097
+      "indeks_kriminalitas": 20.77533678411966
     },
     {
       "kecamatan": "Bulak",
       "total_kasus_kriminal": 163,
       "crime_rate": 71.79826010351283,
-      "indeks_kriminalitas": 37.65675145909041
+      "indeks_kriminalitas": 18.836861244130795
+    },
+    {
+      "kecamatan": "Bubutan",
+      "total_kasus_kriminal": 61,
+      "crime_rate": 63.07908669755128,
+      "indeks_kriminalitas": 16.395181192105365
     },
     {
       "kecamatan": "Krembangan",
       "total_kasus_kriminal": 72,
       "crime_rate": 62.68173349816308,
-      "indeks_kriminalitas": 32.875315585116574
+      "indeks_kriminalitas": 16.283908100565366
     },
     {
       "kecamatan": "Wonokromo",
-      "total_kasus_kriminal": 75,
-      "crime_rate": 48.83988981720858,
-      "indeks_kriminalitas": 25.615545411329556
+      "total_kasus_kriminal": 94,
+      "crime_rate": 61.21266190423475,
+      "indeks_kriminalitas": 15.872515570690982
+    },
+    {
+      "kecamatan": "Simokerto",
+      "total_kasus_kriminal": 109,
+      "crime_rate": 58.82543417487884,
+      "indeks_kriminalitas": 15.204006521149092
     },
     {
       "kecamatan": "Sambikerep",
       "total_kasus_kriminal": 33,
       "crime_rate": 47.77346690601656,
-      "indeks_kriminalitas": 25.056227922867564
-    },
-    {
-      "kecamatan": "Simokerto",
-      "total_kasus_kriminal": 77,
-      "crime_rate": 41.55558194005203,
-      "indeks_kriminalitas": 21.795071615918488
+      "indeks_kriminalitas": 12.109060846875847
     },
     {
       "kecamatan": "Lakarsantri",
       "total_kasus_kriminal": 23,
       "crime_rate": 35.37753987664006,
-      "indeks_kriminalitas": 18.554812114500177
+      "indeks_kriminalitas": 8.63775842578888
     },
     {
       "kecamatan": "Rungkut",
       "total_kasus_kriminal": 39,
       "crime_rate": 31.53987367876234,
-      "indeks_kriminalitas": 16.54203294703727
+      "indeks_kriminalitas": 7.563074787167412
     },
     {
-      "kecamatan": "Bubutan",
-      "total_kasus_kriminal": 26,
-      "crime_rate": 26.886168100595633,
-      "indeks_kriminalitas": 14.101257445400398
+      "kecamatan": "Wiyung",
+      "total_kasus_kriminal": 19,
+      "crime_rate": 24.83627664997843,
+      "indeks_kriminalitas": 5.685828128578501
     },
     {
       "kecamatan": "Tambaksari",
       "total_kasus_kriminal": 19,
       "crime_rate": 19.48498118161028,
-      "indeks_kriminalitas": 10.219482930130958
+      "indeks_kriminalitas": 4.187274218792181
     },
     {
       "kecamatan": "Wonocolo",
       "total_kasus_kriminal": 15,
       "crime_rate": 18.742034635280007,
-      "indeks_kriminalitas": 9.829822325511657
+      "indeks_kriminalitas": 3.9792226435527773
+    },
+    {
+      "kecamatan": "Sukolilo",
+      "total_kasus_kriminal": 19,
+      "crime_rate": 16.39160404786348,
+      "indeks_kriminalitas": 3.3210181083566512
     },
     {
       "kecamatan": "Gubeng",
       "total_kasus_kriminal": 6,
       "crime_rate": 4.532338233294557,
-      "indeks_kriminalitas": 2.3771207565983294
-    },
-    {
-      "kecamatan": "Sukolilo",
-      "total_kasus_kriminal": 0,
-      "crime_rate": 0.0,
-      "indeks_kriminalitas": 0.0
-    },
-    {
-      "kecamatan": "Wiyung",
-      "total_kasus_kriminal": 0,
-      "crime_rate": 0.0,
       "indeks_kriminalitas": 0.0
     }
   ],
   "kesehatan": [
     {
       "kecamatan": "Semampir",
-      "total_kasus_wabah": 513283,
-      "incidence_rate": 1072938.3975417546,
+      "total_kasus_wabah": 513279,
+      "incidence_rate": 1072930.0361629634,
       "hfr": 167.436610297038,
       "indeks_kesehatan": 79.72047623696626
     },
@@ -201,147 +201,147 @@
       "total_kasus_wabah": 543956,
       "incidence_rate": 934375.4294352068,
       "hfr": 110.10718702762126,
-      "indeks_kesehatan": 77.62403792908017
+      "indeks_kesehatan": 77.62451299202552
     },
     {
       "kecamatan": "Krembangan",
       "total_kasus_wabah": 354135,
       "incidence_rate": 308302.71794961084,
       "hfr": 58.06766144899274,
-      "indeks_kesehatan": 43.0810830704939
+      "indeks_kesehatan": 43.08123982033196
     },
     {
       "kecamatan": "Bubutan",
       "total_kasus_wabah": 253719,
       "incidence_rate": 262366.6032428855,
       "hfr": 54.392786234281935,
-      "indeks_kesehatan": 40.52923891246574
+      "indeks_kesehatan": 40.52937230708142
     },
     {
       "kecamatan": "Sawahan",
       "total_kasus_wabah": 518554,
       "incidence_rate": 261215.21690946826,
       "hfr": 60.44852807834129,
-      "indeks_kesehatan": 39.72066381921552
+      "indeks_kesehatan": 39.720796628433746
     },
     {
       "kecamatan": "Wonocolo",
       "total_kasus_wabah": 319953,
       "incidence_rate": 399771.3471774496,
       "hfr": 135.44243696429018,
-      "indeks_kesehatan": 39.67717555813682
+      "indeks_kesehatan": 39.67737881321788
     },
     {
       "kecamatan": "Pakal",
-      "total_kasus_wabah": 146500,
-      "incidence_rate": 227078.97388204295,
+      "total_kasus_wabah": 146498,
+      "incidence_rate": 227075.873827792,
       "hfr": 47.430830039525695,
-      "indeks_kesehatan": 39.070240240329326
+      "indeks_kesehatan": 39.07015344026789
     },
     {
       "kecamatan": "Karang Pilang",
       "total_kasus_wabah": 195792,
       "incidence_rate": 259316.8483371522,
       "hfr": 65.56030886189953,
-      "indeks_kesehatan": 38.9776848782811
+      "indeks_kesehatan": 38.977816722314955
     },
     {
       "kecamatan": "Lakarsantri",
       "total_kasus_wabah": 250090,
       "incidence_rate": 384676.9107716918,
       "hfr": 133.2041284050882,
-      "indeks_kesehatan": 38.96349204522554
+      "indeks_kesehatan": 38.96368762586742
     },
     {
       "kecamatan": "Tandes",
-      "total_kasus_wabah": 263921,
-      "incidence_rate": 287545.759609518,
+      "total_kasus_wabah": 263917,
+      "incidence_rate": 287541.40155146865,
       "hfr": 85.20003486446439,
-      "indeks_kesehatan": 38.44066161320062
+      "indeks_kesehatan": 38.440523481601566
     },
     {
       "kecamatan": "Sukomanunggal",
       "total_kasus_wabah": 248524,
       "incidence_rate": 238584.5669412284,
       "hfr": 80.64051609930303,
-      "indeks_kesehatan": 35.79860306428711
+      "indeks_kesehatan": 35.798724367441615
     },
     {
       "kecamatan": "Benowo",
-      "total_kasus_wabah": 148631,
-      "incidence_rate": 198351.86099582294,
+      "total_kasus_wabah": 148630,
+      "incidence_rate": 198350.5264703135,
       "hfr": 62.72269894439032,
-      "indeks_kesehatan": 35.34392849332328
+      "indeks_kesehatan": 35.34394227404289
     },
     {
       "kecamatan": "Genteng",
       "total_kasus_wabah": 254973,
       "incidence_rate": 437977.5319499794,
       "hfr": 192.55874673629242,
-      "indeks_kesehatan": 35.252008917887395
+      "indeks_kesehatan": 35.252231598075426
     },
     {
       "kecamatan": "Simokerto",
       "total_kasus_wabah": 244956,
       "incidence_rate": 132198.56012606993,
       "hfr": 31.733353481494273,
-      "indeks_kesehatan": 34.781350497449935
+      "indeks_kesehatan": 34.781417710943956
     },
     {
       "kecamatan": "Wiyung",
-      "total_kasus_wabah": 212142,
-      "incidence_rate": 277306.179004196,
+      "total_kasus_wabah": 212140,
+      "incidence_rate": 277303.5646592855,
       "hfr": 117.38408648252964,
-      "indeks_kesehatan": 33.87456133098745
+      "indeks_kesehatan": 33.874531756463234
     },
     {
       "kecamatan": "Wonokromo",
-      "total_kasus_wabah": 397197,
-      "incidence_rate": 258654.1028763439,
+      "total_kasus_wabah": 397195,
+      "incidence_rate": 258652.80047928213,
       "hfr": 113.04806496356545,
-      "indeks_kesehatan": 33.18284243383772
+      "indeks_kesehatan": 33.182888970047
     },
     {
       "kecamatan": "Tambaksari",
       "total_kasus_wabah": 309048,
       "incidence_rate": 316936.5507481207,
       "hfr": 144.9067284716596,
-      "indeks_kesehatan": 33.12662525140201
+      "indeks_kesehatan": 33.12678639092532
     },
     {
       "kecamatan": "Jambangan",
       "total_kasus_wabah": 102747,
       "incidence_rate": 189528.14874935438,
       "hfr": 81.90068619493839,
-      "indeks_kesehatan": 32.445465004421266
+      "indeks_kesehatan": 32.44556136590267
     },
     {
       "kecamatan": "Rungkut",
       "total_kasus_wabah": 364898,
       "incidence_rate": 295098.38014443644,
       "hfr": 138.7754441865543,
-      "indeks_kesehatan": 32.444479053284326
+      "indeks_kesehatan": 32.44462908966288
     },
     {
       "kecamatan": "Sukolilo",
-      "total_kasus_wabah": 339934,
-      "incidence_rate": 293266.5016003382,
+      "total_kasus_wabah": 339932,
+      "incidence_rate": 293264.77616833313,
       "hfr": 143.8147576199391,
-      "indeks_kesehatan": 31.714615087671138
+      "indeks_kesehatan": 31.71465162219895
     },
     {
       "kecamatan": "Bulak",
       "total_kasus_wabah": 104296,
       "incidence_rate": 45940.314943288184,
       "hfr": 13.742979848034356,
-      "indeks_kesehatan": 31.33269331484796
+      "indeks_kesehatan": 31.33271667220587
     },
     {
       "kecamatan": "Sambikerep",
       "total_kasus_wabah": 182193,
       "incidence_rate": 263757.31078811747,
       "hfr": 133.04186692917946,
-      "indeks_kesehatan": 31.094181135846767
+      "indeks_kesehatan": 31.094315237537558
     },
     {
       "kecamatan": "Asemrowo",
@@ -355,56 +355,56 @@
       "total_kasus_wabah": 137867,
       "incidence_rate": 221146.25773956563,
       "hfr": 120.14372333258477,
-      "indeks_kesehatan": 29.876368961963575
+      "indeks_kesehatan": 29.876481398987544
     },
     {
       "kecamatan": "Tenggilis Mejoyo",
       "total_kasus_wabah": 118774,
       "incidence_rate": 201544.15258263762,
       "hfr": 117.76284531324238,
-      "indeks_kesehatan": 28.885866516021498
+      "indeks_kesehatan": 28.885968986779748
     },
     {
       "kecamatan": "Pabean Cantian",
       "total_kasus_wabah": 150811,
       "incidence_rate": 203988.85447241346,
       "hfr": 120.92356386360255,
-      "indeks_kesehatan": 28.66254357392821
+      "indeks_kesehatan": 28.662647287642173
     },
     {
       "kecamatan": "Tegalsari",
       "total_kasus_wabah": 234360,
       "incidence_rate": 240342.11524853605,
       "hfr": 150.44456522853832,
-      "indeks_kesehatan": 27.45876766475169
+      "indeks_kesehatan": 27.45888986149356
     },
     {
       "kecamatan": "Gayungan",
       "total_kasus_wabah": 137719,
       "incidence_rate": 314097.06700725266,
       "hfr": 200.47438762943028,
-      "indeks_kesehatan": 26.211150731468354
+      "indeks_kesehatan": 26.211310427317667
     },
     {
       "kecamatan": "Gubeng",
       "total_kasus_wabah": 363982,
       "incidence_rate": 274948.25580516993,
       "hfr": 192.1711410916892,
-      "indeks_kesehatan": 24.662697056015958
+      "indeks_kesehatan": 24.66283684750031
     },
     {
       "kecamatan": "Dukuh Pakis",
       "total_kasus_wabah": 118665,
       "incidence_rate": 199957.87345184936,
       "hfr": 221.2486308871851,
-      "indeks_kesehatan": 16.24842338266899
+      "indeks_kesehatan": 16.248525046917976
     },
     {
       "kecamatan": "Mulyorejo",
-      "total_kasus_wabah": 219634,
-      "incidence_rate": 248978.62017366858,
+      "total_kasus_wabah": 219630,
+      "incidence_rate": 248974.0857460267,
       "hfr": 247.6931099371982,
-      "indeks_kesehatan": 16.24371301473396
+      "indeks_kesehatan": 16.24354376782007
     }
   ],
   "berita": [
@@ -412,19 +412,191 @@
       "id_berita": "e22b910ba1fc62bf",
       "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
       "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-06-09T11:22:00",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
       "sumber": "infonews.id",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Semampir"
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
     },
     {
       "id_berita": "e22b910ba1fc62bf",
       "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
       "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-06-09T11:22:00",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
       "sumber": "infonews.id",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Semampir"
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
+    },
+    {
+      "id_berita": "e22b910ba1fc62bf",
+      "judul": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS - infonews.id",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc21ZMGlMSzVnZ0NHR3d0eHoyUkFPd0dVN00yU01NenBFbFFGX2h6d3I4OWtRNk5RVEdZbXQxT3NFQlRvUzY1UVJYcDlLS2FyUXBVOTdZVnlZamkySl81ZVEwRXlEaUZmLXQ0TzBkbndUNW41cWFRdFRweVdWREsyOGpLaWxrZGExT0NaVDR0MmJPMEdSQWJxTXRfVElqN3hOMGx6NTR5aXIwc0Y30gGyAUFVX3lxTE4taGNBcFVna3J0WUEtZjhyb2JIcURyY0hRZG0yajV1cnlKUnRFVklPdmpLMFRfWXVfTnp5X3FuUGpxekplS013SjdvSmdPNWx6ak5VLXFiaU02MVRtLUZkT2Z1U1M4STBsWC1abGl2RlR6WGJJNEFsajJhVUpsQ2tIRlE5aE8yakhxcFpfSUc4SG55ZlBWX3FhSjhxUlF6eUdnZFp1YmRwRlFwYUREMGJfTnc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-06-09T07:00:00",
+      "sumber": "infonews.id",
+      "kategori": "Kesehatan",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Tambaksari hingga Semampir Surabaya Masuk Zona Risiko Tinggi DBD Menurut AERIS infonews.id"
     },
     {
       "id_berita": "6df74c644e03d06c",
@@ -433,7 +605,8 @@
       "tanggal_publikasi": "2026-05-22T07:00:00",
       "sumber": "JPNN.com Jatim",
       "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Semampir"
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
     },
     {
       "id_berita": "6df74c644e03d06c",
@@ -442,7 +615,178 @@
       "tanggal_publikasi": "2026-05-22T07:00:00",
       "sumber": "JPNN.com Jatim",
       "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Semampir"
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
+    },
+    {
+      "id_berita": "6df74c644e03d06c",
+      "judul": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita - JPNN.com Jatim",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOUXFfNDBDbXpZYzBvNmxrYjBwVW1SdlVmMGh5UVNqUk9uZTBuaHNTbXM1QW1yVXJ2T0M0cUZLbDBRZ2g4Wjlwei1iNm5FVjRVblFnRjJVZDdPSFN1d3JfNnJNVkhmbDRqS19UMHppSjNVR0lEVENGNHZ0UVpidjctWnhzcEZ4bk51QXdzX0xkeEJHT2dkU19XeWNDRnJyZldnT3BoV2NTU3Jpdlc1TzVPUEh5QUY4N3VIeTQyNHBoU1JBQQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-22T07:00:00",
+      "sumber": "JPNN.com Jatim",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Semampir",
+      "deskripsi_mentah": "Polisi Gerebek Pengedar Narkoba di Indekos Semampir Surabaya, 76 Paket Sabu-Sabu Disita JPNN.com Jatim"
     },
     {
       "id_berita": "0eb09a20a71346b2",
@@ -451,7 +795,8 @@
       "tanggal_publikasi": "2026-05-12T07:00:00",
       "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Bubutan"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
       "id_berita": "0eb09a20a71346b2",
@@ -460,315 +805,108 @@
       "tanggal_publikasi": "2026-05-12T07:00:00",
       "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Bubutan"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "283b16a43f732d8e",
-      "judul": "BGN Tutup SPPG Bubutan Tembok Dukuh Imbas Keracunan 200 Siswa - Sapa Nusa - Sapanusa",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOUEs5QzVFOXgwdGl1WnVDX3FoZmc0NVFiUV9odU1BRWdCNjB2ODZQbWM3YjMycWdhcE5lWnZQUW8xNFBiV1VJUnlRcDdYNGdyQnJLUGZoM0U0b2ZFekxBQ05zb1pLWkRWWkxkTVBNRlExLVlsTzZPck1FclhRNWNwSnZnLWxLZFlra205SGdLbHRTelRmMk1Scm9KeFhvUy1MSnJ1V1BuNNIBrAFBVV95cUxPV3U3V0lITDNpT2wzV21lMTd2SDRTWXBqMVZwQ1RVb1NuTEUzWHBMUjBDelhXSnBkWmlucFlCc0xmN0lITUxnWUJYeFpFc3NQcXRkdWJNUVo2eVRzNlFyVzN4aDA2cEptVzFOMmlfaHdVcUVSX0d0MTRNZ05jWTg3QXpXYkdmNUNpbDRKb3d4dHkzTkQtRGtTVnk3TGw3cWlINGRjWDg0TlFBei1n?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-05-11T07:00:00",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
       "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Bubutan"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "431489dae48e5f64",
-      "judul": "Polisi Dalami Keterlibatan Narkoba dalam Kasus Pembunuhan Kakek di Simokerto Surabaya - Tribunjatim.com",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPYUN0SU1qcWF0d0J6U3hScC1ZYmhuYklGTE5zTUdzVWZMbEZIMkdkUzVEYkplM1QxTDNWOTNSb2tzX2JKdkpFQWZ5UTFmUm82UlVscUdLYjQzQmpUM2pRY3JWVU0wVWJhSlpya0VIZ3EySllhTERmV1BjMFg0eDBtVVA5cTZhdWhpLWRZZUZVLXZIckYyaEJVanpnVXZ0T1JrSkE3YXFuTHI5NWdrbUVtOHdGSHluS3ZadDhNZUNOM0NkOHlsQ0RoU0pB?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-05-08T07:00:00",
-      "sumber": "Tribunjatim.com",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Simokerto"
-    },
-    {
-      "id_berita": "431489dae48e5f64",
-      "judul": "Polisi Dalami Keterlibatan Narkoba dalam Kasus Pembunuhan Kakek di Simokerto Surabaya - Tribunjatim.com",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPYUN0SU1qcWF0d0J6U3hScC1ZYmhuYklGTE5zTUdzVWZMbEZIMkdkUzVEYkplM1QxTDNWOTNSb2tzX2JKdkpFQWZ5UTFmUm82UlVscUdLYjQzQmpUM2pRY3JWVU0wVWJhSlpya0VIZ3EySllhTERmV1BjMFg0eDBtVVA5cTZhdWhpLWRZZUZVLXZIckYyaEJVanpnVXZ0T1JrSkE3YXFuTHI5NWdrbUVtOHdGSHluS3ZadDhNZUNOM0NkOHlsQ0RoU0pB?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-05-08T07:00:00",
-      "sumber": "Tribunjatim.com",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Simokerto"
-    },
-    {
-      "id_berita": "3497321db7e4c92b",
-      "judul": "Polisi Ungkap Motif Pembunuhan Sadis di Simokerto Surabaya, Pelaku Residivis Narkoba - JPNN.com Jatim",
-      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSElGTDZiSVZoRFJJcjRDcE9WMks2RTdNb01obEFMcXpTSEhPd0VIT2VPaGRsb24tUFg0c21nSk1vY2VyTVNLaW51blRDNldGUmdYS1d3alZEWFJlRFFaYWFSQWlJeTFHMFRjSDRfQUlvZXZNS3U4c1NURHU3VDk4YUVCd3h6QWJtMkxrWl9pcERfb1didEFJcXpIS1Y4S0kza0J2VW1DaUdWWkN6QmFmb29RUjlPUnVHU09xekJn?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-05-08T07:00:00",
-      "sumber": "JPNN.com Jatim",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Simokerto"
-    },
-    {
-      "id_berita": "3497321db7e4c92b",
-      "judul": "Polisi Ungkap Motif Pembunuhan Sadis di Simokerto Surabaya, Pelaku Residivis Narkoba - JPNN.com Jatim",
-      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSElGTDZiSVZoRFJJcjRDcE9WMks2RTdNb01obEFMcXpTSEhPd0VIT2VPaGRsb24tUFg0c21nSk1vY2VyTVNLaW51blRDNldGUmdYS1d3alZEWFJlRFFaYWFSQWlJeTFHMFRjSDRfQUlvZXZNS3U4c1NURHU3VDk4YUVCd3h6QWJtMkxrWl9pcERfb1didEFJcXpIS1Y4S0kza0J2VW1DaUdWWkN6QmFmb29RUjlPUnVHU09xekJn?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-05-08T07:00:00",
-      "sumber": "JPNN.com Jatim",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Simokerto"
-    },
-    {
-      "id_berita": "956d47a9fd7fd9c0",
-      "judul": "Puluhan Warga Sidokapasan, Simokerto Surabaya Keracunan Usai Santap Nasi Kotak Tahlil 7 hari - Panjinasional - Panjinasional",
-      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPT29VOC1ackdnblN0U0JnZUJ4dVB4OUtXYjRxV2ZXczFzb3dMTUNnaVI1RU0wRkNhRVJmOElZcWlEU1ZSOTZrLTY1emxlTEs5NExlczFnRnl1OW9nZUpTWGtLQkNFR0t4d2NybkJIVXVNbXRPTmJRTmZjUm85WnhJLWlPTHdTS3Y5dUVHVGluVl9nclc4Z1JPemFnWE5Za1g2eUVjazRuYmtFNUh1QzZpaUlwZUNzcWZHUnRoWjJnLUg2MGJ5VFJmUUljLXg3cUlMZWpGM2lMWWxuUdIB3wFBVV95cUxPc3FKMk5ubTFoY2pjaTNCakQ4ellybFR0bFhkZC1ndDNOOEJDYnk3T3prSjFORWxJSHpGVVAtYjh0dnRrU2lKZWJSX0NDVkpxNkVmdmRTVzRHTDdOSGE2dVg3RG9YRXdicmxyMjlBVTUzcEhubGZpZUpFd2NuczVGRHBiTENDZFZRT3dvRnFJQWRNaTZhV2pibldPUnlkVW9CMW9oODItbm85cW1CdlJuUEtNNm9pZThZeVFBb0QyRU5nMEk0QzBMX3JrSjlfX1U1Z2g0T1FjZmlkWUFYdm9n?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-04-04T07:00:00",
-      "sumber": "Panjinasional",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Simokerto"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "956d47a9fd7fd9c0",
-      "judul": "Puluhan Warga Sidokapasan, Simokerto Surabaya Keracunan Usai Santap Nasi Kotak Tahlil 7 hari - Panjinasional - Panjinasional",
-      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPT29VOC1ackdnblN0U0JnZUJ4dVB4OUtXYjRxV2ZXczFzb3dMTUNnaVI1RU0wRkNhRVJmOElZcWlEU1ZSOTZrLTY1emxlTEs5NExlczFnRnl1OW9nZUpTWGtLQkNFR0t4d2NybkJIVXVNbXRPTmJRTmZjUm85WnhJLWlPTHdTS3Y5dUVHVGluVl9nclc4Z1JPemFnWE5Za1g2eUVjazRuYmtFNUh1QzZpaUlwZUNzcWZHUnRoWjJnLUg2MGJ5VFJmUUljLXg3cUlMZWpGM2lMWWxuUdIB3wFBVV95cUxPc3FKMk5ubTFoY2pjaTNCakQ4ellybFR0bFhkZC1ndDNOOEJDYnk3T3prSjFORWxJSHpGVVAtYjh0dnRrU2lKZWJSX0NDVkpxNkVmdmRTVzRHTDdOSGE2dVg3RG9YRXdicmxyMjlBVTUzcEhubGZpZUpFd2NuczVGRHBiTENDZFZRT3dvRnFJQWRNaTZhV2pibldPUnlkVW9CMW9oODItbm85cW1CdlJuUEtNNm9pZThZeVFBb0QyRU5nMEk0QzBMX3JrSjlfX1U1Z2g0T1FjZmlkWUFYdm9n?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-04-04T07:00:00",
-      "sumber": "Panjinasional",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Simokerto"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "5c7db4e645436236",
-      "judul": "Dukung SDGs 3 dan 17 - Mahasiswa FK UNAIR Lakukan Skrining TBC di Puskesmas Mulyorejo Surabaya - Universitas Airlangga Official Website",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPWlcwNVJ4UFVQY2IxalBmMGx4dVF4ZGkyd1RHX3VKSkdPTmVSUU1SUjhWTUdscXhWM2hrOXVyRUZhSVUxNi0wa2xhQXV2dERBNkdCOVQtYnR2bjNOZXZDMWNsX1p6LXVuNENpeDFGNGtzdTh3Q0V4ZXBiQm44QkNHSGpqbGNzUkRqX1pxYUJNR1VJNm4tQ2JxMW9ieGZYODhFQzBKWU00LWhleGhrY2k1YlI5OA?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-02-20T08:00:00",
-      "sumber": "Universitas Airlangga Official Website",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Mulyorejo"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "5c7db4e645436236",
-      "judul": "Dukung SDGs 3 dan 17 - Mahasiswa FK UNAIR Lakukan Skrining TBC di Puskesmas Mulyorejo Surabaya - Universitas Airlangga Official Website",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPWlcwNVJ4UFVQY2IxalBmMGx4dVF4ZGkyd1RHX3VKSkdPTmVSUU1SUjhWTUdscXhWM2hrOXVyRUZhSVUxNi0wa2xhQXV2dERBNkdCOVQtYnR2bjNOZXZDMWNsX1p6LXVuNENpeDFGNGtzdTh3Q0V4ZXBiQm44QkNHSGpqbGNzUkRqX1pxYUJNR1VJNm4tQ2JxMW9ieGZYODhFQzBKWU00LWhleGhrY2k1YlI5OA?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-02-20T08:00:00",
-      "sumber": "Universitas Airlangga Official Website",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Mulyorejo"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "57f922b9cea13ba6",
-      "judul": "Promosikan Ovitrap, BBK Surabaya Gandeng Mulyorejo Cegah DBD – Mendukung SDG-3 - Universitas Airlangga Official Website",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxONC1jUUhYQTJ1c29CWG5qRlJMY25VbWhGbWxUcG80OFMxcVJLRlhMWkR5UVk5OXdNMjlUVGlub0ltQzMwX2dRZktjR01seVFPb3VZSFE1ZmVleDJITnBMWS1MblotWmw5Q0pMQXZlcC0tM3huQzlWXzNCZXhIRzEtMUE5TFNNQ1BmOU0yaEFLeWVhQWRiX2Y5SFJFaEdzakU?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-02-03T08:00:00",
-      "sumber": "Universitas Airlangga Official Website",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Mulyorejo"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "57f922b9cea13ba6",
-      "judul": "Promosikan Ovitrap, BBK Surabaya Gandeng Mulyorejo Cegah DBD – Mendukung SDG-3 - Universitas Airlangga Official Website",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxONC1jUUhYQTJ1c29CWG5qRlJMY25VbWhGbWxUcG80OFMxcVJLRlhMWkR5UVk5OXdNMjlUVGlub0ltQzMwX2dRZktjR01seVFPb3VZSFE1ZmVleDJITnBMWS1MblotWmw5Q0pMQXZlcC0tM3huQzlWXzNCZXhIRzEtMUE5TFNNQ1BmOU0yaEFLeWVhQWRiX2Y5SFJFaEdzakU?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2026-02-03T08:00:00",
-      "sumber": "Universitas Airlangga Official Website",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Mulyorejo"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "63e58b39bf90e6ad",
-      "judul": "Wabah DBD Serang Warga Surabaya, Bocah Kecamatan Tegalsari Meninggal Dunia - memorandum.disway.id - Memorandum.co.id",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQWU1OZjJKVmJoMHEzRE0tSlVSQWJQZDVJc1lva2NWMWFHYXVXVWhUYWwwOGg1V3N5OEowbUtmUTBBcGdCdEpyaWthV2NsTUpTOWVZaUJsN3JjRXBTT0E3dWMySlp0VFlZQjJYUDh2aVRDaEtydE00NHJtS0M3RG5PcEdvOVRFeUFGckpqalMtdXZQT25KbWlhUHBaTFlqN01yZ1NVNEtmN0JneENNeVl6U1RvYnhBUmNJUWFheGctblbSAbMBQVVfeXFMTVllM2FZQUYtX0JvNWVNUjBaTTcyOUZwMG93dG91OE1RamRqbUsyZWVGcG5qeGlYYllTSGVnOFNLUTR5RUZ1YkMtRGVFYlo0aC00RDFpcmhGSkNDZmdfdlQ1MFVYT3pUOHRNenB2VXBSdUlyQlozUmo0WDR6cFFNeDJmSF9MVGJhWkdsZGRHckMtNm8wSFJhaGQ5SkY2dTVzbV9XdFFYTGFHTzNoeFFqSW5SUmM?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2025-06-16T07:00:00",
-      "sumber": "Memorandum.co.id",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Tegalsari"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "63e58b39bf90e6ad",
-      "judul": "Wabah DBD Serang Warga Surabaya, Bocah Kecamatan Tegalsari Meninggal Dunia - memorandum.disway.id - Memorandum.co.id",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQWU1OZjJKVmJoMHEzRE0tSlVSQWJQZDVJc1lva2NWMWFHYXVXVWhUYWwwOGg1V3N5OEowbUtmUTBBcGdCdEpyaWthV2NsTUpTOWVZaUJsN3JjRXBTT0E3dWMySlp0VFlZQjJYUDh2aVRDaEtydE00NHJtS0M3RG5PcEdvOVRFeUFGckpqalMtdXZQT25KbWlhUHBaTFlqN01yZ1NVNEtmN0JneENNeVl6U1RvYnhBUmNJUWFheGctblbSAbMBQVVfeXFMTVllM2FZQUYtX0JvNWVNUjBaTTcyOUZwMG93dG91OE1RamRqbUsyZWVGcG5qeGlYYllTSGVnOFNLUTR5RUZ1YkMtRGVFYlo0aC00RDFpcmhGSkNDZmdfdlQ1MFVYT3pUOHRNenB2VXBSdUlyQlozUmo0WDR6cFFNeDJmSF9MVGJhWkdsZGRHckMtNm8wSFJhaGQ5SkY2dTVzbV9XdFFYTGFHTzNoeFFqSW5SUmM?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2025-06-16T07:00:00",
-      "sumber": "Memorandum.co.id",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Tegalsari"
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     },
     {
-      "id_berita": "e21a1171a08e6fac",
-      "judul": "Next Leader Dan Universitas Ciputra Seminar Edukasi Penyalahgunaan Narkoba Di Kecamatan Pakal Surabaya - Media Pojok Nasional",
-      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOUjJEV0FVTzZ6UDR1ZS1vU0VUdVNvd21FSkI4cjg5Y19uU3huNnFlUXBtWDk5V2RNSjB0c0syN1Bxb0lNSGZJa2w1U1ZWV1ljVW0wb3dtVEZsVHBHcmQ1LXB6ZVZlNGxYWFlHZnptSkJ0LWJpUlpZUWYzeWtxSEZLSHJlTTh0TmI3UzAyRkdKYUJzWFlkbk8xaEFhQ2Q1ZzNUV0Z4OGdwcTV5Yzdqb015U0JVclJBY2g2TVVjVlI3ZndjYVllNGJoM3BsYw?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2024-12-07T08:00:00",
-      "sumber": "Media Pojok Nasional",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Pakal"
-    },
-    {
-      "id_berita": "e21a1171a08e6fac",
-      "judul": "Next Leader Dan Universitas Ciputra Seminar Edukasi Penyalahgunaan Narkoba Di Kecamatan Pakal Surabaya - Media Pojok Nasional",
-      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOUjJEV0FVTzZ6UDR1ZS1vU0VUdVNvd21FSkI4cjg5Y19uU3huNnFlUXBtWDk5V2RNSjB0c0syN1Bxb0lNSGZJa2w1U1ZWV1ljVW0wb3dtVEZsVHBHcmQ1LXB6ZVZlNGxYWFlHZnptSkJ0LWJpUlpZUWYzeWtxSEZLSHJlTTh0TmI3UzAyRkdKYUJzWFlkbk8xaEFhQ2Q1ZzNUV0Z4OGdwcTV5Yzdqb015U0JVclJBY2g2TVVjVlI3ZndjYVllNGJoM3BsYw?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2024-12-07T08:00:00",
-      "sumber": "Media Pojok Nasional",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Pakal"
-    },
-    {
-      "id_berita": "71289df6395f4ce4",
-      "judul": "ASN dan non ASN Kecamatan Wiyung Surabaya Diharapkan Tidak Terlibat Perjudian Online serta Narkoba - Lintas Nusantara",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPOTc2NTJkYTFnN0ozOVdxODZJQk9JX3RYN2VLM2s1d3ZaZGJJeFA5bEpMdlZxVDVydGt6WUpVOHpSZUtsamR5SnQ1UWVUMksxb1BNVlE4R2VkbzgycHc2eWFCdUd4Y0JnWXZNaGQ3THRQR1JlNjdmTlZtNTVIV2VmTF8tYW1QVThTeGtWWWFOT0dibGQ3Mm5OajhCeE5BZmlIZnV3dVFxVlR0VXBmNHpqS3BGVzlHZG52bHRTSzlpQWpmVU91T2ZPQjlyVnQyZTZrQ2NV?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2024-06-27T07:00:00",
-      "sumber": "Lintas Nusantara",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Wiyung"
-    },
-    {
-      "id_berita": "71289df6395f4ce4",
-      "judul": "ASN dan non ASN Kecamatan Wiyung Surabaya Diharapkan Tidak Terlibat Perjudian Online serta Narkoba - Lintas Nusantara",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPOTc2NTJkYTFnN0ozOVdxODZJQk9JX3RYN2VLM2s1d3ZaZGJJeFA5bEpMdlZxVDVydGt6WUpVOHpSZUtsamR5SnQ1UWVUMksxb1BNVlE4R2VkbzgycHc2eWFCdUd4Y0JnWXZNaGQ3THRQR1JlNjdmTlZtNTVIV2VmTF8tYW1QVThTeGtWWWFOT0dibGQ3Mm5OajhCeE5BZmlIZnV3dVFxVlR0VXBmNHpqS3BGVzlHZG52bHRTSzlpQWpmVU91T2ZPQjlyVnQyZTZrQ2NV?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2024-06-27T07:00:00",
-      "sumber": "Lintas Nusantara",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Wiyung"
-    },
-    {
-      "id_berita": "9d59bae7ff0f45e6",
-      "judul": "Polisi Ungkap Identitas Pelaku Curanmor Yang Dimassa Warga di Dukuh Pakis, Ternyata Arek Kenjeran Surabaya - Radar Surabaya",
-      "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxObzRjbk9rUXREVXpVLUcyM0JFUXhNT3dic1ZfWTd0dWQ1Vy1ZSWEzb20wX0s1M2o1WjFaM3dyRjB5UDVKNHludWFYMVBHMGRLeEtTTFNmTUtGWEU1cjlkdy1QQU5ja2NPWXFrU3B3WFV0LW1rSWxQYnJUWnZUeEZKS2RIbE15YzEydmZZYll6Z3c2NVc4dXhmM3N0X29jeGlSRUxZMzNrTmZWcTNZUWd5TF8tVk50VlRDUF9YSnh4LWFaT1JvdXVLY3k0OXhUZFBWRmU3bzlWd3NMVUdVTEZtWUdILVJTVzZEVk9HX0gzSdIB9gFBVV95cUxQR0FCZ3AzdlJWRDN6V09USFRNNzNsaHRfdUFHT050VERVY0NTbU04U0d6bm9CWnBES1FDTDRYSHhUZmlXYUthb1AxZkRoSVRYSHpNaVdCYkxzVjN3c2NKWWJxbUlhd19iN1M2anRLUndVZTVRSGxlazduYlJKN3FvSlBCdGdUTnVUUjVNRVlHR3FjYS1rREVyUUxpaWdmb0Fta0RYVUdMVHR2cEdJS2JnNUxXcGFNdmN6cGcyb01yS3dONlRvaFN6b090TGhrZ0RBVDNKdzB6ckJLS2dEem5BNkh6YVdOdmpVSW9RcU5ueXQxVTNhQ0E?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2024-03-28T07:00:00",
-      "sumber": "Radar Surabaya",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Dukuh Pakis"
-    },
-    {
-      "id_berita": "9d59bae7ff0f45e6",
-      "judul": "Polisi Ungkap Identitas Pelaku Curanmor Yang Dimassa Warga di Dukuh Pakis, Ternyata Arek Kenjeran Surabaya - Radar Surabaya",
-      "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxObzRjbk9rUXREVXpVLUcyM0JFUXhNT3dic1ZfWTd0dWQ1Vy1ZSWEzb20wX0s1M2o1WjFaM3dyRjB5UDVKNHludWFYMVBHMGRLeEtTTFNmTUtGWEU1cjlkdy1QQU5ja2NPWXFrU3B3WFV0LW1rSWxQYnJUWnZUeEZKS2RIbE15YzEydmZZYll6Z3c2NVc4dXhmM3N0X29jeGlSRUxZMzNrTmZWcTNZUWd5TF8tVk50VlRDUF9YSnh4LWFaT1JvdXVLY3k0OXhUZFBWRmU3bzlWd3NMVUdVTEZtWUdILVJTVzZEVk9HX0gzSdIB9gFBVV95cUxQR0FCZ3AzdlJWRDN6V09USFRNNzNsaHRfdUFHT050VERVY0NTbU04U0d6bm9CWnBES1FDTDRYSHhUZmlXYUthb1AxZkRoSVRYSHpNaVdCYkxzVjN3c2NKWWJxbUlhd19iN1M2anRLUndVZTVRSGxlazduYlJKN3FvSlBCdGdUTnVUUjVNRVlHR3FjYS1rREVyUUxpaWdmb0Fta0RYVUdMVHR2cEdJS2JnNUxXcGFNdmN6cGcyb01yS3dONlRvaFN6b090TGhrZ0RBVDNKdzB6ckJLS2dEem5BNkh6YVdOdmpVSW9RcU5ueXQxVTNhQ0E?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2024-03-28T07:00:00",
-      "sumber": "Radar Surabaya",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Dukuh Pakis"
-    },
-    {
-      "id_berita": "f2eeda1c35a82f28",
-      "judul": "Sosialisasi Kegiatan Penemuan Tuberkulosis (TBC) Dengan Metode X-RAY Dan Pemberian Terapi Pencegahan Tuberkulosis (TPT) Pada Kontak Erat Pasien Di Kecamatan Tandes Dengan Dinas Kesehatan Kota Surabaya - Universitas Airlangga Official Website",
-      "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxOc0tEWXNRV1ZZZlIwTW90Szhoa19HSzVqQzQ2bHg5NDRfQVhWZUNPUGRJTFZxdVBpOURpdUxvcDI5dW1JRXMwU1hLemZRczRRbGtGZXRRYnUzYzF3WVBrUzF4WDFjZXd0VEFkTWY4YUxUVlRNQW5XenpEWWtwOTBNb2w0NUthdHdUN00xcWJMelBZWE0zN05tRDlRdkVRR0FPR1FwV3NhM0VoVjVpdjR0VkJJWXN2MXRuR04tbVMwb0UwckgtbEJEd0V0Y2dENDZSMl81QlFnb29xT3M0aFZDVjVWSFFTRjdxTWJ1RzdSZmtQT0xnMmg4bzJMdHpLQS1RMlFrTmlmY29xd2h4T1l1ZjNkUUdXSWxxSVJXQmVrdXBIMTBNTkpuRHpweWlhc1BwX1ZoS1AwQ0lWa0hsS2M3OHRhNS1vUQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2022-11-25T08:00:00",
-      "sumber": "Universitas Airlangga Official Website",
+      "id_berita": "0eb09a20a71346b2",
+      "judul": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa - Sapanusa",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNd3M3NXZ2NnJIOWxxRGk3M1NXTTF1bDNBenlhazlJZTRoRDY2YjdlMzZBNHlKZGpGT2pSVE1YOXotRzJZeno0ZjNvLTFwaGNCbUNNSnFYcV9Bb3ZkT3lGQlY1dmhDSzVkSWRnX1NXYlBQWjZJWmVXc21Ba1dBNzB0QzZ6a0w0SExBcWRfVnJqNzNIM3pHWHJBbldvWjJOaWxuNnRIS21va0FCWG9GQ1AxMGh1R2d0T25SZndkekFjMFUwdEhZ0gHKAUFVX3lxTE5fWmFvTmZvUFctVGVKVWc2RVNHOEJoUVBzNGVTbFJCSElXSndwMDZ2SVhWRkNmbGpWX3F2WHY0Rkg0SWJhU1pNdkxZSjJoa3UtTG9MV0lRUzlCMGY0aHUyVThBb1JLUnpSZHRoYWYtcjFKdHRsYmVkVHZOSzdobnplbl9Rd2NCSFQ3TTk5Ry10MHBFVkpLWkppWWxGWFhLeHVtS2dPaUY0VlhKcnluMjNiMFJJTmtxeGRVU3ZkOVdUa2tQRU9YWGhvQlE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
+      "tanggal_publikasi": "2026-05-12T07:00:00",
+      "sumber": "Sapanusa",
       "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Tandes"
-    },
-    {
-      "id_berita": "f2eeda1c35a82f28",
-      "judul": "Sosialisasi Kegiatan Penemuan Tuberkulosis (TBC) Dengan Metode X-RAY Dan Pemberian Terapi Pencegahan Tuberkulosis (TPT) Pada Kontak Erat Pasien Di Kecamatan Tandes Dengan Dinas Kesehatan Kota Surabaya - Universitas Airlangga Official Website",
-      "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxOc0tEWXNRV1ZZZlIwTW90Szhoa19HSzVqQzQ2bHg5NDRfQVhWZUNPUGRJTFZxdVBpOURpdUxvcDI5dW1JRXMwU1hLemZRczRRbGtGZXRRYnUzYzF3WVBrUzF4WDFjZXd0VEFkTWY4YUxUVlRNQW5XenpEWWtwOTBNb2w0NUthdHdUN00xcWJMelBZWE0zN05tRDlRdkVRR0FPR1FwV3NhM0VoVjVpdjR0VkJJWXN2MXRuR04tbVMwb0UwckgtbEJEd0V0Y2dENDZSMl81QlFnb29xT3M0aFZDVjVWSFFTRjdxTWJ1RzdSZmtQT0xnMmg4bzJMdHpLQS1RMlFrTmlmY29xd2h4T1l1ZjNkUUdXSWxxSVJXQmVrdXBIMTBNTkpuRHpweWlhc1BwX1ZoS1AwQ0lWa0hsS2M3OHRhNS1vUQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2022-11-25T08:00:00",
-      "sumber": "Universitas Airlangga Official Website",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Tandes"
-    },
-    {
-      "id_berita": "6707c30d991eed44",
-      "judul": "Oknum Satpol-PP Kecamatan Wonokromo Tertangkap Memakai Narkoba - Suara Surabaya",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOWmxVdkZPTWJRWG9iWVpGd19FMlNEQmU4TGFoQ3cwSFZJeXpvY2MzcDkwM1pGcEg2MzZGSUdiaFNkSHNsbVRNSml6bkNOYzV6clQ0UEZEUEwzRG5WU3A5c1RORXI4YTZpaktIUUpNNk9LSi13NDhnMlcxd1dpQTg1Z0M4U0txV1k3TlBmbE1LcVNPUkZDaGZ4Rk95bjRNMk1kNEgxWWhPTnZTNk1EdXfSAbMBQVVfeXFMTkx0NVdTMno5Y214SHRxVldsUUs5NDhMdldEbV9oeHNhdDB3OXhPYm9fNldsQjlIU2NXcXNPRW9ibGV1TUNuOFVUekJtMjJTYXJYYmMyajlLbThiRlZFRm5DTHg4MGdpUEdKQllUcldmV1hQdmtNdDh5a2xkd3NPVU5pMWVBdUdpTTh0ZjQ5MW1waVJXNkM4MThyakQ3clVZQV9ia003TTNtVGZuWlZEa1M1eVE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2021-12-17T08:00:00",
-      "sumber": "Suara Surabaya",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Wonokromo"
-    },
-    {
-      "id_berita": "6707c30d991eed44",
-      "judul": "Oknum Satpol-PP Kecamatan Wonokromo Tertangkap Memakai Narkoba - Suara Surabaya",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOWmxVdkZPTWJRWG9iWVpGd19FMlNEQmU4TGFoQ3cwSFZJeXpvY2MzcDkwM1pGcEg2MzZGSUdiaFNkSHNsbVRNSml6bkNOYzV6clQ0UEZEUEwzRG5WU3A5c1RORXI4YTZpaktIUUpNNk9LSi13NDhnMlcxd1dpQTg1Z0M4U0txV1k3TlBmbE1LcVNPUkZDaGZ4Rk95bjRNMk1kNEgxWWhPTnZTNk1EdXfSAbMBQVVfeXFMTkx0NVdTMno5Y214SHRxVldsUUs5NDhMdldEbV9oeHNhdDB3OXhPYm9fNldsQjlIU2NXcXNPRW9ibGV1TUNuOFVUekJtMjJTYXJYYmMyajlLbThiRlZFRm5DTHg4MGdpUEdKQllUcldmV1hQdmtNdDh5a2xkd3NPVU5pMWVBdUdpTTh0ZjQ5MW1waVJXNkM4MThyakQ3clVZQV9ia003TTNtVGZuWlZEa1M1eVE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2021-12-17T08:00:00",
-      "sumber": "Suara Surabaya",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Wonokromo"
-    },
-    {
-      "id_berita": "cf68e96b4451115a",
-      "judul": "Ancaman Dioksin dari PLTSa dan Kenaikan Kasus ISPA Anak di Kelurahan Benowo - kumparan.com - Kumparan.com",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQMzExVGFHSUlvMlFXejAyMzJOczFLQW42MkZTZHAxSDRnYU03UFZVaHpVbVAtdXB0YjVxQWczZ09IRVZBc1EzTTlmYndya1ZQZHVNaFk2V1dENHF2RHM1c3o0SnlBTXA3M01ENXdBeENaS0dKdlg2TTFXVGowV1JsaEtrbGZuV2ZRRWM4VmlJNE9IUGF1MDRzVTRtME5yQlhKWkNyZjFpb2dKbjQxNnhzdjNUYW50aGVIbEM2OHZuSTBXQW80ZWfSAc4BQVVfeXFMT0t4Z0tTTWZlSGFIZ196eDg1cFJvNjJDeGJwUms4YlJ5X1N4UWtHV0xYYVNsUENuR1VXVmVseUFhOUZuYXB6aUItRjZydGF0MmIyV0NnU05uMThCZHJja2RUN1VYNlg5N0g1cTdOdDdkRi03NEp6ei1sWHk5MkF5U1laQndrYW5PWksyYWxTLVVnWUdtdXFhbWtpMkZ6MFpxeXp0b0NwMDl5QnFhTEVxYk5pWmVudTZEQk9RM2NaZzRqNGw0T1pFYWI0VnlKbVE?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2021-12-07T08:00:00",
-      "sumber": "Kumparan.com",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Benowo"
-    },
-    {
-      "id_berita": "83293a1793f7095a",
-      "judul": "Kampung Narkoba Semampir Digrebek, 14 Orang Diamankan - Suara Surabaya",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPV0M3MlEySVVaaE9FU1o2TWtMVHE0ZW9pOXoyRndNSkVpT0RKdzlFQndFTWRfN05kdVpKTXBHU1k4VWFabWpLMVpyd3dtc2lkWDZybjZzSm1WcWw1MzBQMWN6c25UNWtNeE1mWFlNVWRmWnQ4ZDZwTGc2d1hFMVRzSXdXclVQNjNSb0pkVU5tWERZbnVHM3UyeFZkaWJUVkNY0gGmAUFVX3lxTE1xMXg5Y0RtX3piZVMyVTZkeUxTQmo3VTM4clNlSVBSLWI1ai1oN1FNOXhvMmY3RGx4MDlNMTBKQTBNeUxxQjdLVzlNcnNTZWtsNnprdVN1OGVFX2FRWEw1UF9jV1hFQ2hrS2J3d054SDN6WFNUZGhmV01RTmVYN1JXR0Z1MnFwM215YzNTc0dBX1ZGcU1fbFE0Ym1vZElZaURNRUUxUWc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2020-02-29T13:48:09",
-      "sumber": "Suara Surabaya",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Semampir"
-    },
-    {
-      "id_berita": "83293a1793f7095a",
-      "judul": "Kampung Narkoba Semampir Digrebek, 14 Orang Diamankan - Suara Surabaya",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPV0M3MlEySVVaaE9FU1o2TWtMVHE0ZW9pOXoyRndNSkVpT0RKdzlFQndFTWRfN05kdVpKTXBHU1k4VWFabWpLMVpyd3dtc2lkWDZybjZzSm1WcWw1MzBQMWN6c25UNWtNeE1mWFlNVWRmWnQ4ZDZwTGc2d1hFMVRzSXdXclVQNjNSb0pkVU5tWERZbnVHM3UyeFZkaWJUVkNY0gGmAUFVX3lxTE1xMXg5Y0RtX3piZVMyVTZkeUxTQmo3VTM4clNlSVBSLWI1ai1oN1FNOXhvMmY3RGx4MDlNMTBKQTBNeUxxQjdLVzlNcnNTZWtsNnprdVN1OGVFX2FRWEw1UF9jV1hFQ2hrS2J3d054SDN6WFNUZGhmV01RTmVYN1JXR0Z1MnFwM215YzNTc0dBX1ZGcU1fbFE0Ym1vZElZaURNRUUxUWc?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2020-02-29T13:48:09",
-      "sumber": "Suara Surabaya",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Semampir"
-    },
-    {
-      "id_berita": "eef042edcc3176ff",
-      "judul": "Cegah DBD, Kecamatan Sukolilo Gelar PSN - Beritalima.com",
-      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1UUWxCajgwdlZLUXJiUXM5bmlOZXVvNUd0N09xMnpJZXJ4Tkg0cV9mVUtJYXEyNGVETE9sRkF4cHdIR1ZQUHF6WGZydWdkQWdoQ21LTG9pZUxnT2RGOWd3SDZhMHRBNWd2VFJ5Z2o3QQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2020-02-28T08:00:00",
-      "sumber": "Beritalima.com",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Sukolilo"
-    },
-    {
-      "id_berita": "eef042edcc3176ff",
-      "judul": "Cegah DBD, Kecamatan Sukolilo Gelar PSN - Beritalima.com",
-      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1UUWxCajgwdlZLUXJiUXM5bmlOZXVvNUd0N09xMnpJZXJ4Tkg0cV9mVUtJYXEyNGVETE9sRkF4cHdIR1ZQUHF6WGZydWdkQWdoQ21LTG9pZUxnT2RGOWd3SDZhMHRBNWd2VFJ5Z2o3QQ?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2020-02-28T08:00:00",
-      "sumber": "Beritalima.com",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Sukolilo"
-    },
-    {
-      "id_berita": "21c78f1fe0b4290c",
-      "judul": "Kasus DBD, Camat Tandes & Wonokromo Disetrap - surabayapagi.com",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOSS1mN2dBc2owUWJlMlNxbmd4NmVPNDFJTW9ROHcxSTM3U1VIMUZfd1ZyYXhlMVF1WVBjeWhpQWEtUURKcUtyeHo3cGRjSzgwdHk4SWZIUHY4VHBiWUFUOGRTd2M3T0JtLUJNbkY1eE1NQWJoakpncFFiUG90Rm1FSjhHbW7SAYoBQVVfeXFMUEJMRVJPclhYR3IyRUVyNG1uQU9rMEMyXzJCWWlTTmhhSzdabVhQWmlGRjZKbFlJN3BPQllfR1p6eVk1X3NsT2NWMzdVbGdRblJEeHF3akRBaXNaVXc2ODZQQjdMbU5RZ0owTmVXR0JwdlVxNjhuSzRSdm93R3BVNG5Fb2NEQzBodnZn?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2019-02-02T08:00:00",
-      "sumber": "surabayapagi.com",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Tandes"
-    },
-    {
-      "id_berita": "21c78f1fe0b4290c",
-      "judul": "Kasus DBD, Camat Tandes & Wonokromo Disetrap - surabayapagi.com",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOSS1mN2dBc2owUWJlMlNxbmd4NmVPNDFJTW9ROHcxSTM3U1VIMUZfd1ZyYXhlMVF1WVBjeWhpQWEtUURKcUtyeHo3cGRjSzgwdHk4SWZIUHY4VHBiWUFUOGRTd2M3T0JtLUJNbkY1eE1NQWJoakpncFFiUG90Rm1FSjhHbW7SAYoBQVVfeXFMUEJMRVJPclhYR3IyRUVyNG1uQU9rMEMyXzJCWWlTTmhhSzdabVhQWmlGRjZKbFlJN3BPQllfR1p6eVk1X3NsT2NWMzdVbGdRblJEeHF3akRBaXNaVXc2ODZQQjdMbU5RZ0owTmVXR0JwdlVxNjhuSzRSdm93R3BVNG5Fb2NEQzBodnZn?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2019-02-02T08:00:00",
-      "sumber": "surabayapagi.com",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Tandes"
-    },
-    {
-      "id_berita": "4a155e6b4f749797",
-      "judul": "Tri Rismaharini Sosialisasi Bebas Demam Berdarah, Dikawasan Semampir Surabaya - LiputanIndonesia.co.id",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQazYzMXhOd2dabF85SUkyeE4xd0E1aWZzbmN0NTYwNEI1T2Y4aW9CTWFfXzZOWUV6Vlg2eUp6UUh4V185NUxRTzlqZkNTQWYtSk9PX09XcTRmUVJ2UGR4UERnYnRGMjlOa21TeDZmRkNDMjhyS1JmSWVSQ2p6dWVZWXRlek5aS2dtSEtVZmhqVWY?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2015-03-06T08:00:00",
-      "sumber": "LiputanIndonesia.co.id",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Semampir"
-    },
-    {
-      "id_berita": "4a155e6b4f749797",
-      "judul": "Tri Rismaharini Sosialisasi Bebas Demam Berdarah, Dikawasan Semampir Surabaya - LiputanIndonesia.co.id",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQazYzMXhOd2dabF85SUkyeE4xd0E1aWZzbmN0NTYwNEI1T2Y4aW9CTWFfXzZOWUV6Vlg2eUp6UUh4V185NUxRTzlqZkNTQWYtSk9PX09XcTRmUVJ2UGR4UERnYnRGMjlOa21TeDZmRkNDMjhyS1JmSWVSQ2p6dWVZWXRlek5aS2dtSEtVZmhqVWY?oc=5&hl=en-ID&gl=ID&ceid=ID:en",
-      "tanggal_publikasi": "2015-03-06T08:00:00",
-      "sumber": "LiputanIndonesia.co.id",
-      "kategori": "Kesehatan",
-      "kecamatan_terdeteksi": "Semampir"
-    },
-    {
-      "id_berita": "test_news_darmo",
-      "judul": "Kebakaran Ruko di Jalan Raya Darmo Wonokromo Surabaya",
-      "link": "https://example.com/test_news_darmo",
-      "tanggal_publikasi": "2026-06-28T06:00:00",
-      "sumber": "Suara Surabaya Test",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Wonokromo",
-      "deskripsi_mentah": "Kebakaran dilaporkan terjadi di sebuah ruko di Jalan Raya Darmo, dekat taman Bungkul Kecamatan Wonokromo."
-    },
-    {
-      "id_berita": "test_news_tunjungan",
-      "judul": "Pencurian Helm di Jl. Tunjungan Genteng Surabaya",
-      "link": "https://example.com/test_news_tunjungan",
-      "tanggal_publikasi": "2026-06-28T06:15:00",
-      "sumber": "Suara Surabaya Test",
-      "kategori": "Kriminalitas",
-      "kecamatan_terdeteksi": "Genteng",
-      "deskripsi_mentah": "Telah terjadi pencurian helm di parkiran Jl. Tunjungan Kecamatan Genteng."
+      "kecamatan_terdeteksi": "Bubutan",
+      "deskripsi_mentah": "Operasional SPPG Bubutan Tembok Dukuh Dihentikan Sementara Imbas Keracunan Menu MBG - Sapa Nusa Sapanusa"
     }
   ]
 }

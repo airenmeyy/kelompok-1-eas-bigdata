@@ -9,4 +9,4 @@ echo ""
 echo "Tekan Ctrl+C untuk menghentikan server."
 echo ""
 
-python -m http.server 8000 --directory dashboard
+python3 dashboard/server.py

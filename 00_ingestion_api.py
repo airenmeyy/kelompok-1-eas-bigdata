@@ -85,16 +85,19 @@ RSS_FEEDS: Dict[str, str] = {
         "https://news.google.com/rss/search?"
         "q=(kriminalitas+OR+curat+OR+curas+OR+curanmor+OR+begal"
         "+OR+gangster+OR+perampokan+OR+penganiayaan+OR+pembunuhan"
-        "+OR+narkoba)+kecamatan+surabaya"
+        "+OR+narkoba+OR+penipuan+OR+%22perbuatan+curang%22+OR+%22curanmor+r2%22"
+        "+OR+%22pencurian+motor%22+OR+%22pencurian+dengan+pemberatan%22"
+        "+OR+%22pencurian+biasa%22+OR+pengeroyokan+OR+%22mengakibatkan+orang+mati%22"
+        "+OR+judi+OR+%22penganiayaan+berat%22+OR+anirat)+kecamatan+surabaya"
         "&hl=id&gl=ID&ceid=ID:id"
     ),
     "Kesehatan": (
         "https://news.google.com/rss/search?"
-        "q=(wabah+OR+klb+OR+infeksi+OR+dbd"
-        '+OR+"demam+berdarah"+OR+diare+OR+muntaber'
-        "+OR+tipes+OR+ispa+OR+pneumonia+OR+tbc"
-        "+OR+keracunan)+kecamatan+surabaya"
-        "&hl=id&gl=ID&ceid=ID:id"
+        "q=(wabah+OR+klb+OR+infeksi+OR+dbd+OR+%22demam+berdarah%22+OR+diare"
+        "+OR+muntaber+OR+tipes+OR+ispa+OR+pneumonia+OR+tbc+OR+keracunan"
+        "+OR+puskesmas+OR+%22rumah+sakit%22+OR+faskes+OR+%22pelayanan+kesehatan%22"
+        "+OR+sanitasi+OR+pencemaran+OR+polusi+OR+limbah+OR+gizi+OR+stunting)"
+        "+kecamatan+surabaya&hl=id&gl=ID&ceid=ID:id"
     ),
 }
 
