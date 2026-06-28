@@ -1,50 +1,56 @@
-<h1 align="center">
-  🏙️ KECAMATRAS
-</h1>
-
-<h3 align="center">
-  <em>Kecamatan Metrics & Anomaly Tracking of Surabaya</em>
-</h3>
-
 <p align="center">
-  Platform <strong>Data Lakehouse</strong> untuk memetakan tingkat kerawanan kriminalitas dan risiko kesehatan lingkungan di 31 kecamatan Kota Surabaya menggunakan arsitektur <strong>Medallion (Bronze → Silver → Gold)</strong>.
+  <img src="Assets/Lambang ITS PNG v1.png" alt="Logo Institut Teknologi Sepuluh Nopember" width="150">
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/Apache_Spark-3.5.1-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white" alt="Spark"/>
-  <img src="https://img.shields.io/badge/Apache_Hadoop-3.3.6-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=black" alt="Hadoop"/>
-  <img src="https://img.shields.io/badge/Apache_Kafka-7.5.0-231F20?style=for-the-badge&logo=apachekafka&logoColor=white" alt="Kafka"/>
-  <img src="https://img.shields.io/badge/Delta_Lake-3.0.0-00ADD8?style=for-the-badge&logo=delta&logoColor=white" alt="Delta Lake"/>
-  <img src="https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
-</p>
+<h1 align="center">LAPORAN FINAL PROJECT</h1>
+<h2 align="center">Big Data System — 2026</h2>
+<h3 align="center"><em>KECAMATRAS — Kecamatan Metrics & Anomaly Tracking of Surabaya</em></h3>
+<h4 align="center">Departemen Teknologi Informasi — Institut Teknologi Sepuluh Nopember</h4>
 
 <p align="center">
-  <strong>Tim Anti Gravity</strong> — Institut Teknologi Sepuluh Nopember (ITS) Surabaya<br/>
-  Mata Kuliah Big Data — Semester 4
+  <img src="https://img.shields.io/badge/Big_Data-Apache_Hadoop_HDFS-66CCFF?style=flat-square&logo=apachehadoop&logoColor=black" alt="Hadoop">
+  <img src="https://img.shields.io/badge/Engine-Apache_Spark-E25A1C?style=flat-square&logo=apachespark&logoColor=white" alt="Spark">
+  <img src="https://img.shields.io/badge/Streaming-Apache_Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white" alt="Kafka">
+  <img src="https://img.shields.io/badge/Storage-Delta_Lake-00ADD8?style=flat-square" alt="Delta Lake">
+  <img src="https://img.shields.io/badge/Orchestration-Docker_Compose-2496ED?style=flat-square&logo=docker" alt="Docker">
+  <img src="https://img.shields.io/badge/Language-Python_3.12-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
 </p>
 
 ---
 
-## 📋 Daftar Isi
+### Anggota Kelompok
 
-- [Tentang Proyek](#-tentang-proyek)
-- [Arsitektur Sistem](#-arsitektur-sistem)
-- [Tech Stack](#-tech-stack)
-- [Sumber Data](#-sumber-data)
-- [Prasyarat](#-prasyarat)
-- [Panduan Setup & Instalasi](#-panduan-setup--instalasi)
-- [Menjalankan Pipeline End-to-End](#-menjalankan-pipeline-end-to-end)
-- [Dokumentasi Screenshot](#-dokumentasi-screenshot)
-- [Hasil Akhir (Gold Layer Output)](#-hasil-akhir-gold-layer-output)
-- [Struktur Direktori](#-struktur-direktori)
-- [Formula & Metrik](#-formula--metrik)
-- [Troubleshooting](#-troubleshooting)
-- [Tim Pengembang](#-tim-pengembang)
+| No | Nama | NRP |
+|:--:|------|:---:|
+| 1 | Arya Bisma Putra Refman | `5027241036` |
+| 2 | Kharisma Fahrun Nisa | `5027231086` |
+| 3 | M. Hikari Reiziq Rakhmadinta | `5027241079` |
+| 4 | Aras Rizky Ananta | `5027221053` |
+| 5 | Ica Zika Hamizah | `5027241058` |
 
 ---
 
-## 🎯 Tentang Proyek
+## Daftar Isi
+
+- [Tentang Proyek](#tentang-proyek)
+- [Arsitektur Sistem](#arsitektur-sistem)
+- [Tech Stack](#tech-stack)
+- [Sumber Data](#sumber-data)
+- [Prasyarat](#prasyarat)
+- [Panduan Setup & Instalasi](#panduan-setup--instalasi)
+- [Menjalankan Pipeline End-to-End](#menjalankan-pipeline-end-to-end)
+- [Dokumentasi Screenshot](#dokumentasi-screenshot)
+- [Hasil Akhir (Gold Layer Output)](#hasil-akhir-gold-layer-output)
+- [Struktur Direktori](#struktur-direktori)
+- [Formula & Metrik](#formula--metrik)
+- [Troubleshooting](#troubleshooting)
+- [Web UI Monitoring](#web-ui-monitoring)
+- [Pilar Big Data yang Diimplementasikan](#pilar-big-data-yang-diimplementasikan)
+- [Tim Pengembang](#tim-pengembang)
+
+---
+
+## Tentang Proyek
 
 **KECAMATRAS** adalah singkatan dari **Kecamatan Metrics & Anomaly Tracking of Surabaya**. Proyek ini dibangun untuk menjawab tiga masalah utama:
 
@@ -58,16 +64,16 @@ Sistem ini menghasilkan **2 indeks bahaya berskala 0-100** untuk setiap kecamata
 
 | Indeks | Deskripsi | Skala |
 |--------|-----------|-------|
-| 🔴 **Indeks Kriminalitas** | Mengukur tingkat kerawanan kejahatan fisik (begal, curanmor, narkoba) | 0 (Aman) → 100 (Bahaya) |
-| 🟠 **Indeks Kesehatan** | Mengukur risiko kesehatan lingkungan berdasarkan wabah penyakit dan ketersediaan faskes | 0 (Aman) → 100 (Berisiko) |
+| Indeks Kriminalitas | Mengukur tingkat kerawanan kejahatan fisik (begal, curanmor, narkoba) | 0 (Aman) → 100 (Bahaya) |
+| Indeks Kesehatan | Mengukur risiko kesehatan lingkungan berdasarkan wabah penyakit dan ketersediaan faskes | 0 (Aman) → 100 (Berisiko) |
 
 ---
 
-## 🏗️ Arsitektur Sistem
+## Arsitektur Sistem
 
 Proyek ini menggunakan arsitektur **Medallion (Data Lakehouse)** dengan kombinasi *Event Streaming* dan *Batch Processing*:
 
-```
+```text
                     ┌─────────────────────┐
                     │  Google News RSS    │
                     │  (Berita Surabaya)  │
@@ -81,19 +87,19 @@ Proyek ini menggunakan arsitektur **Medallion (Data Lakehouse)** dengan kombinas
                               │ Spark Structured Streaming
                               ▼
 ┌─────────────┐    ┌──────────────────────┐
-│  CSV Files  │───▶│   🥉 BRONZE LAYER   │  ← Data mentah, tanpa modifikasi
+│  CSV Files  │───▶│     BRONZE LAYER     │  ← Data mentah, tanpa modifikasi
 │  (Statis)   │    │   (HDFS Delta Lake)  │
 └─────────────┘    └─────────┬────────────┘
                               │ PySpark (Text Cleaning, Geo-Parsing)
                               ▼
                     ┌──────────────────────┐
-                    │   🥈 SILVER LAYER   │  ← Data bersih, terstandardisasi
+                    │     SILVER LAYER     │  ← Data bersih, terstandardisasi
                     │   (HDFS Delta Lake)  │
                     └─────────┬────────────┘
                               │ Spark MLlib (LDA) + Analytical Joins
                               ▼
                     ┌──────────────────────┐
-                    │   🥇 GOLD LAYER     │  ← Indeks final (0-100)
+                    │      GOLD LAYER      │  ← Indeks final (0-100)
                     │   (HDFS Delta Lake)  │
                     └──────────────────────┘
 ```
@@ -107,21 +113,21 @@ Seluruh data disimpan di **HDFS (Hadoop Distributed File System)** dalam format 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Komponen | Teknologi | Versi | Fungsi |
 |----------|-----------|-------|--------|
-| <img src="https://img.shields.io/badge/-Hadoop-66CCFF?logo=apachehadoop&logoColor=black&style=flat-square" /> | Apache Hadoop HDFS + YARN | 3.3.6 | Distributed Storage & Resource Management |
-| <img src="https://img.shields.io/badge/-Kafka-231F20?logo=apachekafka&logoColor=white&style=flat-square" /> | Apache Kafka + Zookeeper | 7.5.0 | Event Streaming Platform |
-| <img src="https://img.shields.io/badge/-Spark-E25A1C?logo=apachespark&logoColor=white&style=flat-square" /> | Apache Spark (PySpark) | 3.5.1 | Distributed Processing Engine |
-| <img src="https://img.shields.io/badge/-Spark_MLlib-E25A1C?logo=apachespark&logoColor=white&style=flat-square" /> | Spark MLlib (LDA) | 3.5.1 | Topic Modeling / NLP |
-| <img src="https://img.shields.io/badge/-Delta_Lake-00ADD8?style=flat-square" /> | Delta Lake | 3.0.0 | ACID-compliant Data Format |
-| <img src="https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white&style=flat-square" /> | Docker Compose | — | Containerization (8 services) |
-| <img src="https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white&style=flat-square" /> | Python | 3.12 | Scripting & Ingestion |
+| <img src="https://img.shields.io/badge/Hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=black" alt="Hadoop"> | Apache Hadoop HDFS + YARN | 3.3.6 | Distributed Storage & Resource Management |
+| <img src="https://img.shields.io/badge/Kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white" alt="Kafka"> | Apache Kafka + Zookeeper | 7.5.0 | Event Streaming Platform |
+| <img src="https://img.shields.io/badge/Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white" alt="Spark"> | Apache Spark (PySpark) | 3.5.1 | Distributed Processing Engine |
+| <img src="https://img.shields.io/badge/Spark_MLlib-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white" alt="Spark MLlib"> | Spark MLlib (LDA) | 3.5.1 | Topic Modeling / NLP |
+| <img src="https://img.shields.io/badge/Delta_Lake-00ADD8?style=for-the-badge" alt="Delta Lake"> | Delta Lake | 3.0.0 | ACID-compliant Data Format |
+| <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"> | Docker Compose | — | Containerization (8 services) |
+| <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"> | Python | 3.12 | Scripting & Ingestion |
 
 ---
 
-## 📊 Sumber Data
+## Sumber Data
 
 | No | Dataset | Tipe | Sumber | Jumlah Record |
 |----|---------|------|--------|---------------|
@@ -134,7 +140,7 @@ Seluruh data disimpan di **HDFS (Hadoop Distributed File System)** dalam format 
 
 ---
 
-## 📌 Prasyarat
+## Prasyarat
 
 Pastikan sistem Anda sudah memiliki:
 
@@ -146,7 +152,7 @@ Pastikan sistem Anda sudah memiliki:
 
 ---
 
-## 🚀 Panduan Setup & Instalasi
+## Panduan Setup & Instalasi
 
 ### Langkah 1: Clone Repository
 
@@ -219,7 +225,7 @@ Buka browser dan akses:
 **Screenshot: Hadoop NameNode Overview**
 
 ![Hadoop Overview — NameNode aktif di port 8020 dengan versi 3.3.6](Assets/Hadoop_Overview.png)
-> *Halaman Overview HDFS NameNode (`localhost:9870`) menunjukkan klaster Hadoop versi 3.3.6 berstatus ✅ active.*
+> *Halaman Overview HDFS NameNode (`localhost:9870`) menunjukkan klaster Hadoop versi 3.3.6 berstatus active.*
 
 **Screenshot: DataNode Information**
 
@@ -233,7 +239,7 @@ Buka browser dan akses:
 
 ---
 
-## ▶️ Menjalankan Pipeline End-to-End
+## Menjalankan Pipeline End-to-End
 
 Setelah Docker berjalan, eksekusi pipeline secara berurutan:
 
@@ -317,7 +323,7 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-## 📸 Dokumentasi Screenshot
+## Dokumentasi Screenshot
 
 ### Infrastruktur HDFS — Struktur Direktori Medallion
 
@@ -328,21 +334,21 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-### 🥉 Bronze Layer — Data Mentah (Raw Data)
+### Bronze Layer — Data Mentah (Raw Data)
 
 **Direktori Bronze di HDFS:**
 
 ![Bronze Directory — 4 tabel raw data tersimpan di HDFS](Assets/Bronze_Directory.png)
-> *HDFS path `/kecamatras/delta/bronze` berisi 4 tabel Delta Lake: `tbl_raw_disease_baseline` (data penyakit), `tbl_raw_faskes_baseline` (fasilitas kesehatan), `tbl_raw_news` (berita streaming dari Kafka), dan `tbl_static_crime_baseline` (data kriminal hardcode dari paper).*
+> *HDFS path `/kecamatras/delta/bronze` berisi 4 tabel Delta Lake: `tbl_raw_disease_baseline` (data penyakit), `tbl_raw_faskes_baseline` (fasilitas kesehatan), `tbl_raw_news` (berita streaming dari Kafka), and `tbl_static_crime_baseline` (data kriminal hardcode dari paper).*
 
 **Output Terminal — Verifikasi Data Bronze:**
 
 ![Dokumentasi Bronze — 152 berita berhasil masuk dari Kafka ke HDFS](Assets/dokumentasi_bronze.png)
-> *Hasil eksekusi `ambil_dokumentasi.sh` menampilkan 5 sampel data dari `tbl_raw_news`. Setiap baris memiliki `kafka_key` (ID unik berita), `kafka_topic` (nama topik: `kecamatras-stream`), dan `kafka_timestamp` (waktu masuk ke Kafka). Total: **152 baris** data streaming berhasil disimpan ke HDFS.*
+> *Hasil eksekusi `ambil_dokumentasi.sh` menampilkan 5 sampel data dari `tbl_raw_news`. Setiap baris memiliki `kafka_key` (ID unik berita), `kafka_topic` (nama topik: `kecamatras-stream`), and `kafka_timestamp` (waktu masuk ke Kafka). Total: **152 baris** data streaming berhasil disimpan ke HDFS.*
 
 ---
 
-### 🥈 Silver Layer — Data Bersih (Cleaned & Parsed)
+### Silver Layer — Data Bersih (Cleaned & Parsed)
 
 **Direktori Silver di HDFS:**
 
@@ -361,7 +367,7 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-### 🥇 Gold Layer — Indeks Final (Business Index)
+### Gold Layer — Indeks Final (Business Index)
 
 **Direktori Gold di HDFS:**
 
@@ -384,15 +390,42 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
+### Visualisasi Web Dashboard & Analisis Geospasial
+
+Berikut dokumentasi antarmuka visual KECAMATRAS Dashboard yang memetakan indeks anomali dan sebaran berita secara interaktif:
+
+**Halaman Ringkasan Dashboard** — Peta 3D Mapbox choropleth indeks kerawanan:
+![Halaman Ringkasan](Assets/halaman_ringkasan.png)
+
+**Halaman Informasi Kecamatan** — Detail statistik kasus, faskes, dan daftar berita per kecamatan:
+![Halaman Informasi Kecamatan](Assets/halaman_informasi_kecamatan.png)
+
+**Halaman Analisis Kriminalitas** — Grafik tren kriminal, perbandingan antar wilayah, dan ranking:
+![Halaman Kriminalitas](Assets/halaman_kriminalitas.png)
+
+**Halaman Analisis Kesehatan** — Data sebaran penyakit puskesmas dan indeks risiko kesehatan:
+![Halaman Kesehatan](Assets/halaman_kesehatan.png)
+
+**Halaman Portal Berita Anomali** — Daftar feed berita terklasifikasi otomatis dengan filter rentang waktu:
+![Halaman Berita Anomali](Assets/halaman_berita_anomali.png)
+
+**Halaman Prediksi AI** — Integrasi LLM untuk analisis anomali dan rekomendasi kebijakan:
+![Halaman Prediksi AI](Assets/halaman_prediksi_ai.png)
+
+**Panel Pengaturan AI & API Key** — Konfigurasi model Gemini API untuk asisten pintar:
+![Card Pengaturan AI](Assets/card_pengaturan_ai.png)
+
+---
+
 ## 🏆 Hasil Akhir (Gold Layer Output)
 
 ### Indeks Kriminalitas — Top 5 Kecamatan Paling Rawan
 
 | Rank | Kecamatan | Kasus Baseline | Kasus dari Berita | Total | Crime Rate (/100.000) | Indeks (0-100) |
 |------|-----------|----------------|-------------------|-------|-----------------------|----------------|
-| 🥇 | **Tandes** | 175 | 2 | 177 | 192,84 | **100,0** |
-| 🥈 | **Kenjeran** | 104 | 0 | 104 | 178,65 | **92,6** |
-| 🥉 | **Asemrowo** | 84 | 0 | 84 | 171,99 | **89,1** |
+| 1 | **Tandes** | 175 | 2 | 177 | 192,84 | **100,0** |
+| 2 | **Kenjeran** | 104 | 0 | 104 | 178,65 | **92,6** |
+| 3 | **Asemrowo** | 84 | 0 | 84 | 171,99 | **89,1** |
 | 4 | Semampir | 78 | 4 | 82 | 171,41 | 88,8 |
 | 5 | Jambangan | 89 | 0 | 89 | 164,17 | 85,1 |
 
@@ -400,46 +433,46 @@ chmod +x ambil_dokumentasi.sh
 
 | Rank | Kecamatan | Incidence Rate | Health Facility Ratio | Indeks (0-100) |
 |------|-----------|---------------|----------------------|----------------|
-| 🥇 | **Semampir** | 1.072.930 | 167,4 | **79,7** |
-| 🥈 | **Kenjeran** | 934.375 | 110,1 | **77,6** |
-| 🥉 | **Krembangan** | 308.303 | 58,1 | **43,1** |
+| 1 | **Semampir** | 1.072.930 | 167,4 | **79,7** |
+| 2 | **Kenjeran** | 934.375 | 110,1 | **77,6** |
+| 3 | **Krembangan** | 308.303 | 58,1 | **43,1** |
 | 4 | Bubutan | 262.367 | 54,4 | 40,5 |
 | 5 | Sawahan | 261.215 | 60,4 | 39,7 |
 
 ---
 
-## 📁 Struktur Direktori
+## Struktur Direktori
 
 ```text
 kelompok-1-eas-bigdata/
 │
-├── 📄 README.md                    # Dokumentasi utama (file ini)
-├── 📄 prd.md                       # Product Requirements Document
-├── 📄 catatan_terakhir.md          # Catatan lengkap pengerjaan
-├── 📄 requirements.txt             # Dependensi Python
-├── 📄 docker-compose.yml           # Definisi 8 service Docker
-├── 📄 hadoop.env                   # Environment variables Hadoop
+├── README.md                    # Dokumentasi utama (file ini)
+├── prd.md                       # Product Requirements Document
+├── catatan_terakhir.md          # Catatan lengkap pengerjaan
+├── requirements.txt             # Dependensi Python
+├── docker-compose.yml           # Definisi 8 service Docker
+├── hadoop.env                   # Environment variables Hadoop
 │
-├── 🐍 PIPELINE SCRIPTS
+├── PIPELINE SCRIPTS
 │   ├── 00_ingestion_api.py         # Kafka Producer (Google News RSS → Kafka)
 │   ├── 01_bronze.py                # Bronze Layer (Raw → HDFS Delta)
 │   ├── 02_silver.py                # Silver Layer (Clean + Geo-Parse)
 │   └── 03_gold.py                  # Gold Layer (LDA + Index Calculation)
 │
-├── 🐚 SHELL WRAPPERS (Eksekusi di Docker Network)
+├── SHELL WRAPPERS (Eksekusi di Docker Network)
 │   ├── run_bronze_docker.sh        # Menjalankan 01_bronze.py
 │   ├── run_silver_docker.sh        # Menjalankan 02_silver.py
 │   ├── run_gold_docker.sh          # Menjalankan 03_gold.py
 │   ├── setup_bronze.sh             # Setup awal direktori HDFS
 │   └── ambil_dokumentasi.sh        # Ambil cuplikan data untuk screenshot
 │
-├── 📊 DATASET SUMBER
+├── DATASET SUMBER
 │   └── raw_data/
 │       └── kesehatan/
 │           ├── new-faskes_kecamatan_2023_2026.csv        # ~30.891 baris
 │           └── new-penyakit_puskesmas_2022_2026-1.csv    # ~67.853 baris
 │
-├── 🖼️ SCREENSHOT DOKUMENTASI
+├── SCREENSHOT DOKUMENTASI
 │   └── Assets/
 │       ├── docker_container.png      # 8 container Docker berjalan
 │       ├── Hadoop_Overview.png       # HDFS NameNode Overview
@@ -454,13 +487,13 @@ kelompok-1-eas-bigdata/
 │       ├── dokumentasi_silver.png    # Output terminal Silver
 │       └── dokumentasi_gold.png      # Output terminal Gold
 │
-├── 🔍 VERIFIKASI
+├── VERIFIKASI
 │   ├── dokumentasi_data.py         # Script PySpark untuk verifikasi HDFS
 │   ├── verify_gold.py              # Verifikasi output Gold
 │   ├── verify_silver.py            # Verifikasi output Silver
 │   └── output_dokumentasi_data.txt # Output terminal terakhir
 │
-└── 📚 REFERENSI
+└── REFERENSI
     ├── Crime_rate_1.png             # Screenshot paper (halaman 1)
     ├── Crime_rate_2.png             # Screenshot paper (halaman 2)
     └── PENERAPAN STATISTIKA DESKRIPTIF DALAM MEMETAKAN
@@ -470,11 +503,11 @@ kelompok-1-eas-bigdata/
 
 ---
 
-## 📐 Formula & Metrik
+## Formula & Metrik
 
 ### Indeks Kriminalitas (Street Crime Index)
 
-```
+```text
 Crime Rate (CR) = (Total Kasus Baseline + Kasus dari Berita) / Penduduk × 100.000
 
 Indeks Kriminalitas = (CR_kecamatan - CR_min) / (CR_max - CR_min) × 100
@@ -482,18 +515,18 @@ Indeks Kriminalitas = (CR_kecamatan - CR_min) / (CR_max - CR_min) × 100
 
 ### Indeks Kesehatan (Environmental Health Risk Index)
 
-```
+```text
 Incidence Rate (IR) = Total Kasus Penyakit / Penduduk × 100.000
 Health Facility Ratio (HFR) = Total Faskes / Penduduk × 10.000
 
 Indeks Kesehatan = 0.7 × Norm(IR) + 0.3 × (100 - Norm(HFR))
 ```
 
-> **Catatan:** `Norm()` = Normalisasi Min-Max ke skala 0-100. Komponen HFR dibalik (100 - Norm) karena semakin banyak faskes = semakin **rendah** risikonya.
+> **Catatan:** `Norm()` = Normalisasi Min-Max ke skala 0-100. Komponen HFR dibalik (100 - Norm) karena semakin banyak faskes = semakin rendah risikonya.
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 | Masalah | Penyebab | Solusi |
 |---------|----------|--------|
@@ -506,7 +539,7 @@ Indeks Kesehatan = 0.7 × Norm(IR) + 0.3 × (100 - Norm(HFR))
 
 ---
 
-## 💻 Web UI Monitoring
+## Web UI Monitoring
 
 Setelah Docker berjalan, Anda bisa memantau klaster melalui browser:
 
@@ -519,40 +552,43 @@ Setelah Docker berjalan, Anda bisa memantau klaster melalui browser:
 
 ---
 
-## 📚 Pilar Big Data yang Diimplementasikan
+## Pilar Big Data yang Diimplementasikan
 
 Proyek ini mengintegrasikan **6 pilar utama** materi kuliah Big Data:
 
 | Pilar | Materi | Implementasi di KECAMATRAS |
 |-------|--------|---------------------------|
-| 1️⃣ | Pengantar Big Data | Memahami konsep 5V dan kebutuhan *distributed computing* |
-| 2️⃣ | Apache Hadoop | HDFS sebagai *distributed storage* + YARN sebagai *resource manager* |
-| 3️⃣ | Apache Spark | PySpark sebagai engine ETL dan kalkulasi indeks terdistribusi |
-| 4️⃣ | Spark MLlib | LDA untuk *topic modeling* pada corpus berita berbahasa Indonesia |
-| 5️⃣ | Apache Kafka | *Event streaming* real-time dari Google News RSS ke pipeline analitik |
-| 6️⃣ | Data Lakehouse | Delta Lake sebagai format ACID-compliant di atas HDFS |
+| 1 | Pengantar Big Data | Memahami konsep 5V dan kebutuhan distributed computing |
+| 2 | Apache Hadoop | HDFS sebagai distributed storage + YARN sebagai resource manager |
+| 3 | Apache Spark | PySpark sebagai engine ETL dan kalkulasi indeks terdistribusi |
+| 4 | Spark MLlib | LDA untuk topic modeling pada corpus berita berbahasa Indonesia |
+| 5 | Apache Kafka | Event streaming real-time dari Google News RSS ke pipeline analitik |
+| 6 | Data Lakehouse | Delta Lake sebagai format ACID-compliant di atas HDFS |
 
 ---
 
-## 👥 Tim Pengembang
+## Tim Pengembang
 
-<table>
+<table align="center">
   <tr>
     <td align="center"><strong>Tim Anti Gravity</strong></td>
   </tr>
   <tr>
-    <td align="center">M. Hikari Reiziq Rakhmadinta, et al.</td>
-  </tr>
-  <tr>
-    <td align="center">Institut Teknologi Sepuluh Nopember (ITS) Surabaya</td>
+    <td align="center">Departemen Teknologi Informasi — Institut Teknologi Sepuluh Nopember (ITS) Surabaya</td>
   </tr>
   <tr>
     <td align="center">Mata Kuliah Big Data — Semester 4 (2026)</td>
   </tr>
 </table>
 
----
+| No | Nama | NRP |
+|:--:|------|:---:|
+| 1 | Arya Bisma Putra Refman | `5027241036` |
+| 2 | Kharisma Fahrun Nisa | `5027231086` |
+| 3 | M. Hikari Reiziq Rakhmadinta | `5027241079` |
+| 4 | Aras Rizky Ananta | `5027221053` |
+| 5 | Ica Zika Hamizah | `5027241058` |
 
 <p align="center">
-  <em>Built with ❤️ using Apache Hadoop, Spark, Kafka, and Delta Lake</em>
+  <em>Built using Apache Hadoop, Spark, Kafka, and Delta Lake</em>
 </p>
