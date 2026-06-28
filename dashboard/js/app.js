@@ -2231,9 +2231,11 @@ async function fetchJSONAndUpdateUI() {
                     if (typeof playNotificationSound === 'function') playNotificationSound();
                     if (typeof showNotificationToast === 'function') showNotificationToast(`${newNewsCount} Berita Anomali Baru Terdeteksi!`);
                 } else if (dupNewsCount > 0) {
-                    if (typeof playDuplicateSound === 'function') playDuplicateSound();
-                    if (typeof showNotificationToast === 'function') showNotificationToast(`${dupNewsCount} Berita Duplikat Diabaikan.`);
+                    if (typeof playSuccessSound === 'function') playSuccessSound();
+                    if (typeof showNotificationToast === 'function') showNotificationToast(`Pipeline Selesai: ${dupNewsCount} Berita Duplikat Diabaikan.`);
                 } else {
+                    if (typeof playSuccessSound === 'function') playSuccessSound();
+                    if (typeof showNotificationToast === 'function') showNotificationToast(`Pipeline Selesai: Sinkronisasi Sukses.`);
                 }
             firstLoad = false;
             
@@ -3963,6 +3965,37 @@ function playDuplicateSound() {
         audio.volume = 0.3;
         audio.play().catch(e => console.log('Audio autoplay prevented:', e));
     } catch(e) {}
+}
+
+function playSuccessSound() {
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        
+        const playTone = (freq, startTime, duration) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, startTime);
+            
+            gain.gain.setValueAtTime(0, startTime);
+            gain.gain.linearRampToValueAtTime(0.3, startTime + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+            
+            osc.start(startTime);
+            osc.stop(startTime + duration);
+        };
+        
+        const now = ctx.currentTime;
+        playTone(523.25, now, 0.2); // C5
+        playTone(659.25, now + 0.15, 0.4); // E5
+    } catch (e) {
+        console.warn("Audio generation failed:", e);
+    }
 }
 
 function showNotificationToast(message) {

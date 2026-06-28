@@ -1,198 +1,198 @@
 {
-  "last_updated": "2026-06-28T10:13:48.353838",
+  "last_updated": "2026-06-28T13:05:30.087152",
   "kriminalitas": [
     {
       "kecamatan": "Semampir",
-      "total_kasus_kriminal": 173,
-      "crime_rate": 361.62963272643657,
+      "total_kasus_kriminal": 154,
+      "crime_rate": 321.91308346746376,
       "indeks_kriminalitas": 100.0
     },
     {
       "kecamatan": "Tandes",
       "total_kasus_kriminal": 213,
       "crime_rate": 232.06659112699379,
-      "indeks_kriminalitas": 63.71771962502757
+      "indeks_kriminalitas": 72.08982891509257
     },
     {
       "kecamatan": "Kenjeran",
       "total_kasus_kriminal": 104,
       "crime_rate": 178.6450460354542,
-      "indeks_kriminalitas": 48.75777847863349
+      "indeks_kriminalitas": 55.494807514870736
     },
     {
       "kecamatan": "Asemrowo",
       "total_kasus_kriminal": 84,
       "crime_rate": 171.98665055998035,
-      "indeks_kriminalitas": 46.89318986982741
+      "indeks_kriminalitas": 53.42642452038247
     },
     {
       "kecamatan": "Jambangan",
       "total_kasus_kriminal": 89,
       "crime_rate": 164.1702943997639,
-      "indeks_kriminalitas": 44.70433090036619
-    },
-    {
-      "kecamatan": "Mulyorejo",
-      "total_kasus_kriminal": 138,
-      "crime_rate": 156.4377536445462,
-      "indeks_kriminalitas": 42.53894323866657
+      "indeks_kriminalitas": 50.99832931032666
     },
     {
       "kecamatan": "Tenggilis Mejoyo",
       "total_kasus_kriminal": 89,
       "crime_rate": 151.02151632389874,
-      "indeks_kriminalitas": 41.02220329015052
+      "indeks_kriminalitas": 46.913755320902546
     },
     {
       "kecamatan": "Tegalsari",
       "total_kasus_kriminal": 144,
       "crime_rate": 147.67564685009896,
-      "indeks_kriminalitas": 40.08524030404085
+      "indeks_kriminalitas": 45.87438486793432
     },
     {
       "kecamatan": "Gunung Anyar",
       "total_kasus_kriminal": 92,
       "crime_rate": 147.57306470758076,
-      "indeks_kriminalitas": 40.05651363931946
+      "indeks_kriminalitas": 45.84251845809062
     },
     {
       "kecamatan": "Dukuh Pakis",
       "total_kasus_kriminal": 75,
       "crime_rate": 126.3796444519336,
-      "indeks_kriminalitas": 34.12159881849206
+      "indeks_kriminalitas": 39.25893383724709
     },
     {
       "kecamatan": "Benowo",
       "total_kasus_kriminal": 92,
       "crime_rate": 122.77634686987042,
-      "indeks_kriminalitas": 33.11254676527569
+      "indeks_kriminalitas": 38.139595181219036
     },
     {
       "kecamatan": "Genteng",
       "total_kasus_kriminal": 70,
       "crime_rate": 120.24185790847878,
-      "indeks_kriminalitas": 32.40279930975686
+      "indeks_kriminalitas": 37.352274288855305
     },
     {
       "kecamatan": "Gayungan",
       "total_kasus_kriminal": 50,
       "crime_rate": 114.035487843817,
-      "indeks_kriminalitas": 30.664793964891114
+      "indeks_kriminalitas": 35.42430975948287
+    },
+    {
+      "kecamatan": "Mulyorejo",
+      "total_kasus_kriminal": 100,
+      "crime_rate": 113.36069104677263,
+      "indeks_kriminalitas": 35.214688954458154
     },
     {
       "kecamatan": "Karang Pilang",
       "total_kasus_kriminal": 77,
       "crime_rate": 101.98270267406592,
-      "indeks_kriminalitas": 27.289583523473848
+      "indeks_kriminalitas": 31.680198137822334
     },
     {
       "kecamatan": "Pabean Cantian",
       "total_kasus_kriminal": 71,
       "crime_rate": 96.0354925538678,
-      "indeks_kriminalitas": 25.624152221721904
+      "indeks_kriminalitas": 29.832739794055072
     },
     {
       "kecamatan": "Pakal",
       "total_kasus_kriminal": 61,
       "crime_rate": 94.55165465395645,
-      "indeks_kriminalitas": 25.20862459863602
+      "indeks_kriminalitas": 29.371796149289757
     },
     {
       "kecamatan": "Sawahan",
-      "total_kasus_kriminal": 168,
-      "crime_rate": 84.62793930967781,
-      "indeks_kriminalitas": 22.42962977080788
+      "total_kasus_kriminal": 177,
+      "crime_rate": 89.1615789155534,
+      "indeks_kriminalitas": 27.69740762169584
     },
     {
       "kecamatan": "Sukomanunggal",
       "total_kasus_kriminal": 82,
       "crime_rate": 78.72050381122439,
-      "indeks_kriminalitas": 20.77533678411966
+      "indeks_kriminalitas": 24.45396221964392
     },
     {
       "kecamatan": "Bulak",
       "total_kasus_kriminal": 163,
       "crime_rate": 71.79826010351283,
-      "indeks_kriminalitas": 18.836861244130795
-    },
-    {
-      "kecamatan": "Bubutan",
-      "total_kasus_kriminal": 61,
-      "crime_rate": 63.07908669755128,
-      "indeks_kriminalitas": 16.395181192105365
+      "indeks_kriminalitas": 22.30361665644124
     },
     {
       "kecamatan": "Krembangan",
       "total_kasus_kriminal": 72,
       "crime_rate": 62.68173349816308,
-      "indeks_kriminalitas": 16.283908100565366
+      "indeks_kriminalitas": 19.471632784536517
     },
     {
       "kecamatan": "Wonokromo",
       "total_kasus_kriminal": 94,
       "crime_rate": 61.21266190423475,
-      "indeks_kriminalitas": 15.872515570690982
+      "indeks_kriminalitas": 19.01527618725121
     },
     {
       "kecamatan": "Simokerto",
       "total_kasus_kriminal": 109,
       "crime_rate": 58.82543417487884,
-      "indeks_kriminalitas": 15.204006521149092
+      "indeks_kriminalitas": 18.273700944753436
     },
     {
       "kecamatan": "Sambikerep",
       "total_kasus_kriminal": 33,
       "crime_rate": 47.77346690601656,
-      "indeks_kriminalitas": 12.109060846875847
+      "indeks_kriminalitas": 14.840486255304716
     },
     {
       "kecamatan": "Lakarsantri",
       "total_kasus_kriminal": 23,
       "crime_rate": 35.37753987664006,
-      "indeks_kriminalitas": 8.63775842578888
+      "indeks_kriminalitas": 10.98978006596483
     },
     {
       "kecamatan": "Rungkut",
       "total_kasus_kriminal": 39,
       "crime_rate": 31.53987367876234,
-      "indeks_kriminalitas": 7.563074787167412
+      "indeks_kriminalitas": 9.79763647349553
     },
     {
-      "kecamatan": "Wiyung",
-      "total_kasus_kriminal": 19,
-      "crime_rate": 24.83627664997843,
-      "indeks_kriminalitas": 5.685828128578501
+      "kecamatan": "Bubutan",
+      "total_kasus_kriminal": 23,
+      "crime_rate": 23.78391793514229,
+      "indeks_kriminalitas": 7.388304221423845
     },
     {
       "kecamatan": "Tambaksari",
       "total_kasus_kriminal": 19,
       "crime_rate": 19.48498118161028,
-      "indeks_kriminalitas": 4.187274218792181
+      "indeks_kriminalitas": 6.0528702256302225
     },
     {
       "kecamatan": "Wonocolo",
       "total_kasus_kriminal": 15,
       "crime_rate": 18.742034635280007,
-      "indeks_kriminalitas": 3.9792226435527773
-    },
-    {
-      "kecamatan": "Sukolilo",
-      "total_kasus_kriminal": 19,
-      "crime_rate": 16.39160404786348,
-      "indeks_kriminalitas": 3.3210181083566512
+      "indeks_kriminalitas": 5.8220791877737685
     },
     {
       "kecamatan": "Gubeng",
       "total_kasus_kriminal": 6,
       "crime_rate": 4.532338233294557,
+      "indeks_kriminalitas": 1.4079384983284307
+    },
+    {
+      "kecamatan": "Wiyung",
+      "total_kasus_kriminal": 0,
+      "crime_rate": 0.0,
+      "indeks_kriminalitas": 0.0
+    },
+    {
+      "kecamatan": "Sukolilo",
+      "total_kasus_kriminal": 0,
+      "crime_rate": 0.0,
       "indeks_kriminalitas": 0.0
     }
   ],
   "kesehatan": [
     {
       "kecamatan": "Semampir",
-      "total_kasus_wabah": 513279,
-      "incidence_rate": 1072930.0361629634,
+      "total_kasus_wabah": 513298,
+      "incidence_rate": 1072969.7527122223,
       "hfr": 167.436610297038,
       "indeks_kesehatan": 79.72047623696626
     },
@@ -201,147 +201,147 @@
       "total_kasus_wabah": 543956,
       "incidence_rate": 934375.4294352068,
       "hfr": 110.10718702762126,
-      "indeks_kesehatan": 77.62451299202552
+      "indeks_kesehatan": 77.62225650897776
     },
     {
       "kecamatan": "Krembangan",
       "total_kasus_wabah": 354135,
       "incidence_rate": 308302.71794961084,
       "hfr": 58.06766144899274,
-      "indeks_kesehatan": 43.08123982033196
+      "indeks_kesehatan": 43.08049528035935
     },
     {
       "kecamatan": "Bubutan",
-      "total_kasus_wabah": 253719,
-      "incidence_rate": 262366.6032428855,
+      "total_kasus_wabah": 253757,
+      "incidence_rate": 262405.89841164794,
       "hfr": 54.392786234281935,
-      "indeks_kesehatan": 40.52937230708142
+      "indeks_kesehatan": 40.53130229796285
     },
     {
       "kecamatan": "Sawahan",
       "total_kasus_wabah": 518554,
       "incidence_rate": 261215.21690946826,
       "hfr": 60.44852807834129,
-      "indeks_kesehatan": 39.720796628433746
+      "indeks_kesehatan": 39.720165803082175
     },
     {
       "kecamatan": "Wonocolo",
       "total_kasus_wabah": 319953,
       "incidence_rate": 399771.3471774496,
       "hfr": 135.44243696429018,
-      "indeks_kesehatan": 39.67737881321788
+      "indeks_kesehatan": 39.676413379796294
     },
     {
       "kecamatan": "Pakal",
       "total_kasus_wabah": 146498,
       "incidence_rate": 227075.873827792,
       "hfr": 47.430830039525695,
-      "indeks_kesehatan": 39.07015344026789
+      "indeks_kesehatan": 39.069605060201695
     },
     {
       "kecamatan": "Karang Pilang",
       "total_kasus_wabah": 195792,
       "incidence_rate": 259316.8483371522,
       "hfr": 65.56030886189953,
-      "indeks_kesehatan": 38.977816722314955
+      "indeks_kesehatan": 38.977190481455196
     },
     {
       "kecamatan": "Lakarsantri",
       "total_kasus_wabah": 250090,
       "incidence_rate": 384676.9107716918,
       "hfr": 133.2041284050882,
-      "indeks_kesehatan": 38.96368762586742
+      "indeks_kesehatan": 38.96275864496673
     },
     {
       "kecamatan": "Tandes",
       "total_kasus_wabah": 263917,
       "incidence_rate": 287541.40155146865,
       "hfr": 85.20003486446439,
-      "indeks_kesehatan": 38.440523481601566
+      "indeks_kesehatan": 38.43982907946118
     },
     {
       "kecamatan": "Sukomanunggal",
       "total_kasus_wabah": 248524,
       "incidence_rate": 238584.5669412284,
       "hfr": 80.64051609930303,
-      "indeks_kesehatan": 35.798724367441615
+      "indeks_kesehatan": 35.79814819429558
     },
     {
       "kecamatan": "Benowo",
       "total_kasus_wabah": 148630,
       "incidence_rate": 198350.5264703135,
       "hfr": 62.72269894439032,
-      "indeks_kesehatan": 35.34394227404289
+      "indeks_kesehatan": 35.34346326465716
     },
     {
       "kecamatan": "Genteng",
       "total_kasus_wabah": 254973,
       "incidence_rate": 437977.5319499794,
       "hfr": 192.55874673629242,
-      "indeks_kesehatan": 35.252231598075426
+      "indeks_kesehatan": 35.25117389809209
     },
     {
       "kecamatan": "Simokerto",
       "total_kasus_wabah": 244956,
       "incidence_rate": 132198.56012606993,
       "hfr": 31.733353481494273,
-      "indeks_kesehatan": 34.781417710943956
+      "indeks_kesehatan": 34.78109845617712
     },
     {
       "kecamatan": "Wiyung",
-      "total_kasus_wabah": 212140,
-      "incidence_rate": 277303.5646592855,
+      "total_kasus_wabah": 212159,
+      "incidence_rate": 277328.4009359355,
       "hfr": 117.38408648252964,
-      "indeks_kesehatan": 33.874531756463234
+      "indeks_kesehatan": 33.875482384365455
     },
     {
       "kecamatan": "Wonokromo",
       "total_kasus_wabah": 397195,
       "incidence_rate": 258652.80047928213,
       "hfr": 113.04806496356545,
-      "indeks_kesehatan": 33.182888970047
+      "indeks_kesehatan": 33.182264332838926
     },
     {
       "kecamatan": "Tambaksari",
       "total_kasus_wabah": 309048,
       "incidence_rate": 316936.5507481207,
       "hfr": 144.9067284716596,
-      "indeks_kesehatan": 33.12678639092532
+      "indeks_kesehatan": 33.12602100055711
     },
     {
       "kecamatan": "Jambangan",
       "total_kasus_wabah": 102747,
       "incidence_rate": 189528.14874935438,
       "hfr": 81.90068619493839,
-      "indeks_kesehatan": 32.44556136590267
+      "indeks_kesehatan": 32.44510366224175
     },
     {
       "kecamatan": "Rungkut",
       "total_kasus_wabah": 364898,
       "incidence_rate": 295098.38014443644,
       "hfr": 138.7754441865543,
-      "indeks_kesehatan": 32.44462908966288
+      "indeks_kesehatan": 32.443916437691044
     },
     {
       "kecamatan": "Sukolilo",
-      "total_kasus_wabah": 339932,
-      "incidence_rate": 293264.77616833313,
+      "total_kasus_wabah": 339951,
+      "incidence_rate": 293281.167772381,
       "hfr": 143.8147576199391,
-      "indeks_kesehatan": 31.71465162219895
+      "indeks_kesehatan": 31.715012778211484
     },
     {
       "kecamatan": "Bulak",
       "total_kasus_wabah": 104296,
       "incidence_rate": 45940.314943288184,
       "hfr": 13.742979848034356,
-      "indeks_kesehatan": 31.33271667220587
+      "indeks_kesehatan": 31.33260572799799
     },
     {
       "kecamatan": "Sambikerep",
       "total_kasus_wabah": 182193,
       "incidence_rate": 263757.31078811747,
       "hfr": 133.04186692917946,
-      "indeks_kesehatan": 31.094315237537558
+      "indeks_kesehatan": 31.09367827312072
     },
     {
       "kecamatan": "Asemrowo",
@@ -355,56 +355,56 @@
       "total_kasus_wabah": 137867,
       "incidence_rate": 221146.25773956563,
       "hfr": 120.14372333258477,
-      "indeks_kesehatan": 29.876481398987544
+      "indeks_kesehatan": 29.87594733873088
     },
     {
       "kecamatan": "Tenggilis Mejoyo",
       "total_kasus_wabah": 118774,
       "incidence_rate": 201544.15258263762,
       "hfr": 117.76284531324238,
-      "indeks_kesehatan": 28.885968986779748
+      "indeks_kesehatan": 28.885482264901846
     },
     {
       "kecamatan": "Pabean Cantian",
       "total_kasus_wabah": 150811,
       "incidence_rate": 203988.85447241346,
       "hfr": 120.92356386360255,
-      "indeks_kesehatan": 28.662647287642173
+      "indeks_kesehatan": 28.662154661897155
     },
     {
       "kecamatan": "Tegalsari",
       "total_kasus_wabah": 234360,
       "incidence_rate": 240342.11524853605,
       "hfr": 150.44456522853832,
-      "indeks_kesehatan": 27.45888986149356
+      "indeks_kesehatan": 27.45830944393159
     },
     {
       "kecamatan": "Gayungan",
       "total_kasus_wabah": 137719,
       "incidence_rate": 314097.06700725266,
       "hfr": 200.47438762943028,
-      "indeks_kesehatan": 26.211310427317667
+      "indeks_kesehatan": 26.21055189420054
     },
     {
       "kecamatan": "Gubeng",
       "total_kasus_wabah": 363982,
       "incidence_rate": 274948.25580516993,
       "hfr": 192.1711410916892,
-      "indeks_kesehatan": 24.66283684750031
+      "indeks_kesehatan": 24.662172857353852
     },
     {
       "kecamatan": "Dukuh Pakis",
       "total_kasus_wabah": 118665,
       "incidence_rate": 199957.87345184936,
       "hfr": 221.2486308871851,
-      "indeks_kesehatan": 16.248525046917976
+      "indeks_kesehatan": 16.248042155847113
     },
     {
       "kecamatan": "Mulyorejo",
-      "total_kasus_wabah": 219630,
-      "incidence_rate": 248974.0857460267,
+      "total_kasus_wabah": 219668,
+      "incidence_rate": 249017.1628086245,
       "hfr": 247.6931099371982,
-      "indeks_kesehatan": 16.24354376782007
+      "indeks_kesehatan": 16.245752829976446
     }
   ],
   "berita": [
