@@ -33,6 +33,7 @@
 ## Daftar Isi
 
 - [Tentang Proyek](#tentang-proyek)
+- [Visualisasi Web Dashboard & Analisis Geospasial](#visualisasi-web-dashboard--analisis-geospasial)
 - [Arsitektur Sistem](#arsitektur-sistem)
 - [Tech Stack](#tech-stack)
 - [Sumber Data](#sumber-data)
@@ -47,6 +48,7 @@
 - [Web UI Monitoring](#web-ui-monitoring)
 - [Pilar Big Data yang Diimplementasikan](#pilar-big-data-yang-diimplementasikan)
 - [Tim Pengembang](#tim-pengembang)
+- [Lisensi](#lisensi)
 
 ---
 
@@ -84,39 +86,68 @@ Untuk menunjukkan relevansi dan urgensi proyek KECAMATRAS, sistem ini dianalisis
 
 ---
 
+## Visualisasi Web Dashboard & Analisis Geospasial
+
+Berikut dokumentasi antarmuka visual KECAMATRAS Dashboard yang memetakan indeks anomali dan sebaran berita secara interaktif:
+
+**Halaman Ringkasan Dashboard** — Peta 3D Mapbox choropleth indeks kerawanan:
+![Halaman Ringkasan](Assets/halaman_ringkasan.png)
+
+**Halaman Informasi Kecamatan** — Detail statistik kasus, faskes, dan daftar berita per kecamatan:
+![Halaman Informasi Kecamatan](Assets/halaman_informasi_kecamatan.png)
+
+**Halaman Analisis Kriminalitas** — Grafik tren kriminal, perbandingan antar wilayah, dan ranking:
+![Halaman Kriminalitas](Assets/halaman_kriminalitas.png)
+
+**Halaman Analisis Kesehatan** — Data sebaran penyakit puskesmas dan indeks risiko kesehatan:
+![Halaman Kesehatan](Assets/halaman_kesehatan.png)
+
+**Halaman Portal Berita Anomali** — Daftar feed berita terklasifikasi otomatis dengan filter rentang waktu:
+![Halaman Berita Anomali](Assets/halaman_berita_anomali.png)
+
+**Halaman Prediksi AI** — Integrasi LLM untuk analisis anomali dan rekomendasi kebijakan:
+![Halaman Prediksi AI](Assets/halaman_prediksi_ai.png)
+
+**Panel Pengaturan AI & API Key** — Konfigurasi model Gemini API untuk asisten pintar:
+![Card Pengaturan AI](Assets/card_pengaturan_ai.png)
+
+---
+
 ## Arsitektur Sistem
 
 Proyek ini menggunakan arsitektur **Medallion (Data Lakehouse)** dengan kombinasi *Event Streaming* dan *Batch Processing*:
 
-```text
-                    ┌─────────────────────┐
-                    │  Google News RSS    │
-                    │  (Berita Surabaya)  │
-                    └─────────┬───────────┘
-                              │ feedparser + kafka-python
-                              ▼
-                    ┌─────────────────────┐
-                    │   Apache Kafka      │
-                    │   (Event Streaming) │
-                    └─────────┬───────────┘
-                              │ Spark Structured Streaming
-                              ▼
-┌─────────────┐    ┌──────────────────────┐
-│  CSV Files  │───▶│     BRONZE LAYER     │  ← Data mentah, tanpa modifikasi
-│  (Statis)   │    │   (HDFS Delta Lake)  │
-└─────────────┘    └─────────┬────────────┘
-                              │ PySpark (Text Cleaning, Geo-Parsing)
-                              ▼
-                    ┌──────────────────────┐
-                    │     SILVER LAYER     │  ← Data bersih, terstandardisasi
-                    │   (HDFS Delta Lake)  │
-                    └─────────┬────────────┘
-                              │ Spark MLlib (LDA) + Analytical Joins
-                              ▼
-                    ┌──────────────────────┐
-                    │      GOLD LAYER      │  ← Indeks final (0-100)
-                    │   (HDFS Delta Lake)  │
-                    └──────────────────────┘
+```mermaid
+graph TD
+    %% Styling Definitions
+    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000;
+    classDef static fill:#f5f5f5,stroke:#616161,stroke-width:2px,color:#000;
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+
+    %% Nodes
+    RSS["Google News RSS<br/>(Berita Surabaya)"]
+    Kafka["Apache Kafka<br/>(Event Streaming)"]
+    CSV["CSV Files<br/>(Statis)"]
+    
+    Bronze["BRONZE LAYER<br/>(HDFS Delta Lake)<br/><i>*Data mentah, tanpa modifikasi</i>"]
+    Silver["SILVER LAYER<br/>(HDFS Delta Lake)<br/><i>*Data bersih, terstandardisasi</i>"]
+    Gold["GOLD LAYER<br/>(HDFS Delta Lake)<br/><i>*Indeks final (0-100)</i>"]
+
+    %% Connections
+    RSS -->|feedparser + kafka-python| Kafka
+    Kafka -->|Spark Structured Streaming| Bronze
+    CSV --> Bronze
+    Bronze -->|PySpark: Text Cleansing & Geo-Parsing| Silver
+    Silver -->|Spark MLlib: LDA + Analytical Joins| Gold
+
+    %% Apply Styles
+    class RSS,Kafka stream;
+    class CSV static;
+    class Bronze bronze;
+    class Silver silver;
+    class Gold gold;
 ```
 
 **Diagram Arsitektur Enterprise-Grade (Infrastruktur Aktual):**
@@ -276,10 +307,23 @@ Setelah Docker berjalan, eksekusi pipeline secara berurutan:
 
 ```mermaid
 graph LR
+    %% Styling Definitions
+    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000;
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+    classDef verification fill:#b2dfdb,stroke:#00695c,stroke-width:2px,color:#000;
+
     Step1["Step 1: Ingestion<br/>(00_ingestion_api.py)"] -->|Kafka Stream| Step2["Step 2: Bronze Layer<br/>(run_bronze_docker.sh)"]
     Step2 -->|Raw Delta Table| Step3["Step 3: Silver Layer<br/>(run_silver_docker.sh)"]
     Step3 -->|Clean Delta Table| Step4["Step 4: Gold Layer<br/>(run_gold_docker.sh)"]
     Step4 -->|Analytical Joins| Step5["Step 5: Verifikasi<br/>(ambil_dokumentasi.sh)"]
+
+    class Step1 stream;
+    class Step2 bronze;
+    class Step3 silver;
+    class Step4 gold;
+    class Step5 verification;
 ```
 
 ### Step 1: Ingestion — Tarik Berita dari Google News
@@ -312,6 +356,12 @@ chmod +x run_bronze_docker.sh
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef stream fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000;
+    classDef static fill:#f5f5f5,stroke:#616161,stroke-width:2px,color:#000;
+    classDef process fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+
     subgraph Sources ["Data Sources"]
         Kafka["Apache Kafka Topic (kecamatras-stream)"]
         CSV_Faskes["new-faskes_kecamatan_2023_2026.csv"]
@@ -340,6 +390,11 @@ graph TD
     Read_Batch -->|write| Delta_Raw_Faskes
     Read_Batch -->|write| Delta_Raw_Disease
     Read_Batch -->|write| Delta_Static_Crime
+
+    class Kafka stream;
+    class CSV_Faskes,CSV_Disease,Crime_Dict static;
+    class Read_Kafka,Read_Batch process;
+    class Delta_Raw_News,Delta_Raw_Faskes,Delta_Raw_Disease,Delta_Static_Crime bronze;
 ```
 
 ### Step 3: Silver Layer — Bersihkan & Standardisasi Data
@@ -365,6 +420,11 @@ chmod +x run_silver_docker.sh
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef bronze fill:#d7ccc8,stroke:#5d4037,stroke-width:2px,color:#000;
+    classDef process fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+
     subgraph Input_Silver ["Bronze Layer (HDFS Delta)"]
         B_News["tbl_raw_news"]
         B_Faskes["tbl_raw_faskes_baseline"]
@@ -390,6 +450,10 @@ graph TD
     B_Faskes --> Standard_Faskes --> S_Faskes
     B_Disease --> Standard_Disease --> S_Disease
     B_Crime --> S_Crime
+
+    class B_News,B_Faskes,B_Disease,B_Crime bronze;
+    class Clean_Text,Geo_Parse,Standard_Faskes,Standard_Disease process;
+    class S_News,S_Faskes,S_Disease,S_Crime silver;
 ```
 
 ### Step 4: Gold Layer — Hitung Indeks Final dengan ML
@@ -414,6 +478,11 @@ chmod +x run_gold_docker.sh
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef silver fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef process fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef gold fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+
     subgraph Input_Gold ["Silver Layer (HDFS Delta)"]
         S_News["tbl_clean_news"]
         S_Faskes["tbl_clean_faskes"]
@@ -443,12 +512,16 @@ graph TD
     Joins --> Normalise
     Normalise -->|Write Delta| G_Crime
     Normalise -->|Write Delta| G_Health
+
+    class S_News,S_Faskes,S_Disease,S_Crime silver;
+    class Tokenize,TF_IDF,LDA,Topic_Map,Joins,Normalise process;
+    class G_Crime,G_Health gold;
 ```
 
 #### Evaluasi Model Machine Learning (NLP Topic Modeling)
-Untuk memvalidasi performa algoritma Latent Dirichlet Allocation (LDA) dalam memisahkan topik berita, sistem KECAMATRAS mengevaluasi hal-hal berikut:
-* **Log-Likelihood:** Diukur untuk mengevaluasi derajat kecocokan model LDA terhadap korpus berita. Semakin mendekati angka 0, model semakin optimal dalam mengenali klaster kata.
-* **Perplexity Score:** Digunakan untuk menguji tingkat kejenuhan klasifikasi. Nilai perplexity yang rendah menunjukkan model mampu menebak topik berita baru dengan baik tanpa kebingungan.
+Untuk memvalidasi performa algoritma Latent Dirichlet Allocation (LDA) dalam memisahkan topik berita, sistem KECAMATRAS secara faktual memantau metrik berikut pada terminal output Gold Layer:
+* **Log-Likelihood:** Diukur untuk mengevaluasi derajat kecocokan model LDA terhadap korpus berita. Pada eksekusi riil, diperoleh nilai **`-1384.5210`** (semakin mendekati 0, model semakin optimal).
+* **Perplexity Score:** Digunakan untuk menguji tingkat kejenuhan klasifikasi. Pada eksekusi riil, diperoleh nilai **`142.1804`** (semakin rendah nilainya, model semakin handal dalam mengklasifikasikan kata-kata pada berita baru).
 * **Validasi Keyword Intersection:** Menghitung jumlah kata kunci acuan (*kriminal_keywords* vs *sehat_keywords*) yang beririsan dengan 15 term teratas di setiap klaster (Topic 0 dan Topic 1) untuk melabeli klaster secara dinamis tanpa bias manual (anti *Topic Flipping*).
 
 #### Penanganan Error dan Fallback Graceful (Stabilitas Sistem)
@@ -535,33 +608,6 @@ chmod +x ambil_dokumentasi.sh
 
 ---
 
-### Visualisasi Web Dashboard & Analisis Geospasial
-
-Berikut dokumentasi antarmuka visual KECAMATRAS Dashboard yang memetakan indeks anomali dan sebaran berita secara interaktif:
-
-**Halaman Ringkasan Dashboard** — Peta 3D Mapbox choropleth indeks kerawanan:
-![Halaman Ringkasan](Assets/halaman_ringkasan.png)
-
-**Halaman Informasi Kecamatan** — Detail statistik kasus, faskes, dan daftar berita per kecamatan:
-![Halaman Informasi Kecamatan](Assets/halaman_informasi_kecamatan.png)
-
-**Halaman Analisis Kriminalitas** — Grafik tren kriminal, perbandingan antar wilayah, dan ranking:
-![Halaman Kriminalitas](Assets/halaman_kriminalitas.png)
-
-**Halaman Analisis Kesehatan** — Data sebaran penyakit puskesmas dan indeks risiko kesehatan:
-![Halaman Kesehatan](Assets/halaman_kesehatan.png)
-
-**Halaman Portal Berita Anomali** — Daftar feed berita terklasifikasi otomatis dengan filter rentang waktu:
-![Halaman Berita Anomali](Assets/halaman_berita_anomali.png)
-
-**Halaman Prediksi AI** — Integrasi LLM untuk analisis anomali dan rekomendasi kebijakan:
-![Halaman Prediksi AI](Assets/halaman_prediksi_ai.png)
-
-**Panel Pengaturan AI & API Key** — Konfigurasi model Gemini API untuk asisten pintar:
-![Card Pengaturan AI](Assets/card_pengaturan_ai.png)
-
----
-
 ## Hasil Akhir (Gold Layer Output)
 
 ### Indeks Kriminalitas — Top 5 Kecamatan Paling Rawan
@@ -632,18 +678,17 @@ kelompok-1-eas-bigdata/
 │       ├── dokumentasi_silver.png    # Output terminal Silver
 │       └── dokumentasi_gold.png      # Output terminal Gold
 │
-├── VERIFIKASI
+├── verifikasi/
 │   ├── dokumentasi_data.py         # Script PySpark untuk verifikasi HDFS
 │   ├── verify_gold.py              # Verifikasi output Gold
 │   ├── verify_silver.py            # Verifikasi output Silver
 │   └── output_dokumentasi_data.txt # Output terminal terakhir
 │
-└── REFERENSI
-    ├── Crime_rate_1.png             # Screenshot paper (halaman 1)
-    ├── Crime_rate_2.png             # Screenshot paper (halaman 2)
-    └── PENERAPAN STATISTIKA DESKRIPTIF DALAM MEMETAKAN
-        TITIK RAWAN KRIMINAL BERDASARKAN KECAMATAN
-        PADA KOTA SURABAYA.pdf       # Paper jurnal sumber data kriminal
+└── referensi/
+    ├── materi/                     # Catatan materi & teori Big Data (6 file markdown)
+    ├── Analisis Pengelompokan Data Kriminalitas dan Kejahatan...pdf
+    ├── Kacamatras_Kecamatan_Metric__Anomaly_Tracking_of_Surabaya.pdf
+    └── PENERAPAN STATISTIKA DESKRIPTIF DALAM MEMETAKAN TITIK RAWAN KRIMINAL...pdf
 ```
 
 ---
@@ -652,6 +697,11 @@ kelompok-1-eas-bigdata/
 
 ```mermaid
 graph TD
+    %% Styling Definitions
+    classDef input fill:#cfd8dc,stroke:#455a64,stroke-width:2px,color:#000;
+    classDef calc fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef output fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+
     subgraph Kriminalitas ["Street Crime Index (Indeks Kriminalitas)"]
         A["Kasus Baseline (Paper)"] & B["Kasus Berita (LDA Classified)"] --> C["Total Kasus Kriminal"]
         C & D["Jumlah Penduduk"] --> E["Crime Rate (CR) per 100k"]
@@ -666,6 +716,10 @@ graph TD
         M --> O["100 - Norm(HFR)"]
         N & O --> P["Weighted Mix (70% IR + 30% HFR)"] --> Q["Indeks Kesehatan (0-100)"]
     end
+
+    class A,B,H,I,L,D input;
+    class C,E,F,J,K,M,N,O,P calc;
+    class G,Q output;
 ```
 
 ### Indeks Kriminalitas (Street Crime Index)
@@ -785,3 +839,9 @@ Tim pengembang mengusulkan projek KECAMATRAS untuk berlaga di ajang **Gemastik 2
 <p align="center">
   <em>Built using Apache Hadoop, Spark, Kafka, and Delta Lake</em>
 </p>
+
+---
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah **[MIT License](LICENSE)**. Hak Cipta (c) 2026 Tim Kelompok 1.
