@@ -749,6 +749,26 @@
       "sumber": "LiputanIndonesia.co.id",
       "kategori": "Kesehatan",
       "kecamatan_terdeteksi": "Semampir"
+    },
+    {
+      "id_berita": "test_news_darmo",
+      "judul": "Kebakaran Ruko di Jalan Raya Darmo Wonokromo Surabaya",
+      "link": "https://example.com/test_news_darmo",
+      "tanggal_publikasi": "2026-06-28T06:00:00",
+      "sumber": "Suara Surabaya Test",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Wonokromo",
+      "deskripsi_mentah": "Kebakaran dilaporkan terjadi di sebuah ruko di Jalan Raya Darmo, dekat taman Bungkul Kecamatan Wonokromo."
+    },
+    {
+      "id_berita": "test_news_tunjungan",
+      "judul": "Pencurian Helm di Jl. Tunjungan Genteng Surabaya",
+      "link": "https://example.com/test_news_tunjungan",
+      "tanggal_publikasi": "2026-06-28T06:15:00",
+      "sumber": "Suara Surabaya Test",
+      "kategori": "Kriminalitas",
+      "kecamatan_terdeteksi": "Genteng",
+      "deskripsi_mentah": "Telah terjadi pencurian helm di parkiran Jl. Tunjungan Kecamatan Genteng."
     }
   ]
 }
