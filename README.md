@@ -143,12 +143,11 @@ graph TD
     Silver -->|Spark MLlib: LDA + Analytical Joins| Gold
 
     %% Apply Styles
-    style RSS class:stream
-    style Kafka class:stream
-    style CSV class:static
-    style Bronze class:bronze
-    style Silver class:silver
-    style Gold class:gold
+    class RSS,Kafka stream;
+    class CSV static;
+    class Bronze bronze;
+    class Silver silver;
+    class Gold gold;
 ```
 
 **Diagram Arsitektur Enterprise-Grade (Infrastruktur Aktual):**
