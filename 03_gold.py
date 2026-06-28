@@ -109,6 +109,15 @@ class GoldLayerProcessor:
         lda_model = lda.fit(rescaled_data)
 
         # ---------------------------------------------------------
+        # Model Evaluation (Log-Likelihood & Perplexity)
+        # ---------------------------------------------------------
+        log_likelihood = lda_model.logLikelihood(rescaled_data)
+        log_perplexity = lda_model.logPerplexity(rescaled_data)
+        logger.info("[ML-LDA] Evaluasi Model:")
+        logger.info(f"   => Log-Likelihood : {log_likelihood:.4f}")
+        logger.info(f"   => Perplexity     : {log_perplexity:.4f}")
+
+        # ---------------------------------------------------------
         # Dynamic Topic Labelling (Heuristic Mapping)
         # ---------------------------------------------------------
         logger.info("[ML-LDA] Melakukan Ekstraksi Topik (Dynamic Labelling)...")
